@@ -97,7 +97,12 @@ local function tryLogin(client, username, password, autologinHash, generateHashF
 		else
 			hash = ''
 		end
-		exports.mysql:update('accounts', { loginhash = hash, mtaserial = getPlayerSerial( client ) }, { id = account.id })
+
+		local ip = getPlayerIP( client )
+		exports.mysql:update('accounts', { loginhash = hash, mtaserial = getPlayerSerial( client ), ip = ip, country = exports.global:getPlayerCountryByIP( ip ) }, { id = account.id })
+
+		-- update friends list
+		triggerEvent('social:account', client, account.id)
 
 		-- todo logging
 		return true, options

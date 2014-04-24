@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140424031029) do
+ActiveRecord::Schema.define(version: 20140424173455) do
 
   create_table "accounts", force: true do |t|
     t.text     "username"
@@ -31,7 +31,6 @@ ActiveRecord::Schema.define(version: 20140424031029) do
     t.integer  "muted",                  limit: 1,          default: 0
     t.integer  "globalooc",              limit: 1,          default: 1
     t.text     "country"
-    t.text     "friendsmessage"
     t.integer  "adminjail_permanent",    limit: 1,          default: 0
     t.integer  "adminreports",                              default: 0
     t.integer  "warns",                  limit: 1,          default: 0
@@ -55,6 +54,7 @@ ActiveRecord::Schema.define(version: 20140424031029) do
     t.datetime "reset_password_sent_at"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "friendsmessage",                            default: "Hey!",       null: false
   end
 
   add_index "accounts", ["email"], name: "index_accounts_on_email", unique: true, using: :btree
