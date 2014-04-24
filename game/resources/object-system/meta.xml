@@ -1,0 +1,16 @@
+<meta>
+	<info author="vG MTA Scripting Team" type="script" description="Dynamic Object Loading System"/>
+	
+	<script src="s_object_management.lua" type="server" />
+	<export function="removeInteriorObjects" type="server"/>
+	
+	<script src="s_object_transfer.lua" type="server" />
+	
+	<script src="s_convert.lua" type="server" />
+	<export function="moveTempToRealDimension" type="server"/>
+	
+	<script src="c_object_transfer.lua" type="client" />
+	<export function="isSafeToSpawn" type="client"/>
+	
+	<script src="c_object_admin.lua" type="client" />
+</meta>

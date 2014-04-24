@@ -1,0 +1,8 @@
+<meta>
+	<info name="Scripting console" type="script"/>
+	<script src="c_client.lua" type="client"/>
+	<script src="c_client_util.lua" type="client"/>
+	<script src="s_server.lua" type="server"/>
+	<script src="s_server_util.lua" type="server"/>
+</meta>
+

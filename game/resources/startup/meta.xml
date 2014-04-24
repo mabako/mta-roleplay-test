@@ -1,0 +1,5 @@
+<meta>
+        <info author="vG MTA Scripting Team" type="script" description="Startup"/>
+		
+        <script src="s_startup.lua" type="server"/>
+</meta>

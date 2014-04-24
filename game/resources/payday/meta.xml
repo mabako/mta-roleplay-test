@@ -1,0 +1,8 @@
+<meta>
+	<info author="vG MTA Scripting Team" type="script" description="Payday System"/>
+	
+	<script src="s_taxes.lua" type="server" />
+	<script src="s_payday.lua" type="server" />
+	
+	<script src="c_payday.lua" type="client" />	
+</meta>

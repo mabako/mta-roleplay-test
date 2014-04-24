@@ -1,0 +1,9 @@
+<meta>
+	<info author="vG MTA Scripting Team" type="script" description="Realtime System"/>
+
+	<script src="s_realtime_system.lua" type="server" />
+	<script src="c_clock.lua" type="client" />
+	<settings>
+		<setting name="*offset" value="[-1]"/>
+	</settings>
+</meta>

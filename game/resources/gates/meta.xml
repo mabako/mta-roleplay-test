@@ -1,0 +1,8 @@
+<meta>
+	<info author="vG MTA Scripting Team" type="script" description="Gate System"/>
+
+	<script src="s_gate_action.lua" type="server"/>
+	<script src="s_gates.lua" type="server"/>
+	<script src="c_gates.lua" type="client"/>
+	<script src="c_gate_action.lua" type="client"/>
+</meta>

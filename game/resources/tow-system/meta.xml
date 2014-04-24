@@ -1,0 +1,10 @@
+<meta>
+	<info author="vG MTA Scripting Team" type="script" description="Towing system"/>
+	<script src="s_tow.lua" />
+	<export function="CanTowTruckDriverVehPos" type="server" />
+	<export function="CanTowTruckDriverGetPaid" type="server" />
+	<export function="cannotVehpos" type="server" />
+	<script src="s_backup.lua" />
+	<script src="c_backup.lua" type="client" />
+	<script src="c_tow.lua" type="client" />
+</meta>

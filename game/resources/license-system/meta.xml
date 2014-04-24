@@ -1,0 +1,6 @@
+<meta>
+	<info author="vG MTA Scripting Team" type="script" description="License System"/>
+
+	<script src="s_license_system.lua" type="server"/>
+	<script src="c_license_system.lua" type="client"/>
+</meta>

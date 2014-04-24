@@ -1,0 +1,37 @@
+<meta>
+        <info author="vG MTA Scripting Team" type="script" description="MySQL"/>
+		
+        <script src="s_mysql.lua" type="server"/>
+		
+		<export function="getMySQLUsername" type="server"/>
+		<export function="getMySQLPassword" type="server"/>
+		<export function="getMySQLDBName" type="server"/>
+		<export function="getMySQLHost" type="server"/>
+		<export function="getMySQLPort" type="server"/>
+		
+		
+		<!-- above is legacy -->
+		
+		<export function="lazyQuery" type="server"/>
+		
+		<script src="connection.lua"        type="server" />
+		<export function="ping" 			type="server" http="false" />
+		<export function="escape_string" 	type="server" http="false" />
+		<export function="query" 			type="server" http="false" />
+		<export function="unbuffered_query" type="server" http="false" />
+		<export function="query_free" 		type="server" http="false" />
+		<export function="fetch_assoc" 		type="server" http="false" />
+		<export function="rows_assoc" 		type="server" http="false" />
+		<export function="free_result" 		type="server" http="false" />
+		<export function="result" 			type="server" http="false" />
+		<export function="num_rows" 		type="server" http="false" />
+		<export function="query_fetch_assoc"type="server" http="false" />
+		<export function="query_rows_assoc" type="server" http="false" />
+		<export function="insert_id" 		type="server" http="false" />
+		<export function="query_rows_assoc" type="server" http="false" />
+		<export function="query_insert_free"type="server" http="false" />
+		<export function="escape_string"    type="server" http="false" />
+		<export function="debugMode"        type="server" http="false" />
+		<export function="returnQueryStats" type="server" http="false" />
+		<export function="getOpenQueryStr"  type="server" http="false" />
+</meta>

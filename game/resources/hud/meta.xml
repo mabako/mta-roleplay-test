@@ -1,0 +1,37 @@
+<meta>
+	<info author="vG MTA Scripting Team" type="script" description="Realism System"/>
+
+	<script src="c_hud.lua" type="client" />
+	<script src="c_nametags.lua" type="client" />
+	<script src="c_achievement.lua" type="client" />
+
+	<file src="images/hud/window2.png"/>
+	<file src="images/hud/speed120.png"/>
+	<file src="images/hud/speed90.png"/>
+	<file src="images/hud/speed60.png"/>
+	<file src="images/hud/highway.png"/>
+	<file src="images/hud/fuel.png"/>
+	<file src="images/hud/fuel2.png"/>
+	<file src="images/hud/accident.png"/>
+
+	<file src="images/hud/window.png"/>
+	<file src="images/hud/helmet.png"/>
+	<file src="images/hud/mask.png"/>
+	<file src="images/hud/gasmask.png"/>
+	<file src="images/hud/scuba.png"/>
+	<file src="images/hud/badge1.png"/>
+	<file src="images/hud/badge2.png"/>
+	<file src="images/hud/cigarette.png"/>
+	<file src="images/hud/armour.png"/>
+	<file src="images/hud/bleeding.png"/>
+	<file src="images/hud/lowhp.png"/>
+	
+	<file src="images/hud/dglock.png"/>
+	<file src="images/hud/dradar.png"/>
+	<file src="images/hud/dtazer.png"/>
+	<file src="images/hud/shotbean.png"/>
+	<file src="images/hud/shotlethal.png"/>
+	
+	<file src="images/hud/gm.png"/>
+	<file src="images/achievement/achievement.png"/>
+</meta>

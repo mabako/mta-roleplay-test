@@ -1,0 +1,136 @@
+<meta>
+    <info author="vG MTA Scripting Team" type="script" description="Global Functions"/>
+
+	<script src="g_chat_globals.lua" type="server" />
+	<export function="getNearbyElements" type="server"/>	
+	
+	<script src="g_chat_globals.lua" type="client" />
+	<export function="getNearbyElements" type="client"/>
+	
+	<script src="s_chat_globals.lua" type="server"/>
+	<export function="getOOCState" type="server"/>
+	<export function="setOOCState" type="server"/>
+	<export function="sendMessageToAdmins" type="server"/>
+	<export function="sendLocalText" type="server"/>
+	<export function="sendLocalMeAction" type="server"/>
+	<export function="sendLocalDoAction" type="server"/>
+	<export function="findPlayerByPartialNick" type="server"/>
+	
+	<script src="g_admin_globals.lua" type="server"/>
+	<export function="isPlayerAdmin" type="server"/>
+	<export function="isPlayerFullAdmin" type="server"/>
+	<export function="isPlayerSuperAdmin" type="server"/>
+	<export function="isPlayerHeadAdmin" type="server"/>
+	<export function="isPlayerLeadAdmin" type="server"/>
+	<export function="getPlayerAdminLevel" type="server"/>
+	<export function="getPlayerAdminTitle" type="server"/>
+	<export function="isPlayerScripter" type="server"/>
+	<export function="getAdmins" type="server"/>
+	
+	<export function="isPlayerGameMaster" type="server"/>
+	<export function="isPlayerFullGameMaster" type="server"/>
+	<export function="isPlayerLeadGameMaster" type="server"/>
+	<export function="isPlayerHeadGameMaster" type="server"/>
+	<export function="isPlayerGMTeamLeader" type="server"/>
+	<export function="getPlayerGMTitle" type="server"/>
+	<export function="getGameMasters" type="server"/>
+	<export function="getPlayerGameMasterLevel" type="server"/>
+	
+	<script src="g_admin_globals.lua" type="client"/>
+	<export function="isPlayerAdmin" type="client"/>
+	<export function="isPlayerFullAdmin" type="client"/>
+	<export function="isPlayerSuperAdmin" type="client"/>
+	<export function="isPlayerHeadAdmin" type="client"/>
+	<export function="isPlayerLeadAdmin" type="client"/>
+	<export function="getPlayerAdminLevel" type="client"/>
+	<export function="getPlayerAdminTitle" type="client"/>
+	<export function="isPlayerScripter" type="client"/>
+	<export function="getAdmins" type="client"/>
+	
+	<export function="isPlayerGameMaster" type="client"/>
+	<export function="isPlayerFullGameMaster" type="client"/>
+	<export function="isPlayerLeadGameMaster" type="client"/>
+	<export function="isPlayerHeadGameMaster" type="client"/>
+	<export function="isPlayerGMTeamLeader" type="client"/>
+	<export function="getPlayerGMTitle" type="client"/>
+	<export function="getGameMasters" type="client"/>
+	<export function="getPlayerGameMasterLevel" type="client"/>
+	
+	<script src="s_optomization_globals.lua" type="server"/>
+	
+	<script src="c_vehicle_globals.lua" type="server"/>
+	<script src="c_vehicle_globals.lua" type="client"/>
+	<export function="getVehicleVelocity" type="server"/>
+	<export function="getVehicleVelocity" type="client"/>
+	<export function="relateVelocity" type="server"/>
+	<export function="relateVelocity" type="client"/>
+	
+	<script src="s_vehicle_globals.lua" type="server"/>
+	<export function="getVehiclesOwnedByCharacter" type="server"/>
+	<export function="canPlayerBuyVehicle" type="server"/>
+	
+	<script src="s_money_globals.lua" type="server"/>
+	<script src="c_money_globals.lua" type="client"/>
+	<export function="giveMoney" type="server"/>
+	<export function="takeMoney" type="server"/>
+	<export function="setMoney" type="server"/>
+	<export function="hasMoney" type="server"/>
+	<export function="hasMoney" type="client"/>
+	<export function="getMoney" type="server"/>
+	<export function="getMoney" type="client"/>
+	<export function="checkMoneyHacks" type="server"/>
+	<export function="getTaxAmount" type="server"/>
+	<export function="getIncomeTaxAmount" type="server"/>
+	<export function="setTaxAmount" type="server"/>
+	<export function="setIncomeTaxAmount" type="server"/>
+	<export function="formatMoney" type="client"/>
+	<export function="formatMoney" type="server"/>
+
+	<script src="s_country_globals.lua" type="server"/>
+	<export function="getPlayerCountry" type="server"/>
+	<export function="getPlayerCountryByIP" type="server"/>
+	
+	<script src="s_item_globals.lua" type="server"/>
+	<export function="hasSpaceForItem" type="server"/>
+	<export function="hasItem" type="server"/>
+	<export function="giveItem" type="server"/>
+	<export function="takeItem" type="server"/>
+
+	<script src="c_item_globals.lua" type="client"/>
+	<export function="hasSpaceForItem" type="client"/>
+	<export function="hasItem" type="client"/>
+	<export function="getItemName" type="client"/>
+	
+	<script src="g_version_globals.lua" type="server"/>
+	<script src="g_version_globals.lua" type="client"/>
+	<export function="getScriptVersion" type="server"/>
+	<export function="getScriptVersion" type="client"/>
+		
+	<script src="c_animation_globals.lua" type="client"/>
+	<export function="applyAnimation" type="client"/>
+	<export function="removeAnimation" type="client"/>
+	
+	<script src="s_animation_globals.lua" type="server"/>
+	<export function="applyAnimation" type="server"/>
+	<export function="removeAnimation" type="server"/>
+	
+	<script src="s_nametag_globals.lua" type="server"/>
+	<export function="updateNametagColor" type="server"/>
+	
+	<script src="s_zone_globals.lua" type="server"/>
+	<export function="getElementZoneName" type="server"/>
+	
+	<script src="g_benchmark.lua" type="client"/>
+	<export function="startBenchMark" type="client"/>
+	<export function="endBenchMark" type="client"/>
+	
+	<script src="g_benchmark.lua" type="server"/>
+	<export function="startBenchMark" type="server"/>
+	<export function="endBenchMark" type="server"/>
+	
+	<script src="s_weapon_globals.lua" type="server"/>
+	<export function="createWeaponSerial" type="server"/>
+	<export function="retrieveWeaponDetails" type="server"/>
+	<export function="explode" type="server"/>
+	
+</meta>

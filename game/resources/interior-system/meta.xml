@@ -1,0 +1,48 @@
+<meta>
+	<info author="vG MTA Scripting Team" type="script" description="Interior System"/>
+
+	<script src="s_interior_map.lua" type="server" />
+	<script src="s_interior_admin.lua" type="server" />
+	<script src="s_interior_system.lua" type="server" />
+	<export function="addSafeAtPosition" type="server"/>
+	<export function="publicSellProperty" type="server"/>
+	<export function="cleanupProperty" type="server"/>
+	<export function="findProperty" type="server"/>
+	<export function="findParent" type="server"/>
+	<export function="lockUnlockHouseEvent" type="server"/>
+	<export function="reloadInterior" type="server"/>
+	<export function="realReloadInterior" type="server"/>
+	
+	<script src="c_interior_system.lua" type="client" />
+	<script src="c_pickups.lua" type="client" />
+	<script src="g_shared.lua" type="client" />
+	<script src="g_shared.lua" type="server" />
+
+	<export function="findProperty" type="client"/>
+	<export function="findParent" type="client"/>
+	<export function="canEnterInterior" type="client"/>
+	
+	<file src="knocking.mp3" />
+
+	<!-- Custom interiors -->
+	<script src="custom/createObject.lua" type="client"/>
+	<script src="custom/trailer.lua" type="client"/>
+	<script src="custom/smallwarehouse.lua" type="client"/>
+	<script src="custom/smallwarehouse_2.lua" type="client"/>
+	<script src="custom/restroom.lua" type="client"/>
+	<script src="custom/flat.lua" type="client"/>
+	<script src="custom/church.lua" type="client"/>
+	<script src="custom/garage.lua" type="client"/>
+	<script src="custom/library.lua" type="client"/>
+	<script src="custom/huts.lua" type="client"/>
+	<script src="custom/office.lua" type="client"/>
+	<script src="custom/warehouse.lua" type="client"/>
+	<script src="custom/warehouse2.lua" type="client"/>
+	<script src="custom/house.lua" type="client"/>
+	<script src="custom/pawnshop.lua" type="client"/>
+	<script src="custom/pub.lua" type="client"/>
+	<script src="custom/bar.lua" type="client"/>
+	<script src="custom/gym.lua" type="client"/>
+	<script src="custom/workout.lua" type="client"/>
+	<script src="custom/house2.lua" type="client"/>
+</meta>

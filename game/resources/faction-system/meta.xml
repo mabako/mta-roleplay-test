@@ -1,0 +1,10 @@
+<meta>
+	<info author="vG MTA Scripting Team" type="script" description="Faction System"/>
+	
+	<script src="s_faction_system.lua" type="server" />
+	<script src="c_faction_system.lua" type="client" />
+	
+	<script src="s_faction_admin.lua" type="server" />
+	<script src="c_faction_admin.lua" type="client" />
+	
+</meta>

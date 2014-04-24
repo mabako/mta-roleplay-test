@@ -1,0 +1,9 @@
+<meta>
+	<script src="g_airtrack.lua" type="client"/>
+	<script src="g_airtrack.lua" type="server"/>
+	
+	<script src="c_airtrack.lua" type="client"/>
+	<script src="s_airtrack.lua" type="server"/>
+	
+	<export function="getPlayersInAircraft" type="server"/>
+</meta>

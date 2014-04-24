@@ -1,0 +1,7 @@
+<meta>
+	<info author="Mount [MTA.VG]" name="Element Streamer" type="script" version="1.0" description="Adding a streamer on top of the MTA one"/>
+	
+	<script src="markers.lua" type="client" />
+	<script src="vehicles.lua" type="client" />
+	<!--<script src="objects.lua" type="client" />-->
+</meta>

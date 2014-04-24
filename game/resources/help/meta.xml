@@ -1,0 +1,6 @@
+<meta>
+	<script src="c_help_menu_entries.lua" type="client" />
+	<script src="c_help_menu.lua" type="client" />
+	<script src="c_help.lua" type="client" />
+	<script src="s_help.lua" type="server" />
+</meta>

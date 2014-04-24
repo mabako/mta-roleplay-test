@@ -1,0 +1,41 @@
+<meta>
+    <info author="vG MTA Scripting Team" type="script" description="Vehicle System"/>
+	
+	<script src="c_getVehicleType.lua" type="client"/>
+	
+	<script src="g_functions.lua" type="server"/>
+	<export function="isVehicleWindowUp" type="server"/>
+	<export function="hasVehicleWindows" type="server"/>
+	<export function="hasVehicleRoof" type="server"/>
+	<export function="hasVehiclePlates" type="server"/>
+	
+	<script src="g_functions.lua" type="client"/>
+	<export function="isVehicleWindowUp" type="client"/>
+	<export function="hasVehicleWindows" type="client"/>
+	<export function="hasVehicleRoof" type="client"/>
+	<export function="hasVehiclePlates" type="client"/>
+	
+	<script src="s_vehicle_system.lua" type="server"/>
+	<export function="createShopVehicle" type="server"/>
+	<export function="clearCharacterName" type="server"/>
+	<export function="getCharacterName" type="server"/>
+	<export function="getCharacterName" type="server"/>
+	<export function="reloadVehicle" type="server" />
+	<export function="loadOneVehicle" type="server"/>
+	<export function="addSafe" type="server"/>
+	<export function="getSafe" type="server"/>
+	
+	<script src="s_handbrake.lua" type="server"/>
+	<script src="s_windows.lua" type="server"/>
+	<script src="s_odometer.lua" type="server"/>
+	<script src="c_vehicle_rightclick.lua" type="client"/>
+		
+	<script src="g_doors.lua" type="server"/>
+	<script src="g_doors.lua" type="client"/>
+	<script src="c_doors.lua" type="client"/>
+	<script src="s_doors.lua" type="server"/>
+	
+	<script src="s_vehicle_variant.lua" type="server"/>
+	<export function="getRandomVariant" type="server"/>
+	<export function="isValidVariant" type="server"/>
+</meta>

@@ -1,0 +1,249 @@
+<meta>
+	<info author="vG MTA Scripting Team" type="script" description="Item System"/>
+
+	<script src="s_item_management.lua" type="server"/>
+	<export function="loadItems" type="server"/>
+	<export function="clearItems" type="server"/>
+	<export function="sendItems" type="server"/>
+	<export function="giveItem" type="server"/>
+	<export function="takeItem" type="server"/>
+	<export function="takeItemFromSlot" type="server"/>
+	<export function="updateItemValue" type="server"/>
+	<export function="moveItem" type="server"/>
+	<export function="hasItem" type="server"/>
+	<export function="hasSpaceForItem" type="server"/>
+	<export function="countItems" type="server"/>
+	<export function="getItems" type="server"/>
+	<export function="deleteAll" type="server"/>
+
+	<script src="c_item_management.lua" type="client"/>
+	<export function="hasItem" type="client"/>
+	<export function="hasSpaceForItem" type="client"/>
+	<export function="getItems" type="client"/>
+	
+	<script src="g_items.lua" type="client" />
+	<script src="g_items.lua" type="server" />
+	<script src="g_item_functions.lua" type="server"/>
+	<script src="g_item_functions.lua" type="client"/>
+	<export function="getItemName" type="client"/>
+	<export function="getItemName" type="server"/>
+	<export function="getItemRotInfo" type="server"/>
+	<export function="getItemRotInfo" type="client"/>
+	<export function="getItemModel" type="server"/>
+	<export function="getBadges" type="server"/>
+	<export function="getBadges" type="client"/>
+	<export function="getMasks" type="server"/>
+	<export function="getMasks" type="client"/>
+	<export function="getItemDescription" type="server"/>
+	<export function="getItemDescription" type="client"/>
+	<export function="getItemWeight" type="server"/>
+
+	<script src="s_item_system.lua" type="server" />
+	<script src="s_world_items.lua" type="server" />
+	<script src="s_commands.lua" type="server" />
+	<script src="c_item_system.lua" type="client" />
+	<script src="c_inventory.lua" type="client" />
+	
+	<script src="c_drug_system.lua" type="client" />
+	<script src="s_drug_system.lua" type="server" />
+	
+	<script src="c_books.lua" type="client" />
+	<script src="c_itemchange.lua" type="client" />
+	
+	<script src="c_safes_system.lua" type="client" />
+	<export function="updateSafeItems" type="server" />
+
+	<file src="books/PDmanual.xml" />
+	<file src="books/LSHighwayCode.xml" />
+	<file src="books/Chemistry101.xml" />
+	<file src="books/LSESProcedureManual.xml" />
+	
+	<file src="books/PDmanual.png" />
+	<file src="books/LSHighwayCode.png" />
+	<file src="books/Chemistry101.png" />
+	<file src="books/LSESProcedureManual.png" />
+	
+	<script src="ghettoblaster/g_tracks.lua" type="client"/>
+	<script src="ghettoblaster/g_tracks.lua" type="server"/>
+	<script src="ghettoblaster/c_ghettoblaster.lua" type="client"/>
+	<script src="ghettoblaster/s_ghettoblaster.lua" type="server"/>
+
+	
+	<script src="c_combine_weapons.lua" type="client" />
+	<script src="s_combine_weapons.lua" type="server" />
+	<export function="updateLocalGuns" type="server" />
+	
+	<script src="s_move_items.lua" type="server" />
+	<script src="c_move_items.lua" type="client" />
+	
+	<script src="s_vehicle_upgrades.lua" type="server" />
+	
+	<file src="images/-200.png"/>
+	<file src="images/-201.png"/>
+	<file src="images/-202.png"/>
+	
+	<file src="images/-1.png"/>
+	<file src="images/-2.png"/>
+	<file src="images/-3.png"/>
+	<file src="images/-4.png"/>
+	<file src="images/-5.png"/>
+	<file src="images/-6.png"/>
+	<file src="images/-7.png"/>
+	<file src="images/-8.png"/>
+	<file src="images/-9.png"/>
+	<file src="images/-10.png"/>
+	<file src="images/-11.png"/>
+	<file src="images/-12.png"/>
+	<file src="images/-14.png"/>
+	<file src="images/-15.png"/>
+	<file src="images/-16.png"/>
+	<file src="images/-17.png"/>
+	<file src="images/-18.png"/>
+
+	<file src="images/-22.png"/>
+	<file src="images/-23.png"/>
+	<file src="images/-24.png"/>
+	<file src="images/-25.png"/>
+	<file src="images/-26.png"/>
+	<file src="images/-27.png"/>
+	<file src="images/-28.png"/>
+	<file src="images/-29.png"/>
+	<file src="images/-30.png"/>
+	<file src="images/-31.png"/>
+	<file src="images/-32.png"/>
+	<file src="images/-33.png"/>
+	<file src="images/-34.png"/>
+	<file src="images/-35.png"/>
+	<file src="images/-36.png"/>
+	<file src="images/-37.png"/>
+	<file src="images/-38.png"/>
+	<file src="images/-39.png"/>
+	<file src="images/-40.png"/>
+	<file src="images/-41.png"/>
+	<file src="images/-42.png"/>
+	<file src="images/-43.png"/>
+	<file src="images/-44.png"/>
+	<file src="images/-45.png"/>
+	<file src="images/-46.png"/>
+	
+	<file src="images/-100.png"/>
+
+	<file src="images/1.png"/>
+	<file src="images/2.png"/>
+	<file src="images/3.png"/>
+	<file src="images/4.png"/>
+	<file src="images/5.png"/>
+	<file src="images/6.png"/>
+	<file src="images/7.png"/>
+	<file src="images/8.png"/>
+	<file src="images/9.png"/>
+	<file src="images/10.png"/>
+	<file src="images/11.png"/>
+	<file src="images/12.png"/>
+	<file src="images/13.png"/>
+	<file src="images/14.png"/>
+	<file src="images/15.png"/>
+	<file src="images/16.png"/>
+	<file src="images/17.png"/>
+	<file src="images/18.png"/>
+	<file src="images/19.png"/>
+	<file src="images/20.png"/>
+	<file src="images/21.png"/>
+	<file src="images/22.png"/>
+	<file src="images/23.png"/>
+	<file src="images/24.png"/>
+	<file src="images/25.png"/>
+	<file src="images/26.png"/>
+	<file src="images/27.png"/>
+	<file src="images/28.png"/>
+	<file src="images/29.png"/>
+	<file src="images/30.png"/>
+	<file src="images/31.png"/>
+	<file src="images/32.png"/>
+	<file src="images/33.png"/>
+	<file src="images/34.png"/>
+	<file src="images/35.png"/>
+	<file src="images/36.png"/>
+	<file src="images/37.png"/>
+	<file src="images/38.png"/>
+	<file src="images/39.png"/>
+	<file src="images/40.png"/>
+	<file src="images/41.png"/>
+	<file src="images/42.png"/>
+	<file src="images/43.png"/>
+	<file src="images/44.png"/>
+	<file src="images/45.png"/>
+	<file src="images/46.png"/>
+	<file src="images/47.png"/>
+	<file src="images/48.png"/>
+	<file src="images/49.png"/>
+	<file src="images/50.png"/>
+	<file src="images/51.png"/>
+	<file src="images/52.png"/>
+	<file src="images/53.png"/>
+	<file src="images/54.png"/>
+	<file src="images/55.png"/>
+	<file src="images/56.png"/>
+	<file src="images/57.png"/>
+	<file src="images/58.png"/>
+	<file src="images/59.png"/>
+	<file src="images/60.png"/>
+	<file src="images/61.png"/>
+	<file src="images/62.png"/>
+	<file src="images/63.png"/>
+	<file src="images/64.png"/>
+	<file src="images/65.png"/>
+	<file src="images/66.png"/>
+	<file src="images/67.png"/>
+	<file src="images/68.png"/>
+	<file src="images/69.png"/>
+	<file src="images/70.png"/>
+	<file src="images/71.png"/>
+	<file src="images/72.png"/>
+	<file src="images/73.png"/>
+	<file src="images/74.png"/>
+	<file src="images/75.png"/>
+	<file src="images/76.png"/>
+	<file src="images/77.png"/>
+	<file src="images/78.png"/>
+	<file src="images/79.png"/>
+	<file src="images/80.png"/>
+	<file src="images/81.png"/>
+	<file src="images/82.png"/>
+	<file src="images/83.png"/>
+	<file src="images/84.png"/>
+	<file src="images/85.png"/>
+	<file src="images/86.png"/>
+	<file src="images/87.png"/>
+	<file src="images/88.png"/>
+	<file src="images/89.png"/>
+	<file src="images/90.png"/>
+	<file src="images/91.png"/>
+	<file src="images/92.png"/>
+	<file src="images/93.png"/>
+	<file src="images/94.png"/>
+	<file src="images/95.png"/>
+	<file src="images/96.png"/>
+	<file src="images/97.png"/>	
+	<file src="images/98.png"/>	
+	<file src="images/99.png"/>	
+	<file src="images/100.png"/>	
+	<file src="images/101.png"/>
+	<file src="images/102.png"/>
+	<file src="images/103.png"/>
+	<file src="images/104.png"/>
+	<file src="images/105.png"/>
+	<file src="images/106.png"/>
+	<file src="images/107.png"/>
+	<file src="images/108.png"/>
+	<file src="images/111.png"/>
+	<file src="images/112.png"/>
+	<file src="images/113.png"/>
+	<file src="images/114.png"/>
+	<file src="images/116.png"/>
+	<file src="images/117.png"/>
+	<file src="images/118.png"/>
+	<file src="images/119.png"/>
+	<file src="images/120.png"/>
+	<file src="images/121.png"/>
+</meta>

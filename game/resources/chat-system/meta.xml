@@ -1,0 +1,16 @@
+<meta>
+	<info author="vG MTA Scripting Team" type="script" description="Chat System"/>
+
+	<script src="s_chat_system.lua" type="server"/>
+	<script src="c_chat_system.lua" type="client"/>
+	<script src="c_chatbubbles.lua" type="client"/>
+	<script src="s_stats.lua" type="server"/>
+	<script src="c_chat_icon.lua" type="client"/>
+	<script src="s_chat_icon.lua" type="server"/>
+	<file src="chat.png"/>
+	
+	<export function="trunklateText" type="server"/>
+	<export function="localIC" type="server"/>
+	<export function="localShout" type="server"/>
+	<export function="departmentradio" type="server"/>
+</meta>

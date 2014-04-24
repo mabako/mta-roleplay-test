@@ -1,0 +1,5 @@
+<meta>
+	<info author="herbjr" version="1" type="script" description="Simple resource to make sure the important resources are up." />
+
+	<script src="s_resCheck.lua" type="server" />
+</meta>

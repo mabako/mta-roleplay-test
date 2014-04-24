@@ -1,0 +1,23 @@
+<meta>
+	<info author="vG MTA Scripting Team" type="script" description="LV-ES System"/>
+
+	<script src="s_lves_system.lua" type="server"/>
+	<script src="c_lves_system.lua" type="client"/>
+	
+	<script src="s_bleedout.lua" type="server"/>
+	<script src="c_bleedout.lua" type="client"/>	
+	
+	<script src="s_counterped.lua" type="server"/>
+	<script src="c_counterped.lua" type="client"/>
+
+	<script src="s_injuries.lua" type="server"/>
+	
+	<!--assist beacon-->
+	<script src="s_assist.lua" type="server"/>
+	<script src="c_assist.lua" type="client"/>	
+	
+	<!--stretcher system-->
+	<script src="s_stretcher.lua" type="server"/>
+	<script src="c_stretcher.lua" type="client"/>
+
+</meta>

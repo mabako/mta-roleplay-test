@@ -1,0 +1,9 @@
+<meta>
+    <info author="vG MTA Scripting Team" type="script" description="Report System"/>
+
+	<script src="s_reports.lua"/>
+    <script src="c_reports.lua" type="client" />
+	
+	<file src="help.png"/>
+	<file src="bug.png"/>
+</meta>

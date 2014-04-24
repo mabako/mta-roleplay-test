@@ -1,0 +1,6 @@
+<meta>
+	<script src="s_load_items.lua" type="server"/>
+	
+	<script src="s_items.lua" type="server"/>
+	<export function="createItem" type="server"/>
+</meta>

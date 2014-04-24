@@ -1,0 +1,20 @@
+<meta>
+	<info author="vG MTA Scripting Team" type="script" description="Shop System"/>
+	
+	<script src="g_upgrades.lua" type="server"/>
+	<script src="g_upgrades.lua" type="client"/>
+
+	<script src="g_shopinfo.lua" type="server"/>
+	<script src="g_shopinfo.lua" type="client"/>
+	
+	<script src="s_generalshop_system.lua" type="server"/>
+	<script src="c_generalshop_system.lua" type="client"/>
+	
+	<script src="c_ped_click.lua" type="client"/>
+
+	<file src="images/general.png" />
+	<file src="images/gun.png" />
+	<file src="images/food.png" />
+	<file src="images/sex.png" />
+	<file src="images/clothes.png" />
+</meta>

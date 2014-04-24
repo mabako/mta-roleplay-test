@@ -1,0 +1,33 @@
+<meta>
+	<info author="vG MTA Scripting Team" type="script" description="Spike System"/>
+
+	<script src="s_job_system.lua" type="server"/>
+	<script src="c_job_system.lua" type="client"/>
+	
+	<script src="s_job_framework.lua" type="server"/>
+	<script src="c_job_framework.lua" type="client"/>
+	
+	<script src="trucker/s_trucker_job.lua" type="server"/>
+	<script src="trucker/c_trucker_job.lua" type="client"/>
+
+	<script src="fishing/s_fishing_job.lua" type="server"/>
+	<script src="fishing/c_fishing_job.lua" type="client"/>
+	
+	<script src="photographer/s_photographer_job.lua" type="server"/>
+	<script src="photographer/c_photographer_job.lua" type="client"/>
+
+	<script src="mechanic/s_mechanic_job.lua" type="server"/>
+	<script src="mechanic/s_mechanic_previews.lua" type="server"/>
+	<script src="mechanic/c_mechanic_job.lua" type="client"/>
+	
+	<script src="taxi/s_taxi_job.lua" type="server"/>
+	<script src="taxi/c_taxi_job.lua" type="client"/>
+
+	<script src="bus/g_bus_routes.lua" type="client"/>
+	<script src="bus/g_bus_routes.lua" type="server"/>
+	<script src="bus/c_bus_job.lua" type="client"/>
+	<script src="bus/s_bus_job.lua" type="server"/>
+	
+	<script src="locksmith/s_locksmith_job.lua" type="server"/>
+	<script src="locksmith/c_locksmith_job.lua" type="client"/>
+</meta>

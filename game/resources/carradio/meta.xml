@@ -1,0 +1,7 @@
+<meta>
+	<info author="vG MTA Scripting Team" type="script" description="Radio System"/>
+
+
+	<script src="c_radio.lua" type="client"/>
+	<script src="s_radio.lua" type="server"/>
+</meta>

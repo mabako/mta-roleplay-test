@@ -1,0 +1,64 @@
+<meta>
+	<info author="vG MTA Scripting Team" type="script" description="Admin System"/>
+<min_mta_version>1.1.1-03505</min_mta_version>
+
+	<script src="Vehicle/s_vehicle_commands.lua" type="server"/>
+	
+	<script src="Player/s_player_commands.lua" type="server"/>
+	<script src="Player/s_ck.lua" type="server"/>
+	<script src="Player/s_ban.lua" type="server"/>
+	<script src="Player/s_teleport.lua" type="server"/>
+	<script src="Player/s_language.lua" type="server"/>
+	<script src="Player/s_relations.lua" type="server"/>
+	<script src="Player/s_search.lua" type="server"/>
+	<script src="Player/s_adminjail.lua" type="server"/>
+	<script src="Player/s_vpoints.lua" type="server"/>
+	<script src="Player/s_licenses.lua" type="server"/>
+	<export function="timerUnjailPlayer" type="server"/>
+	
+	
+	<script src="Interior/s_interior_commands.lua" type="server"/>
+	
+	<script src="Resources/s_resource_commands.lua" type="server"/>
+	
+	<!--
+	<script src="Player/c_afk_kick.lua" type="client"/>
+	<script src="Player/s_afk_kick.lua" type="server"/>
+	-->
+	
+	<script src="Player/s_recon.lua" type="server"/>
+	<script src="Player/c_recon.lua" type="client"/>
+	
+	<script src="monitor/s_monitor.lua" type="server"/>
+	<script src="monitor/c_monitor.lua" type="client"/>
+	
+	<script src="Player/c_ped_voices.lua" type="client"/>
+	<script src="Player/c_mark.lua" type="client"/>
+	
+	
+	<config src="help/whatisroleplaying.xml" type="client" />
+	<config src="help/serverrules.xml" type="client" />
+	<config src="help/overview.xml" type="client" />
+	
+	<script src="help/c_rphelp.lua" type="client"/>
+	
+	<script src="help/c_commands_help.lua" type="client"/>
+	
+	<script src="s_check.lua" type="server" />
+	<script src="c_check.lua" type="client" />
+	<file src="search.png" />
+	
+	<script src="teleport.lua" type="server" />
+	<script src="lounge.lua" type="client" />
+	
+	<!--<script src="c_general.lua" type="client" />
+	<script src="s_realbigears.lua" type="server" />-->
+	
+	<script src="help/c_admin_help.lua" type="client" />
+	<script src="help/c_gm_help.lua" type="client" />
+	
+	<script src="c_overlay.lua" type="client" />
+	
+	<script src="stats/s_adminstats.lua" type="server"/>
+	<script src="stats/c_adminstats.lua" type="client"/>
+</meta>

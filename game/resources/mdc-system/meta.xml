@@ -1,0 +1,11 @@
+<meta>
+	<info author="vG MTA Scripting Team" type="script" description="Gate System"/>
+
+	<script src="s_mdc.lua"/>
+    <script src="c_mdc.lua" type="client" />
+
+	<file src="mdc.png"/> 
+	<file src="nil.png"/>
+	
+	<export function="showLoginWindow" type="client"/>
+</meta>

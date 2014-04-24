@@ -1,0 +1,7 @@
+<meta>
+	<info author="vG MTA Scripting Team" type="script" description="Save Vehicle System"/>
+	
+	<script src="s_savevehicle_system.lua" type="server" />
+	<export function="saveVehicle" type="server"/>
+	<export function="saveVehicleMods" type="server"/>
+</meta>

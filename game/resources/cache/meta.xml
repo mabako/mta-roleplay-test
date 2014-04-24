@@ -1,0 +1,8 @@
+<meta>
+    <info author="Mount" type="script" description="Cache System"/>	
+	<script src="s_playernames.lua" type="server"/>
+	<export function="clearCharacterCache" type="server"/>
+	<export function="clearCharacterName" type="server"/>
+	<export function="getCharacterName" type="server"/>
+	<export function="stats" type="server"/>
+</meta>

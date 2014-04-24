@@ -1,0 +1,17 @@
+<meta>
+	<info author="Mount" type="script" description="Donation Management System"/>
+
+	<script src="g_donation_perks.lua" type="server"/>
+	
+	<script src="g_donation_data.lua" type="client"/>
+	<script src="g_donation_data.lua" type="server"/>
+	
+	<script src="s_donations.lua" type="server"/>
+	<export function="loadAllPerks" type="server"/>
+	<export function="hasPlayerPerk" type="server"/>
+	<export function="updatePerkValue" type="server"/>
+	<export function="givePlayerPerk" type="server"/>
+	
+	<script src="s_donation_gui.lua" type="server"/>
+	<script src="c_donation_gui.lua" type="client"/>
+</meta>

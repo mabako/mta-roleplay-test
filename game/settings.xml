@@ -1,0 +1,7 @@
+<settings>
+	<setting name="@mysql.username" value="mta"/>
+	<setting name="@mysql.password" value=""/>
+	<setting name="@mysql.database" value="mta"/>
+	<setting name="@mysql.hostname" value="localhost"/>
+	<setting name="@mysql.port" value="3306"/>
+</settings>

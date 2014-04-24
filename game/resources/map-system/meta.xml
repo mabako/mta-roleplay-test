@@ -1,0 +1,17 @@
+<meta>
+	<script src="c_createObject.lua" type="client"/>
+	<script src="s_removeObjects.lua" type="server"/>
+
+	<script src="World/Busstops_LS_LineAB.lua" type="client"/>
+	<script src="World/Pershing_Square.lua" type="client"/>
+	<script src="World/Main Street.lua" type="client"/>
+
+	<script src="Fixes/Smokes House Wall Fix.lua" type="client"/>
+	<script src="Fixes/Fixes.lua" type="client"/>
+	<script src="Fixes/Fuelpumps.lua" type="client"/>
+	<script src="Fixes/swimmingPools.lua" type="client"/>
+	<script src="Fixes/doors.lua" type="client"/>
+	
+	<!-- 64: Los Santos International Flight School -->
+	<script src="LSIFS/Flight School.lua" type="client"/>
+</meta>

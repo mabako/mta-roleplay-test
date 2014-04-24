@@ -1,0 +1,258 @@
+<meta>
+	<info author="vG scripting Team" type="script" name="Computers" showInResourceBrowser="true" version="0.0.1" />
+	<script src="c_computers.lua" type="client"/>
+	<script src="s_computers.lua" type="server"/>
+	<script src="s_internetcafe.lua" type="server"/>
+	<script src="c_internetcafe.lua" type="client"/>
+	
+	<file src="desktop.png" />
+	<file src="internet_icon.png" />
+	<file src="email_icon.png" />
+	<file src="shutdown_icon.png" />
+	
+	<!-- Images -->
+	<file src="websites/images/ad_space_box.png" />
+	<file src="websites/images/ad_space_h.png" />
+	<file src="websites/images/bank_ad1.png" />
+	<file src="websites/images/bank_ad2.png" />
+	<file src="websites/images/banshee.png" />
+	<file src="websites/images/bike.png" />
+	<file src="websites/images/bullet.png" />
+	<file src="websites/images/ccbosa-logo.png" />
+	<file src="websites/images/city-of-ls-seal.png" />
+	<file src="websites/images/chase.png" />
+	<file src="websites/images/copyright.png" />
+	<file src="websites/images/city_hall.png" />
+	<file src="websites/images/court-logo.png" />
+	<file src="websites/images/graffiti.png" />
+	<file src="websites/images/grove.png" />
+	<file src="websites/images/izanagi-black.png" />
+	<file src="websites/images/izanagi-red.png" />
+	<file src="websites/images/jester.png" />
+	<file src="websites/images/ls_harbour.png" />
+	<file src="websites/images/lses-logo.png" />
+	<file src="websites/images/lsgov-logo.png" />
+	<file src="websites/images/lspd-logo.png" />
+	<file src="websites/images/pershing_fountain.png" />
+	<file src="websites/images/remington.png" />
+	<file src="websites/images/rodeo.png" />
+	<file src="websites/images/running.png" />
+	<file src="websites/images/san-logo.png" />
+	<file src="websites/images/skyline.png" />
+	<file src="websites/images/slamdunk.png" />
+	<file src="websites/images/slamvan.png" />
+	<file src="websites/images/spotlight.png" />
+	<file src="websites/images/strip_club.png" />
+	<file src="websites/images/theatre.png" />
+	<file src="websites/images/vinewood-sign.png" />
+	<file src="websites/images/vinewood-sign2.png" />
+	<file src="websites/images/gnocchi-banner.png" />
+	
+	<!-- Dots -->
+	<file src="websites/images/dots/black_dot.png" />
+	<file src="websites/images/dots/blue_dot.png" />
+	<file src="websites/images/dots/green_dot.png" />
+	<file src="websites/images/dots/grey_dot.png" />
+	<file src="websites/images/dots/light_blue_dot.png" />
+	<file src="websites/images/dots/orange_dot.png" />
+	<file src="websites/images/dots/pink_dot.png" />
+	<file src="websites/images/dots/purple_dot.png" />
+	<file src="websites/images/dots/red_dot.png" />
+	<file src="websites/images/dots/white_dot.png" />
+	<file src="websites/images/dots/yellow_dot.png" />
+	
+	<!-- Colours -->
+	<file src="websites/colours/0.png" />
+	<file src="websites/colours/1.png" />
+	<file src="websites/colours/2.png" />
+	<file src="websites/colours/3.png" />
+	<file src="websites/colours/4.png" />
+	<file src="websites/colours/5.png" />
+	<file src="websites/colours/6.png" />
+	<file src="websites/colours/7.png" />
+	<file src="websites/colours/8.png" />
+	<file src="websites/colours/9.png" />
+	<file src="websites/colours/10.png" />
+	<file src="websites/colours/11.png" />
+	<file src="websites/colours/12.png" />
+	<file src="websites/colours/13.png" />
+	<file src="websites/colours/14.png" />
+	<file src="websites/colours/15.png" />
+	<file src="websites/colours/16.png" />
+	<file src="websites/colours/17.png" />
+	<file src="websites/colours/18.png" />
+	<file src="websites/colours/19.png" />
+	<file src="websites/colours/20.png" />
+	<file src="websites/colours/21.png" />
+	<file src="websites/colours/22.png" />
+	<file src="websites/colours/23.png" />
+	<file src="websites/colours/24.png" />
+	<file src="websites/colours/25.png" />
+	<file src="websites/colours/26.png" />
+	<file src="websites/colours/27.png" />
+	<file src="websites/colours/28.png" />
+	<file src="websites/colours/29.png" />
+	<file src="websites/colours/30.png" />
+	<file src="websites/colours/31.png" />
+	<file src="websites/colours/32.png" />
+	<file src="websites/colours/33.png" />
+	<file src="websites/colours/34.png" />
+	<file src="websites/colours/35.png" />
+	<file src="websites/colours/36.png" />
+	<file src="websites/colours/37.png" />
+	<file src="websites/colours/38.png" />
+	<file src="websites/colours/39.png" />
+	<file src="websites/colours/40.png" />
+	<file src="websites/colours/41.png" />
+	<file src="websites/colours/42.png" />
+	<file src="websites/colours/43.png" />
+	<file src="websites/colours/44.png" />
+	<file src="websites/colours/45.png" />
+	<file src="websites/colours/46.png" />
+	<file src="websites/colours/47.png" />
+	<file src="websites/colours/48.png" />
+	<file src="websites/colours/49.png" />
+	<file src="websites/colours/50.png" />
+	<file src="websites/colours/51.png" />
+	<file src="websites/colours/52.png" />
+	<file src="websites/colours/53.png" />
+	<file src="websites/colours/54.png" />
+	<file src="websites/colours/55.png" />
+	<file src="websites/colours/56.png" />
+	<file src="websites/colours/57.png" />
+	<file src="websites/colours/58.png" />
+	<file src="websites/colours/59.png" />
+	<file src="websites/colours/60.png" />
+	<file src="websites/colours/61.png" />
+	<file src="websites/colours/62.png" />
+	<file src="websites/colours/63.png" />
+	<file src="websites/colours/64.png" />
+	<file src="websites/colours/65.png" />
+	<file src="websites/colours/66.png" />
+	<file src="websites/colours/67.png" />
+	<file src="websites/colours/68.png" />
+	<file src="websites/colours/69.png" />
+	<file src="websites/colours/70.png" />
+	<file src="websites/colours/71.png" />
+	<file src="websites/colours/72.png" />
+	<file src="websites/colours/73.png" />
+	<file src="websites/colours/74.png" />
+	<file src="websites/colours/75.png" />
+	<file src="websites/colours/76.png" />
+	<file src="websites/colours/77.png" />
+	<file src="websites/colours/78.png" />
+	<file src="websites/colours/79.png" />
+	<file src="websites/colours/80.png" />
+	<file src="websites/colours/81.png" />
+	<file src="websites/colours/82.png" />
+	<file src="websites/colours/83.png" />
+	<file src="websites/colours/84.png" />
+	<file src="websites/colours/85.png" />
+	<file src="websites/colours/86.png" />
+	<file src="websites/colours/87.png" />
+	<file src="websites/colours/88.png" />
+	<file src="websites/colours/89.png" />
+	<file src="websites/colours/90.png" />
+	<file src="websites/colours/91.png" />
+	<file src="websites/colours/92.png" />
+	<file src="websites/colours/93.png" />
+	<file src="websites/colours/94.png" />
+	<file src="websites/colours/95.png" />
+	<file src="websites/colours/96.png" />
+	<file src="websites/colours/97.png" />
+	<file src="websites/colours/98.png" />
+	<file src="websites/colours/99.png" />
+	<file src="websites/colours/100.png" />
+	<file src="websites/colours/101.png" />
+	<file src="websites/colours/102.png" />
+	<file src="websites/colours/103.png" />
+	<file src="websites/colours/104.png" />
+	<file src="websites/colours/105.png" />
+	<file src="websites/colours/106.png" />
+	<file src="websites/colours/107.png" />
+	<file src="websites/colours/108.png" />
+	<file src="websites/colours/109.png" />
+	<file src="websites/colours/110.png" />
+	<file src="websites/colours/111.png" />
+	<file src="websites/colours/112.png" />
+	<file src="websites/colours/113.png" />
+	<file src="websites/colours/114.png" />
+	<file src="websites/colours/115.png" />
+	<file src="websites/colours/116.png" />
+	<file src="websites/colours/117.png" />
+	<file src="websites/colours/118.png" />
+	<file src="websites/colours/119.png" />
+	<file src="websites/colours/120.png" />
+	<file src="websites/colours/121.png" />
+	<file src="websites/colours/122.png" />
+	<file src="websites/colours/123.png" />
+	<file src="websites/colours/124.png" />
+	<file src="websites/colours/125.png" />
+	<file src="websites/colours/126.png" />
+	
+	<!-- Websites -->
+
+	<!-- A -->
+	<script src="websites/adept.lua" type="client"/>
+	<file src="websites/images/adeptsecurity.png" />
+	
+	<!-- B -->
+	<script src="websites/bankofsa.lua" type="client"/>
+	<script src="websites/beststowing.lua" type="client"/>
+	<file src="websites/images/towtruck.png" />
+	<file src="websites/images/btr-logo.png" />
+	<file src="websites/images/btr.png" />
+	<script src="websites/bibles.lua" type="client"/>
+	
+	<!-- C -->
+	<script src="websites/clubsoho.lua" type="client"/>
+	
+	<!-- G -->
+	<script src="websites/gnocchi.lua" type="client" />
+	
+	<!-- E -->
+	<script src="websites/error.lua" type="client"/>
+	<script src="websites/entertainment.lua" type="client"/>
+	
+<<<<<<< HEAD
+	<!-- F -->
+=======
+>>>>>>> new-weapon-system
+	
+	<!-- H -->
+	<script src="websites/hotelsoho.lua" type="client"/>
+	
+	<!-- I -->
+	<script src="websites/izanagi.lua" type="client"/>
+	
+	<!-- K -->
+	<script src="websites/kfc.lua" type="client"/>
+	<file src="websites/images/kangfishing.png" />
+	
+	<!-- L -->
+	<script src="websites/lossantos.lua" type="client"/>	
+	<script src="websites/lses/lses.gov.lua" type="client"/>
+	<script src="websites/lses/lses.gov_about.lua" type="client"/>
+	<script src="websites/lses/lses.gov_join.lua" type="client"/>
+	<script src="websites/lses/lses.gov_members.lua" type="client"/>
+	<script src="websites/lspd.lua" type="client"/>
+	<script src="websites/lsia.lua" type="client" />	
+	<file src="websites/images/lsia.png" />
+	
+	<!-- M -->
+	<script src="websites/mdc.lua" type="client"/>
+
+	<!-- R -->
+	<script src="websites/RandBsburialservice.lua" type="client"/>
+	
+	<!-- S -->
+	<script src="websites/sadesigns.lua" type="client"/>
+
+	<script src="websites/san_rss_server.lua" />
+	<script src="websites/sanetwork.lua" type="client" />
+	<file src="websites/images/san-logo.png" />
+
+	<script src="websites/snake.lua" type="client"/>
+	<script src="websites/sohocorp.lua" type="client"/>
+	
+</meta>

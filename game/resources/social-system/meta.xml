@@ -1,0 +1,168 @@
+<meta>
+	<info author="vG MTA Scripting Team" type="script" description="Social System"/>
+
+	<script src="s_old_friends.lua" type="server" />
+	<script src="c_old_friends.lua" type="client" />
+	
+	<script src="g_friends.lua" type="server" />
+	<script src="g_friends.lua" type="client" />
+	<script src="s_friends.lua" type="server" />
+	<script src="c_friends.lua" type="client" />
+	
+	<script src="s_player_rightclick.lua" type="server"/>
+	<script src="c_player_rightclick.lua" type="client"/>
+	
+	<file src="segoeuil.ttf" />
+	
+	<export function="toggleCursor" type="client"/>
+	<export function="isFriendOf" type="server"/>
+	
+	<script src="g_look.lua" type="server"/>
+	<script src="g_look.lua" type="client"/>
+	<script src="s_look.lua" type="server"/>
+	<script src="c_look.lua" type="client"/>
+	
+	
+	
+	<!--Country flags-->
+  <file src="images/flags/kr.png" />
+  <file src="images/flags/sa.png" />
+  <file src="images/flags/my.png" />
+  <file src="images/flags/sc.png" />
+  <file src="images/flags/ac.png" />
+  <file src="images/flags/ad.png" />
+  <file src="images/flags/ae.png" />
+  <file src="images/flags/af.png" />
+  <file src="images/flags/ag.png" />
+  <file src="images/flags/ai.png" />
+  <file src="images/flags/al.png" />
+  <file src="images/flags/am.png" />
+  <file src="images/flags/an.png" />
+  <file src="images/flags/ao.png" />
+  <file src="images/flags/aq.png" />
+  <file src="images/flags/ar.png" />
+  <file src="images/flags/as.png" />
+  <file src="images/flags/at.png" />
+  <file src="images/flags/au.png" />
+  <file src="images/flags/aw.png" />
+  <file src="images/flags/ax.png" />
+  <file src="images/flags/az.png" />
+  <file src="images/flags/ba.png" />
+  <file src="images/flags/bb.png" />
+  <file src="images/flags/bd.png" />
+  <file src="images/flags/be.png" />
+  <file src="images/flags/bf.png" />
+  <file src="images/flags/bg.png" />
+  <file src="images/flags/bh.png" />
+  <file src="images/flags/bi.png" />
+  <file src="images/flags/bj.png" />
+  <file src="images/flags/bm.png" />
+  <file src="images/flags/bn.png" />
+  <file src="images/flags/bo.png" />
+  <file src="images/flags/br.png" />
+  <file src="images/flags/bs.png" />
+  <file src="images/flags/bt.png" />
+  <file src="images/flags/bv.png" />
+  <file src="images/flags/bw.png" />
+  <file src="images/flags/by.png" />
+  <file src="images/flags/bz.png" />
+  <file src="images/flags/ca.png" />
+  <file src="images/flags/cc.png" />
+  <file src="images/flags/cd.png" />
+  <file src="images/flags/cf.png" />
+  <file src="images/flags/cg.png" />
+  <file src="images/flags/ch.png" />
+  <file src="images/flags/ci.png" />
+  <file src="images/flags/ck.png" />
+  <file src="images/flags/cl.png" />
+  <file src="images/flags/cm.png" />
+  <file src="images/flags/cn.png" />
+  <file src="images/flags/co.png" />
+  <file src="images/flags/cr.png" />
+  <file src="images/flags/cs.png" />
+  <file src="images/flags/cu.png" />
+  <file src="images/flags/cv.png" />
+  <file src="images/flags/cx.png" />
+  <file src="images/flags/cy.png" />
+  <file src="images/flags/cz.png" />
+  <file src="images/flags/de.png" />
+  <file src="images/flags/dj.png" />
+  <file src="images/flags/dk.png" />
+  <file src="images/flags/dm.png" />
+  <file src="images/flags/do.png" />
+  <file src="images/flags/dz.png" />
+  <file src="images/flags/ec.png" />
+  <file src="images/flags/ee.png" />
+  <file src="images/flags/eg.png" />
+  <file src="images/flags/eh.png" />
+  <file src="images/flags/er.png" />
+  <file src="images/flags/es.png" />
+  <file src="images/flags/et.png" />
+  <file src="images/flags/eu.png" />
+  <file src="images/flags/fi.png" />
+  <file src="images/flags/fo.png" />
+  <file src="images/flags/fr.png" />
+  <file src="images/flags/ga.png" />
+  <file src="images/flags/gb.png" />
+  <file src="images/flags/gd.png" />
+  <file src="images/flags/gl.png" />
+  <file src="images/flags/gm.png" />
+  <file src="images/flags/gw.png" />
+  <file src="images/flags/gy.png" />
+  <file src="images/flags/hu.png" />
+  <file src="images/flags/id.png" />
+  <file src="images/flags/ie.png" />
+  <file src="images/flags/il.png" />
+  <file src="images/flags/in.png" />
+  <file src="images/flags/iq.png" />
+  <file src="images/flags/is.png" />
+  <file src="images/flags/it.png" />
+  <file src="images/flags/ja.png" />
+  <file src="images/flags/jm.png" />
+  <file src="images/flags/jp.png" />
+  <file src="images/flags/kw.png" />
+  <file src="images/flags/lt.png" />
+  <file src="images/flags/lu.png" />
+  <file src="images/flags/lv.png" />
+  <file src="images/flags/ly.png" />
+  <file src="images/flags/mc.png" />
+  <file src="images/flags/mg.png" />
+  <file src="images/flags/mh.png" />
+  <file src="images/flags/mt.png" />
+  <file src="images/flags/ng.png" />
+  <file src="images/flags/nl.png" />
+  <file src="images/flags/no.png" />
+  <file src="images/flags/nr.png" />
+  <file src="images/flags/pa.png" />
+  <file src="images/flags/pe.png" />
+  <file src="images/flags/ph.png" />
+  <file src="images/flags/pk.png" />
+  <file src="images/flags/pl.png" />
+  <file src="images/flags/pr.png" />
+  <file src="images/flags/ps.png" />
+  <file src="images/flags/pt.png" />
+  <file src="images/flags/qa.png" />
+  <file src="images/flags/re.png" />
+  <file src="images/flags/ro.png" />
+  <file src="images/flags/ru.png" />
+  <file src="images/flags/rw.png" />
+  <file src="images/flags/se.png" />
+  <file src="images/flags/sj.png" />
+  <file src="images/flags/sl.png" />
+  <file src="images/flags/so.png" />
+  <file src="images/flags/sy.png" />
+  <file src="images/flags/td.png" />
+  <file src="images/flags/to.png" />
+  <file src="images/flags/tv.png" />
+  <file src="images/flags/ua.png" />
+  <file src="images/flags/uk.png" />
+  <file src="images/flags/um.png" />
+  <file src="images/flags/us.png" />
+  <file src="images/flags/vn.png" />
+  <file src="images/flags/wf.png" />
+  <file src="images/flags/ws.png" />
+  <file src="images/flags/ye.png" />
+  <file src="images/flags/yt.png" />
+  <file src="images/flags/yu.png" />
+  <file src="images/flags/za.png" />
+</meta>

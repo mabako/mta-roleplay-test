@@ -1,0 +1,100 @@
+<meta>
+	<info author="vG MTA Scripting Team" type="script" description="Realism System"/>
+
+	<!-- Christmas stuff
+	<script src="xmas\tree.lua" type="client" />
+	<script src="xmas\client.lua" type="client" />
+	<script src="xmas\client2.lua" type="client" />
+	<file src="xmas\jeffers4_lae.txd" />  -->
+	
+	<script src="c_backup_bleepers.lua" type="client" />
+	<file src="TruckBackingUpBeep.mp3"/>
+	
+	<script src="c_realism_system.lua" type="client" />
+	
+	<script src="s_reload.lua" type="server" />
+	<script src="c_reload.lua" type="client" />
+	
+	<script src="c_vehicle_crash.lua" type="client" />
+	<script src="s_vehicle_crash.lua" type="server" />
+	
+	<script src="s_glowstick_system.lua" type="server" />
+	<script src="c_glowstick_system.lua" type="client" />
+	
+	<script src="c_metal_detectors.lua" type="client" />
+	<script src="c_cruise_control.lua" type="client" />
+	
+	<script src="s_enginebreak.lua" type="server" />
+	
+	<script src="c_indicators.lua" type="client" />
+	
+	<script src="c_speedo.lua" type="client" />
+	<file src="disc.png"/>
+	<file src="fueldisc.png"/>
+	
+	<file src="reload.wav"/>
+	<file src="horn.wav"/>
+
+	<script src="c_thermal_vision.lua" type="client" />
+	
+	<script src="water.lua" type="client" />
+	
+	<script src="c_emitters.lua" type="client" />
+	<script src="s_emitters.lua" type="server" />
+	
+	<script src="c_city_guide.lua" type="client" />
+	<file src="guide/0.png"/>
+	<file src="guide/1.png"/>
+	<file src="guide/2.png"/>
+	<file src="guide/3.png"/>
+	<file src="guide/4.png"/>
+	<file src="guide/5.png"/>
+	<file src="guide/6.png"/>
+	<file src="guide/7.png"/>
+	<file src="guide/8.png"/>
+	
+	<script src="c_weapons_back.lua" type="client"/>
+	
+	<script src="c_weapon_jams.lua" type="client"/>
+	<script src="s_weapon_jams.lua" type="server"/>
+	<script src="s_crashed.lua" type="server"/>
+	<script src="s_ck_corpses.lua" type="server"/>
+	<script src="c_ck.lua" type="client"/>
+	<export function="addCharacterKillBody" type="server"/>
+
+
+	<script src="s_alarm.lua" type="server"/>
+	<script src="c_alarm.lua" type="client"/>
+	
+	<file src="siren.wav"/>
+	<script src="c_unoccupied_sirens.lua" type="client"/>
+	<script src="c_fpview.lua" type="client"/>
+	
+	<script src="c_mp3_player.lua" type="client"/>
+	<export function="toggleMP3" type="client"/>
+
+	<script src="s_drunk.lua" type="server"/>
+	<script src="c_drunk.lua" type="client"/>
+
+	<script src="c_heli_rotors.lua" type="client"/>
+	<script src="c_carrealism.lua" type="client"/>
+	
+	<export function="hideSpeedo" type="client"/>
+	<export function="showSpeedo" type="client"/>
+
+	<script src="s_cigar.lua" type="server"/>
+	<script src="c_cigar.lua" type="client"/>
+	<export function="isLocalPlayerSmoking" type="client"/>
+	<script src="s_police_radar.lua" type="server"/>
+	<script src="c_police_radar.lua" type="client"/>
+	<file src="policebeep.mp3"/>
+	
+	<file src="images/accident.png"/>
+	<file src="images/highway.png"/>
+	<file src="images/speed60.png"/>
+	<file src="images/speed90.png"/>
+	<file src="images/speed120.png"/>
+	<file src="images/fuel.png"/>
+	<file src="images/fuel2.png"/>
+	<file src="images/window.png"/>
+</meta>

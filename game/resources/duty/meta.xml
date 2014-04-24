@@ -1,0 +1,14 @@
+<meta>
+	<info author="vG MTA Scripting Team" type="script" description="Duty System"/>
+	
+	<script src="g_duty.lua" type="server"/>
+	<export function="getFactionPackages" type="server"/>
+	<export function="canPlayerUseDutyPackage" type="server"/>
+	<script src="g_duty.lua" type="client"/>
+	<export function="getFactionPackages" type="client"/>
+	<export function="canPlayerUseDutyPackage" type="client"/>
+	
+	<script src="c_duty.lua" type="client"/>
+
+	<script src="s_duty.lua" type="server"/>
+</meta>

@@ -1,0 +1,50 @@
+<meta>
+	<info author="vG MTA Scripting Team" type="script" description="LV-PD System"/>
+
+	<script src="s_headlights.lua" type="server"/>
+	<script src="c_headlights.lua" type="client"/>
+	
+	<script src="s_sirens.lua" type="server"/>
+	<script src="c_sirens.lua" type="client"/>
+	<file src="siren.wav"/>
+	
+	<script src="s_policecommands.lua" type="server"/>
+	<script src="c_policejail.lua" type="client"/>
+	<script src="s_policejail.lua" type="server"/>
+	<script src="s_apb.lua" type="server"/>
+
+	<export function="timerPDUnjailPlayer" type="server"/>
+	
+	<script src="s_policedeagle.lua" type="server"/>
+	<script src="c_policedeagle.lua" type="client"/>
+
+	<script src="s_policeshotgun.lua" type="server"/>
+	<script src="c_policeshotgun.lua" type="client"/>
+	
+	<script src="c_policetazer.lua" type="client"/>
+	<script src="s_policetazer.lua" type="server"/>
+	
+	<script src="c_shield.lua" type="client"/>
+	
+	<!--<script src="c_blips.lua" type="client"/>-->
+	
+	<script src="c_backup.lua" type="client"/>
+	<script src="s_backup.lua" type="server"/>
+	
+	<script src="s_police_garage.lua" type="server"/>
+	
+	<script src="fastrope/s_fastrope.lua" type="server"/>
+	<script src="fastrope/c_fastrope.lua" type="client"/>
+	
+	<script src="c_lasers.lua" type="client"/>
+	<script src="s_lasers.lua" type="server"/>
+	
+	<script src="helicopters/s_helicopters.lua" type="server"/>
+	
+	<file src="silenced.dff"/>
+	<file src="silenced.txd"/>
+	
+	<file src="riot_shield.dff"/>
+	<file src="riot_shield.txd"/>
+	<file src="riot_shield.col"/>
+</meta>

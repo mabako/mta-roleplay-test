@@ -1,0 +1,8 @@
+<meta>
+	<info author="vG MTA Scripting Team" type="script" description="Bank System"/>
+	
+	<script src="s_bank_system.lua" type="server" />
+	<script src="c_bank_system.lua" type="client" />
+	
+	<script src="s_atm_system.lua" type="server" />
+</meta>

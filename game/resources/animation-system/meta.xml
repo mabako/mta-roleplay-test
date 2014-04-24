@@ -1,0 +1,11 @@
+<meta>
+    <info author="vG MTA Scripting Team" type="script" description="Animation System"/>
+
+	<script src="s_animation_system.lua" type="server"/>
+	<script src="c_animation_system.lua" type="client"/>
+
+	<config src="animations.xml" type="client" />
+	
+	<script src="s_list.lua" type="server" />
+	<script src="c_list.lua" type="client" />
+</meta>
