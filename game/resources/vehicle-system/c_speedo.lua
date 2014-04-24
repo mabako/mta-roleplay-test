@@ -34,7 +34,6 @@ local veh = false
 local speed = false
 local renderTarget = false
 local minX = 2
-local nosOn = false
 local scrnX, scrnY = guiGetScreenSize()
 local twoDMode = false
 
@@ -82,7 +81,7 @@ function drawSpeed()
 			dxDrawLine(10 * resolutionFactor, 95 * resolutionFactor, 229 * resolutionFactor, 95 * resolutionFactor, fuel < .1 and clrRed or clrGrey, 8 * resolutionFactor)
 			dxDrawLine(10 * resolutionFactor, 95 * resolutionFactor, (fuel * 219 + 10) * resolutionFactor, 95 * resolutionFactor, clrWhite, 8 * resolutionFactor)
 		end
-		
+
 		-- le street name
 		local street = getElementData(localPlayer, 'speedo:street')
 		if street and getVehicleType(veh) ~= "Boat" and getVehicleType(veh) ~= "Helicopter" and getVehicleType(veh) ~= "Plane" then
@@ -123,48 +122,7 @@ function getPositionFromElementOffset(offX,offY,offX2,offY2)
 	return x, y, z, x2, y2, z2, x3, y3, z3                            -- Return the transformed point
 end
 
-addCommandHandler("speedotype", function() twoDMode = not twoDMode saveConf() end)
-
-bindKey("vehicle_fire", "both",
-function(_,state)
-	veh = getPedOccupiedVehicle(localPlayer)
-	if veh and state == "up" and isVehicleNitroActivated(veh) and getVehicleController(veh) == localPlayer then
-		setVehicleNitroActivated(veh, false)
-		nosOn = false
-	elseif veh and state == "down" and getVehicleController(veh) == localPlayer then
-		setVehicleNitroActivated(veh, true)
-		nosOn = true
-	end
-end)
-
-function HSV(h, s, v)
- 
-  local r, g, b
- 
-  local i = math.floor(h * 6)
-  local f = h * 6 - i
-  local p = v * (1 - s)
-  local q = v * (1 - f * s)
-  local t = v * (1 - (1 - f) * s)
- 
-  local switch = i % 6
-  if switch == 0 then
-    r = v g = t b = p
-  elseif switch == 1 then
-    r = q g = v b = p
-  elseif switch == 2 then
-    r = p g = v b = t
-  elseif switch == 3 then
-    r = p g = q b = v
-  elseif switch == 4 then
-    r = t g = p b = v
-  elseif switch == 5 then
-    r = v g = p b = q
-  end
- 
-  return math.floor(r*255), math.floor(g*255), math.floor(b*255)
- 
-end
+addCommandHandler("speedotype", function() twoDMode = not twoDMode end)
 
 function dxDrawBorderedText(text, left, top, right, bottom, color, scale, font, alignX, alignY, clip, wordBreak,postGUI)
     for oX = -borderSize, borderSize do

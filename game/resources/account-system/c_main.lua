@@ -115,7 +115,7 @@ whiteFemales = {12, 31, 38, 39, 40, 41, 53, 54, 55, 56, 64, 75, 77, 85, 86, 87, 
 asianFemales = {38, 53, 54, 55, 56, 88, 141, 169, 178, 224, 225, 226, 263}
 
 local screenX, screenY = guiGetScreenSize( )
-local label = guiCreateLabel( 0, 0, screenX, 15, "ValhallaRP v"..scriptVersion, false )
+local label = guiCreateLabel( 0, 0, screenX, 15, "That Roleplay Thing "..scriptVersion, false )
 guiSetSize( label, guiLabelGetTextExtent( label ) + 5, 14, false )
 guiSetPosition( label, screenX - guiLabelGetTextExtent( label ) - 5, screenY - 27, false )
 guiSetAlpha( label, 0.5 )

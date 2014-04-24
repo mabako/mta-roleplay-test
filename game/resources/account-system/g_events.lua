@@ -17,7 +17,7 @@ addEvent("onCharacterLogin", true)
 addEvent("onSapphireXMBShow", true)
 
 -- Shared variables
-scriptVersion = "4.0.24"
+scriptVersion = "Alpha 1"
 newsURL = "http://mta.vg/server/news.php"
 
 -- Global functions
