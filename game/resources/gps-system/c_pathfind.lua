@@ -15,8 +15,8 @@ function findNodeClosestToPoint(db, x, y, z)
 	local minDist, minNode
 	local nodeX, nodeY, dist
 	for id,node in pairs(db[areaID]) do
-		nodeX, nodeY = node.x, node.y
-		dist = (x - nodeX)*(x - nodeX) + (y - nodeY)*(y - nodeY)
+		nodeX, nodeY, nodeZ = node.x, node.y, node.z
+		dist = (x - nodeX)*(x - nodeX) + (y - nodeY)*(y - nodeY) + 4 * (z - nodeZ)*(z - nodeZ)
 		if not minDist or dist < minDist then
 			minDist = dist
 			minNode = node
@@ -37,7 +37,7 @@ local function calculatePath(db, nodeFrom, nodeTo)
 		if hcache[node] then
 			return hcache[node]
 		end
-		local x, y, z = node.x - nodeTo.x, node.y - nodeTo.y, node.z - nodeTo.z
+		local x, y, z = node.x - nodeTo.x, node.y - nodeTo.y, 2*(node.z - nodeTo.z)
 		hcache[node] = x*x + y*y + z*z
 		return hcache[node]
 	end
