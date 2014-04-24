@@ -122,7 +122,9 @@ end
 
 setTimer(
 	function()
-		local x, y, z = getElementPosition(getLocalPlayer())
-		setElementData( getLocalPlayer(), "speedo:limit", x > 50 and y < -650 and (findNodeClosestToPoint(vehicleNodes, x, y, z).speedlimit or 60), false)
+		if getPedOccupiedVehicle(localPlayer) then
+			local x, y, z = getElementPosition(localPlayer)
+			setElementData( getLocalPlayer(), "speedo:limit", x > 50 and y < -650 and (findNodeClosestToPoint(vehicleNodes, x, y, z).speedlimit or 60), false)
+		end
 	end, 500, 0
 )
