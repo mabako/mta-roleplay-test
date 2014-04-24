@@ -268,7 +268,7 @@ addEventHandler( "shop:buy", resourceRoot, function( index )
 		return
 	end
 	
-	local race, gender = getElementData( client, "gender" ), getElementData( client, "race" )
+	local race, gender = getElementData( client, "race" ), getElementData( client, "gender" )
 	updateItems( shoptype, race, gender ) -- should modify /shop/ too, as shop is a reference to g_shops[type].
 	
 	-- fetch the selected item
