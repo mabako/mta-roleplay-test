@@ -85,7 +85,7 @@ function drawSpeed()
 		-- le street name
 		local street = getElementData(localPlayer, 'speedo:street')
 		if street and getVehicleType(veh) ~= "Boat" and getVehicleType(veh) ~= "Helicopter" and getVehicleType(veh) ~= "Plane" then
-			dxDrawBorderedText(street, 0, 10 * resolutionFactor, 230 * resolutionFactor, 40 * resolutionFactor, clrWhite, 2 * resolutionFactor, "default", "right", "top", true)
+			dxDrawBorderedText(street, 0, 10 * resolutionFactor, 230 * resolutionFactor, 40 * resolutionFactor, clrWhite, 1.5 * resolutionFactor, "default", "right", "top", true)
 		end
 		
 		dxSetRenderTarget()
