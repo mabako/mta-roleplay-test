@@ -11,47 +11,54 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140424010419) do
+ActiveRecord::Schema.define(version: 20140424013034) do
 
   create_table "accounts", force: true do |t|
     t.text     "username"
-    t.text     "password"
     t.datetime "registerdate"
     t.datetime "lastlogin"
     t.text     "ip"
-    t.integer  "admin",               limit: 1,          default: 0
-    t.integer  "hiddenadmin",         limit: 1,          default: 0
-    t.integer  "adminduty",           limit: 1,          default: 0
-    t.integer  "adminjail",           limit: 1,          default: 0
+    t.integer  "admin",                  limit: 1,          default: 0
+    t.integer  "hiddenadmin",            limit: 1,          default: 0
+    t.integer  "adminduty",              limit: 1,          default: 0
+    t.integer  "adminjail",              limit: 1,          default: 0
     t.integer  "adminjail_time"
     t.text     "adminjail_by"
     t.text     "adminjail_reason"
-    t.integer  "banned",              limit: 1,          default: 0
+    t.integer  "banned",                 limit: 1,          default: 0
     t.text     "banned_by"
     t.text     "banned_reason"
-    t.integer  "muted",               limit: 1,          default: 0
-    t.integer  "globalooc",           limit: 1,          default: 1
+    t.integer  "muted",                  limit: 1,          default: 0
+    t.integer  "globalooc",              limit: 1,          default: 1
     t.text     "country"
     t.text     "friendsmessage"
-    t.integer  "adminjail_permanent", limit: 1,          default: 0
-    t.integer  "adminreports",                           default: 0
-    t.integer  "warns",               limit: 1,          default: 0
-    t.integer  "chatbubbles",         limit: 1,          default: 1,            null: false
+    t.integer  "adminjail_permanent",    limit: 1,          default: 0
+    t.integer  "adminreports",                              default: 0
+    t.integer  "warns",                  limit: 1,          default: 0
+    t.integer  "chatbubbles",            limit: 1,          default: 1,            null: false
     t.text     "adminnote"
-    t.boolean  "appstate",                               default: false
+    t.boolean  "appstate",                                  default: false
     t.datetime "appdatetime"
-    t.text     "appreason",           limit: 2147483647
-    t.text     "email"
-    t.integer  "help",                                   default: 1,            null: false
-    t.integer  "adblocked",                              default: 0,            null: false
-    t.integer  "newsblocked",                            default: 0,            null: false
+    t.text     "appreason",              limit: 2147483647
+    t.integer  "help",                                      default: 1,            null: false
+    t.integer  "adblocked",                                 default: 0,            null: false
+    t.integer  "newsblocked",                               default: 0,            null: false
     t.text     "mtaserial"
     t.text     "d_addiction"
-    t.string   "loginhash",           limit: 64
-    t.integer  "credits",                                default: 0
-    t.integer  "transfers",                              default: 0
-    t.string   "monitored",                              default: "New Player", null: false
+    t.string   "loginhash",              limit: 64
+    t.integer  "credits",                                   default: 0
+    t.integer  "transfers",                                 default: 0
+    t.string   "monitored",                                 default: "New Player", null: false
+    t.string   "email",                                     default: "",           null: false
+    t.string   "encrypted_password",                        default: "",           null: false
+    t.string   "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
+
+  add_index "accounts", ["email"], name: "index_accounts_on_email", unique: true, using: :btree
+  add_index "accounts", ["reset_password_token"], name: "index_accounts_on_reset_password_token", unique: true, using: :btree
 
   create_table "adminhistory", force: true do |t|
     t.integer  "user",                  null: false
