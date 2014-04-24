@@ -16,7 +16,6 @@ g_items = {
 	[15] = { "Water", "A bottle of mineral water.", 1, 1484, -15, 30, 0, 0.2, weight = 1 },
 	[16] = { "Clothes", "A set of clean clothes. (( Skin ID ##v ))", 6, 2386, 0, 0, 0, 0.1, weight = 1 },
 	[17] = { "Watch", "A smart gold watch.", 6, 1271, 0, 0, 0, 0.285, weight = 0.1 },
-	[18] = { "City Guide", "A small city guide booklet.", 5, 2824, 0, 0, 0, -0.01, weight = 0.3 },
 	[19] = { "MP3 Player", "A white, sleek looking MP3 Player. The brand reads EyePod.", 7, 2886, 270, 0, 0, 0.1, weight = 0.1 },
 	[20] = { "Standard Fighting for Dummies", "A book on how to do standard fighting.", 5, 2824, 0, 0, 0, -0.01, weight = 0.3 },
 	[21] = { "Boxing for Dummies", "A book on how to do boxing.", 5, 2824, 0, 0, 0, -0.01, weight = 0.3 },

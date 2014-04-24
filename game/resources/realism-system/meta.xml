@@ -42,21 +42,8 @@
 	<script src="c_emitters.lua" type="client" />
 	<script src="s_emitters.lua" type="server" />
 	
-	<script src="c_city_guide.lua" type="client" />
-	<file src="guide/0.png"/>
-	<file src="guide/1.png"/>
-	<file src="guide/2.png"/>
-	<file src="guide/3.png"/>
-	<file src="guide/4.png"/>
-	<file src="guide/5.png"/>
-	<file src="guide/6.png"/>
-	<file src="guide/7.png"/>
-	<file src="guide/8.png"/>
-	
 	<script src="c_weapons_back.lua" type="client"/>
-	
-	<script src="c_weapon_jams.lua" type="client"/>
-	<script src="s_weapon_jams.lua" type="server"/>
+
 	<script src="s_crashed.lua" type="server"/>
 	<script src="s_ck_corpses.lua" type="server"/>
 	<script src="c_ck.lua" type="client"/>
