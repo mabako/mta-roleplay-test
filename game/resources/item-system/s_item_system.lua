@@ -36,6 +36,11 @@ function useItem(itemSlot, additional)
 	local itemName = getItemName( itemID, itemValue )
 	if isPedDead(source) or getElementData(source, "injuriedanimation") then return end
 
+	if not g_items[itemID] then
+		outputChatBox("(( Error: This item has been removed. ))", source, 255, 0, 0)
+		return
+	end
+
 	local hasItemProtect = hasItem(source, tonumber( itemID ), tostring(itemValue)) or  hasItem(source, tonumber( itemID ), tonumber(itemValue)) 
 	if not hasItemProtect then
 		return
