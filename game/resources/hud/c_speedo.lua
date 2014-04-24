@@ -21,19 +21,19 @@ addEventHandler("syncFuel", getRootElement(), syncFuel)
 
 local clr = tocolor(0, 255, 0)
 local clr2 = tocolor(0, 255, 0)
-local clrWhite = tocolor(255,255,255,223)
+clrWhite = tocolor(255,255,255,223)
 local clrGrey = tocolor(191,191,191,191)
 local clrRed = tocolor(255,0,0,191)
 local clrOrange = tocolor(255,165,0,223)
 
-local resolutionFactor = guiGetScreenSize()/720 --4
+resolutionFactor = guiGetScreenSize()/720 --4
 local borderSize = 0.5
 
 local drawing = false
 local veh = false
 local speed = false
 local renderTarget = false
-local minX = 2
+minX = 2
 local scrnX, scrnY = guiGetScreenSize()
 local twoDMode = false
 
@@ -94,7 +94,7 @@ function drawSpeed()
 			if twoDMode then
 				dxDrawImage(scrnX-270, scrnY-130, 230, 100, renderTarget)
 			else
-				x,y,z,lx,ly,lz,x2,y2,z2 = getPositionFromElementOffset(minX-1.3,0,minX+0.5,-5)	---2.5,0,-1.3,-5
+				x,y,z,lx,ly,lz,x2,y2,z2 = getPositionFromElementOffset(veh,minX-1.3,0,minX+0.5,-5)	---2.5,0,-1.3,-5
 				dxDrawMaterialLine3D(x2,y2,z2,x,y,z, renderTarget, 2.2, clrWhite,lx,ly,lz)
 			end
 		end
@@ -103,9 +103,9 @@ function drawSpeed()
 	end
 end
 
-function getPositionFromElementOffset(offX,offY,offX2,offY2)
-	local offZ = -0.5
-	local m = getElementMatrix ( veh )  -- Get the matrix
+function getPositionFromElementOffset(elem, offX,offY,offX2,offY2,offZ1,offZ2)
+	local offZ = offZ1 or -0.5
+	local m = getElementMatrix ( elem )  -- Get the matrix
 	local x = offX * m[1][1] + offY * m[2][1] + offZ * m[3][1] + m[4][1]  -- Apply transform
 	local y = offX * m[1][2] + offY * m[2][2] + offZ * m[3][2] + m[4][2]
 	local z = offX * m[1][3] + offY * m[2][3] + offZ * m[3][3] + m[4][3]
@@ -114,7 +114,7 @@ function getPositionFromElementOffset(offX,offY,offX2,offY2)
 	local y2 = offX2 * m[1][2] + offY2 * m[2][2] + offZ * m[3][2] + m[4][2]
 	local z2 = offX2 * m[1][3] + offY2 * m[2][3] + offZ * m[3][3] + m[4][3]
 	
-	offZ = 0.5
+	offZ = offZ2 or 0.5
 	local x3 = offX * m[1][1] + offY * m[2][1] + offZ * m[3][1] + m[4][1]  -- Apply transform
 	local y3 = offX * m[1][2] + offY * m[2][2] + offZ * m[3][2] + m[4][2]
 	local z3 = offX * m[1][3] + offY * m[2][3] + offZ * m[3][3] + m[4][3]

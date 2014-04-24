@@ -1,6 +1,5 @@
 <meta>
     <info author="vG MTA Scripting Team" type="script" description="Vehicle System"/>
-    <min_mta_version client="1.3.5"/>
 	
 	<script src="c_getVehicleType.lua" type="client"/>
 	
@@ -39,6 +38,4 @@
 	<script src="s_vehicle_variant.lua" type="server"/>
 	<export function="getRandomVariant" type="server"/>
 	<export function="isValidVariant" type="server"/>
-
-	<script src="c_speedo.lua" type="client"/>
 </meta>
