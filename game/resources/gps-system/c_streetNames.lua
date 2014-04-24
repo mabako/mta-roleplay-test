@@ -21,12 +21,12 @@ local names =
 	{ { -1442214, -917554 }, name = "Central Interchange" },
 	
 	{ { -1442287, 1442679, 1442690, -1966135 }, { 1442613, -1966135 }, { -1442287, 1441818 }, { -1966136, 1441809, 1441806, -1442288 }, { -1966136, 1442510 }, { 1441805, -1442288 }, name = "25 - Mulholland Intersection" },
-	{ { -1441818, 1442560, 1442509, 1376730 }, { -1442510, -1442509 }, name = "25/W Broadway - Mulholland Inter" },
-	{ { -1442510, -1442589, -1441804 }, { -1441818, -1442526 }, name = "25/E Broadway - Mulholland Inter" },
-	{ { -1441804, 1442602 }, { 1442604 }, name = "E Broadway - Mulholland Inter" },
-	{ { -1442602, -1442613 }, { -1442602, -1441805 }, name = "E Broadway/25 - Mulholland Inter" },
-	{ { -1376731, 1442464 }, name = "W Broadway - Mulholland Inter" },
-	{ { -1442464, -1442613 }, { -1442464, -1441805 }, name = "W Broadway/25 - Mulholland Inter" },
+	{ { -1441818, 1442560, 1442509, 1376730 }, { -1442510, -1442509 }, name = "Mulholland Intersection" },
+	{ { -1442510, -1442589, -1441804 }, { -1441818, -1442526 }, name = "Mulholland Intersection" },
+	{ { -1441804, 1442602 }, { 1442604 }, name = "Mulholland Intersection" },
+	{ { -1442602, -1442613 }, { -1442602, -1441805 }, name = "Mulholland Intersection" },
+	{ { -1376731, 1442464 }, name = "Mulholland Intersection" },
+	{ { -1442464, -1442613 }, { -1442464, -1441805 }, name = "Mulholland Intersection" },
 	{ { 1442350, 1442460 }, { 1442340, 1442341 }, name = "Mulholland Intersection" },
 
 	
