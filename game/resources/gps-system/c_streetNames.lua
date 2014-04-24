@@ -198,13 +198,15 @@ local cacheX, cacheY, cacheZ = 0, 0, 0
 
 addEventHandler("onClientRender", getRootElement(),
 	function()
-		local x, y, z = getElementPosition(getLocalPlayer())
-		if cacheX ~= x or cacheY ~= y or cacheZ ~= z then
-			local node = findNodeClosestToPoint(vehicleNodes, x, y, z)
-			setElementData(getLocalPlayer(), "speedo:street", node.streetname, false)
-			cacheX = x
-			cacheY = y
-			cacheZ = z
+		if getPedOccupiedVehicle(localPlayer) then
+			local x, y, z = getElementPosition(localPlayer)
+			if cacheX ~= x or cacheY ~= y or cacheZ ~= z then
+				local node = findNodeClosestToPoint(vehicleNodes, x, y, z)
+				setElementData(getLocalPlayer(), "speedo:street", node.streetname, false)
+				cacheX = x
+				cacheY = y
+				cacheZ = z
+			end
 		end
 	end
 )
