@@ -17,4 +17,5 @@
 
 /game/resources/logs/*/*.log
 
-*.sublime-workspace
+/*.sublime-workspace
+/game/resources/mysql/lazyqueries.log

@@ -1,14 +1,14 @@
--- connection settings
-local hostname = get( "hostname" ) or "localhost"
-local username = get( "username" ) or "root"
-local password = get( "password" ) or "rewt"
+local username = get( "username" ) or "mta"
+local password = get( "password" ) or ""
 local database = get( "database" ) or "mta"
+local hostname = get( "hostname" ) or "localhost"
 local port = tonumber( get( "port" ) ) or 3306
 
 -- global things.
 local MySQLConnection = nil
 local resultPool = { }
 local queryPool = { }
+local resources = { }
 local sqllog = false
 local countqueries = 0
 
@@ -25,7 +25,7 @@ function connectToDatabase(res)
 	
 	return nil
 end
-addEventHandler("onResourceStart", getResourceRootElement(getThisResource()), connectToDatabase, false)
+addEventHandler("onResourceStart", resourceRoot, connectToDatabase, false)
 	
 -- destroyDatabaseConnection - Internal function, kill the connection if theres one.
 function destroyDatabaseConnection()
@@ -41,7 +41,6 @@ addEventHandler("onResourceStop", getResourceRootElement(getThisResource()), des
 function logSQLError(str)
 	local message = str or 'N/A'
 	outputDebugString("MYSQL ERROR "..mysql_errno(MySQLConnection) .. ": " .. mysql_error(MySQLConnection))
-	exports['logs']:logMessage("MYSQL ERROR [QUERY] " .. message .. " [ERROR] " .. mysql_errno(MySQLConnection) .. ": " .. mysql_error(MySQLConnection), 24)
 end
 
 function getFreeResultPoolID()
@@ -81,11 +80,16 @@ function escape_string(str)
 	return false
 end
 
-function query(str)
-	if sqllog then
-		exports['logs']:logMessage(str, 24)
-	end
+function query(str, ...)
 	countqueries = countqueries + 1
+	
+	if ( ... ) then
+		local t = { ... }
+		for k, v in ipairs( t ) do
+			t[ k ] = escape_string( tostring( v ) ) or ""
+		end
+		str = str:format( unpack( t ) )
+	end
 	
 	if (ping()) then
 		local result = mysql_query(MySQLConnection, str)
@@ -97,15 +101,13 @@ function query(str)
 		local resultid = getFreeResultPoolID()
 		resultPool[resultid] = result
 		queryPool[resultid] = str
+		resources[resultid] = getResourceName( sourceResource )
 		return resultid
 	end
 	return false
 end
 
 function unbuffered_query(str)
-	if sqllog then
-		exports['logs']:logMessage(str, 24)
-	end
 	countqueries = countqueries + 1
 	
 	if (ping()) then
@@ -118,12 +120,21 @@ function unbuffered_query(str)
 		local resultid = getFreeResultPoolID()
 		resultPool[resultid] = result
 		queryPool[resultid] = str
+		resources[resultid] = getResourceName( sourceResource )
 		return resultid
 	end
 	return false
 end
 
-function query_free(str)
+function query_free(str, ...)
+	if ( ... ) then
+		local t = { ... }
+		for k, v in ipairs( t ) do
+			t[ k ] = escape_string( tostring( v ) ) or ""
+		end
+		str = str:format( unpack( t ) )
+	end
+
 	local queryresult = query(str)
 	if  not (queryresult == false) then
 		free_result(queryresult)
@@ -139,11 +150,29 @@ function rows_assoc(resultid)
 	return mysql_rows_assoc(resultPool[resultid])
 end
 
+function fetch_row(resultid)
+	if (not resultPool[resultid]) then
+		return false
+	end
+	return mysql_fetch_row(resultPool[resultid])
+end
+
+
 function fetch_assoc(resultid)
 	if (not resultPool[resultid]) then
 		return false
 	end
-	return mysql_fetch_assoc(resultPool[resultid])
+	local q = mysql_fetch_assoc(resultPool[resultid])
+	if q then 
+		for i, k in pairs( q ) do
+			if q[i] == mysql_null() then
+				q[i] = nil
+			else
+				q[ i ] = tonumber( q[ i ] ) or q[ i ]
+			end
+		end
+	end
+	return q
 end
 
 function free_result(resultid)
@@ -153,6 +182,7 @@ function free_result(resultid)
 	mysql_free_result(resultPool[resultid])
 	table.remove(resultPool, resultid)
 	table.remove(queryPool, resultid)
+	table.remove(resources, resultid)
 	return nil
 end
 
@@ -180,6 +210,16 @@ function query_fetch_assoc(str)
 	local queryresult = query(str)
 	if  not (queryresult == false) then
 		local result = fetch_assoc(queryresult)
+		free_result(queryresult)
+		return result
+	end
+	return false
+end
+
+function query_fetch_row(str)
+	local queryresult = query(str)
+	if  not (queryresult == false) then
+		local result = fetch_row(queryresult)
 		free_result(queryresult)
 		return result
 	end
@@ -231,3 +271,106 @@ function getOpenQueryStr( resultid )
 	
 	return queryPool[resultid]
 end
+
+--Custom functions
+local function alt_escape_string( string, key )
+	if string == 'NOW()' and (key == 'created_at') then
+		return string
+	else
+		return escape_string( string )
+	end
+end
+
+local function createWhereClause( array, required )
+	if not array then
+		-- will cause an error if it's required and we wanna concat it.
+		return not required and '' or nil
+	end
+	local strings = { }
+	for i, k in pairs( array ) do
+		table.insert( strings, "`" .. i .. "` = '" .. ( tonumber( k ) or alt_escape_string( k, i ) ) .. "'" )
+	end
+	return ' WHERE ' .. table.concat(strings, ' AND ')
+end
+
+function select( tableName, clause )
+	local array = {}
+	local result = query( "SELECT * FROM " .. tableName .. createWhereClause( clause ) )
+	if result then
+		while true do
+			local a = fetch_assoc( result )
+			if not a then break end
+			table.insert(array, a)
+		end
+		free_result( result )
+		return array
+	end
+	return false
+end
+
+function select_one( tableName, clause )
+	local a
+	local result = query( "SELECT * FROM " .. tableName .. createWhereClause( clause ) .. ' LIMIT 1' )
+	if result then
+		a = fetch_assoc( result )
+		free_result( result )
+		return a
+	end
+	return false
+end
+
+function insert( tableName, array )
+	local keyNames = { }
+	local values = { }
+	for i, k in pairs( array ) do
+		table.insert( keyNames, i )
+		table.insert( values, tonumber( k ) or alt_escape_string( k, i ) )
+	end
+	
+	local q = "INSERT INTO `"..tableName.."` (`" .. table.concat( keyNames, "`, `" ) .. "`) VALUES ('" .. table.concat( values, "', '" ) .. "')"
+	
+	return query_insert_free( q )
+end
+
+function update( tableName, array, clause )
+	local strings = { }
+	for i, k in pairs( array ) do
+		table.insert( strings, "`" .. i .. "` = " .. ( k == mysql_null() and "NULL" or ( "'" .. ( tonumber( k ) or alt_escape_string( k, i ) ) .. "'" ) ) )
+	end
+	local q = "UPDATE `" .. tableName .. "` SET " .. table.concat( strings, ", " ) .. createWhereClause( clause, true )
+	
+	return query_free( q )
+end
+
+function delete( tableName, clause )
+	return query_free( "DELETE FROM " .. tableName .. createWhereClause( clause, true ) )
+end
+
+-- Let's just pretend we have leaking connections... which we do, in all likeliness.
+-- Hooray!
+
+addCommandHandler( 'leaky',
+	function( )
+		local count = 0
+		local res = {}
+		local pretty = {}
+		for k, v in pairs( resources ) do
+			if not res[v] then
+				res[v] = {}
+			end
+			table.insert(res[v], queryPool[k])
+			count = count + 1
+		end
+
+		if count == 0 then
+			outputDebugString('Not leaking anything.')
+			return
+		end
+
+		outputDebugString('Only leaking a mere ' .. count .. ' result handles.')
+
+		for k, v in pairs( res ) do
+			outputDebugString(k .. ': ' .. #v .. "\n\t" .. table.concat(v, "\n\t"))
+		end
+	end
+)

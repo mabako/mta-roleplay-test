@@ -19,17 +19,8 @@ end
 addEventHandler( "onClientResourceStart", getResourceRootElement( ), onResourceStart )
 
 --[[ XML STORAGE ]]--
-local oldXmlFileName = "settings.xml"
-local migratedSettingsFile = "@migratedsettings.empty"
 local xmlFileName = "@settings.xml"
 function loadSavedData(parameter, default)
-	-- migrate existing settings
-	if not fileExists(migratedSettingsFile) then
-		if not fileExists(xmlFileName) and fileExists(oldXmlFileName) then
-			fileRename(oldXmlFileName, xmlFileName)
-		end
-		fileClose(fileCreate(migratedSettingsFile))
-	end
 	local xmlRoot = xmlLoadFile( xmlFileName )
 	if (xmlRoot) then
 		local xmlNode = xmlFindChild(xmlRoot, parameter, 0)
@@ -43,7 +34,7 @@ end
 function appendSavedData(parameter, value)
 	local xmlFile = xmlLoadFile ( xmlFileName )
 	if not (xmlFile) then
-		xmlFile = xmlCreateFile( xmlFileName, "login" )
+		xmlFile = xmlCreateFile( xmlFileName, "settings" )
 	end
 	
 	local xmlNode = xmlFindChild (xmlFile, parameter, 0)

@@ -21,7 +21,7 @@ function LoginScreen_openLoginScreen()
 	lUsername = guiCreateLabel(width /6, height /4, 100, 50, "Username:", false, wLogin)
 	guiSetFont(lUsername, "default-bold-small")
 	
-	tUsername = guiCreateEdit(width /4, height /4, 100, 17, "Username", false, wLogin)
+	tUsername = guiCreateEdit(width /4, height /4, 100, 17, "", false, wLogin)
 	guiSetFont(tUsername, "default-bold-small")
 	guiEditSetMaxLength(tUsername, 32)
 	addEventHandler("onClientGUIAccepted", tUsername, LoginScreen_validateLogin, false)
@@ -29,10 +29,10 @@ function LoginScreen_openLoginScreen()
 	lPassword = guiCreateLabel(width /6, height /3.5, 100, 50, "Password:", false, wLogin)
 	guiSetFont(lPassword, "default-bold-small")
 	
-	tPassword = guiCreateEdit(width /4, height /3.5, 100, 17, "Password", false, wLogin)
+	tPassword = guiCreateEdit(width /4, height /3.5, 100, 17, "", false, wLogin)
 	guiSetFont(tPassword, "default-bold-small")
 	guiEditSetMasked(tPassword, true)
-	guiEditSetMaxLength(tPassword, 64)
+	guiSetProperty(tPassword, 'MaskCodepoint', '8226')
 	addEventHandler("onClientGUIAccepted", tPassword, LoginScreen_validateLogin, false)
 	
 	chkRememberLogin = guiCreateCheckBox(width /5, height /3.2, 175, 17, "Remember My Details", false, false, wLogin)
@@ -45,16 +45,18 @@ function LoginScreen_openLoginScreen()
 	bRegister = guiCreateButton(width /4, height /2.9, 75, 17, "Register", false, wLogin)
 	guiSetFont(bRegister, "default-bold-small")
 	addEventHandler("onClientGUIClick", bRegister, LoginScreen_startRegister, false)
-	
-	guiSetText(tUsername, tostring( loadSavedData("username", "") ))
-	local tHash = tostring( loadSavedData("hashcode", "") )
-	guiSetText(tPassword,  tHash)
-	if #tHash > 1 then
-		guiCheckBoxSetSelected(chkRememberLogin, true)
-	end
+
 	addEventHandler( "onClientRender", getRootElement(), LoginScreen_RunFX )
 	updateTimer = setTimer(LoginScreen_RefreshIMG, 7500, 0)
 	triggerEvent("accounts:options:settings:updated", getLocalPlayer())
+
+	-- do fancy hash login thing
+	local hash = loadSavedData('hash', '')
+	if hash and #hash > 0 then
+		guiCheckBoxSetSelected(chkRememberLogin, true)
+
+		triggerServerEvent('accounts:login:with-hash', resourceRoot, hash)
+	end
 end
 
 local screenX, screenY = guiGetScreenSize()
@@ -138,20 +140,12 @@ function LoginScreen_validateLogin()
 	local password = guiGetText(tPassword)
 	
 	guiSetText(tPassword, "")
-	appendSavedData("hashcode", "")
 	
 	if (string.len(username)<3) then
 		outputChatBox("Your username is too short. You must enter 3 or more characters.", 255, 0, 0)
 	else
 		local saveInfo = guiCheckBoxGetSelected(chkRememberLogin)
-		triggerServerEvent("accounts:login:attempt", getLocalPlayer(), username, password, saveInfo) 
-					
-		if (saveInfo) then
-			appendSavedData("username", tostring(username))
-		else
-			appendSavedData("username", "")
-		end
-		
+		triggerServerEvent("accounts:login", resourceRoot, username, password, saveInfo) 
 	end
 end
 
@@ -173,10 +167,10 @@ function LoginScreen_showWarningMessage( message )
 	guiBringToFront( warningBox )
 end
 
-addEventHandler("accounts:login:attempt", getRootElement(), 
-	function (statusCode, additionalData)
-		
-		if (statusCode == 0) then
+addEvent('accounts:login:result', true)
+addEventHandler('accounts:login:result', resourceRoot,
+	function (success, additionalData)
+		if success then
 			LoginScreen_closeLoginScreen()
 			
 			if (isElement(warningBox)) then
@@ -184,26 +178,19 @@ addEventHandler("accounts:login:attempt", getRootElement(),
 			end
 			
 			-- Succesful login
-			for _, theValue in ipairs(additionalData) do
-				setElementData(getLocalPlayer(), theValue[1], theValue[2], false)
-			end
+			appendSavedData('hash', additionalData.hash or '')
+
+			local characters = additionalData.characters
+			setElementData(localPlayer, 'account:characters', characters, false)
 			
-			local newAccountHash = getElementData(getLocalPlayer(), "account:newAccountHash")
-			appendSavedData("hashcode", newAccountHash or "")
-			
-			local characterList = getElementData(getLocalPlayer(), "account:characters")
-			
-			if #characterList == 0 then
+			if #characters == 0 then
 				newCharacter_init()
 			else
 				Characters_showSelection()
 			end
-			
-		elseif (statusCode > 0) and (statusCode < 5) then
-			LoginScreen_showWarningMessage( additionalData )
-		elseif (statusCode == 5) then
-			LoginScreen_showWarningMessage( additionalData )
-			-- TODO: show make app screen?
+		else
+			LoginScreen_showWarningMessage( tostring( additionalData ) )
+			appendSavedData('hash', '')
 		end
-	end
+	end, false
 )

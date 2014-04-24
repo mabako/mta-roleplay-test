@@ -1,5 +1,4 @@
 local mysql = exports.mysql
-local salt = "vgrpkeyscotland"
 
 addEventHandler("accounts:login:request", getRootElement(), 
 	function ()
@@ -16,150 +15,128 @@ addEventHandler("accounts:login:request", getRootElement(),
 	end
 );
 
-addEventHandler("accounts:login:attempt", getRootElement(), 
-	function (username, password, wantsLoginHash)
-		local accountCheckQueryStr, accountData,newAccountHash,safeusername,safepassword = nil
-		local cpypassword = password
-		if (string.len(cpypassword) ~= 64) then
-			password = md5(salt .. password)
-			safeusername = mysql:escape_string(username)
-			safepassword = mysql:escape_string(password)
-			accountCheckQueryStr = "SELECT `id`,`username`,`banned`,`appstate`,`admin`,`adminduty`,`adminreports`,`hiddenadmin`,`adminjail`,`adminjail_time`,`adminjail_by`,`adminjail_reason`, `monitored` FROM `accounts` WHERE `username`='" .. safeusername .. "' AND `password`='" .. safepassword .. "'"
-		else
-			safeusername = mysql:escape_string(username)
-			safepassword = mysql:escape_string(password)
-			accountCheckQueryStr = "SELECT `id`,`username`,`banned`,`appstate`,`admin`,`adminduty`,`adminreports`,`hiddenadmin`,`adminjail`,`adminjail_time`,`adminjail_by`,`adminjail_reason`, `monitored` FROM `accounts` WHERE `username`='" .. safeusername .. "' AND `loginhash`='" .. safepassword .. "'"
-		end	
-		
-		local accountCheckQuery = mysql:query(accountCheckQueryStr)
-		if (mysql:num_rows(accountCheckQuery) > 0) then
-			accountData = mysql:fetch_assoc(accountCheckQuery)
-			mysql:free_result(accountCheckQuery)
-			
-			
-			-- Create a new safety hash, also used for autologin
-			local newAccountHash = Login_calculateAutoLoginHash(safeusername)
-			setElementDataEx(client, "account:seamlesshash", newAccountHash, false, true)
-			if not (wantsLoginHash) then
-				newAccountHash = ""
-			end
-			
-			-- Check the account isn't already logged in
-			local found = false
-			for _, thePlayer in ipairs(exports.pool:getPoolElementsByType("player")) do
-				local playerAccountID = tonumber(getElementData(thePlayer, "account:id"))
-				if (playerAccountID) then
-					if (playerAccountID == tonumber(accountData["id"])) and (thePlayer ~= client) then
-						triggerClientEvent(client, "accounts:login:attempt", client, 1, "Account is already logged in." ) 
-						return false
-					end
-				end
-			end
-			
-			-- Check if the account ain't banned
-			if (tonumber(accountData["banned"]) == 1) then
-				triggerClientEvent(client, "accounts:login:attempt", client, 2, "Account is disabled." ) 
-				return
-			end
-			
-			-- Check the application state
-			
-			if (tonumber(accountData["appstate"]) == 0) then
-				triggerClientEvent(client, "accounts:login:attempt", client, 5, "You need to send in an application to play on this server." ) 
-				return
-			elseif (tonumber(accountData["appstate"]) == 1) then
-				triggerClientEvent(client, "accounts:login:attempt", client, 4, "Your application is still pending." ) 
-				return
-			elseif (tonumber(accountData["appstate"]) == 2) then
-				triggerClientEvent(client, "accounts:login:attempt", client, 3, "Your application has been denied, you can remake one at http://mta.vg." ) 
-				return
-			end
-			local forceAppCheckQuery = mysql:query("SELECT `username`,`appstate` FROM `accounts` WHERE `ip`='" .. mysql:escape_string(getPlayerIP(client)) .. "' OR `mtaserial`='" .. mysql:escape_string(getPlayerSerial(client)) .. "'")
-			if forceAppCheckQuery then
-				while true do
-					local forceAppRow = mysql:fetch_assoc(forceAppQuery)
-					if not forceAppRow then break end
-					if (tonumber(forceAppRow["appstate"]) == 1) then
-						triggerClientEvent(client, "accounts:login:attempt", client, 4, "Your application is still pending on account "..forceAppRow["username"].."." ) 
-						mysql:free_result(forceAppCheckQuery)
-						return
-					elseif (tonumber(forceAppRow["appstate"]) == 2) then
-						triggerClientEvent(client, "accounts:login:attempt", client, 3, "Your application has been denied on account "..forceAppRow["username"]..", you can remake one at http://mta.vg." ) 
-						mysql:free_result(forceAppCheckQuery)
-						return
-					end
-					
-				end
-			end
-			mysql:free_result(forceAppCheckQuery)
-			-- Start the magic
-			setElementDataEx(client, "account:loggedin", true, true)
-			setElementDataEx(client, "account:id", tonumber(accountData["id"]), true) 
-			setElementDataEx(client, "account:username", accountData["username"], false)
-			
-			setElementDataEx(client, "adminreports", accountData["adminreports"], false)
-			setElementDataEx(client, "hiddenadmin", accountData["hiddenadmin"], false)
-			
-			if (tonumber(accountData["admin"]) >= 0) then
-				setElementDataEx(client, "adminlevel", tonumber(accountData["admin"]), false)
-				setElementDataEx(client, "account:gmlevel", 0, false)
-				setElementDataEx(client, "adminduty", accountData["adminduty"], false)
-				setElementDataEx(client, "account:gmduty", false, true)
-			else
-				setElementDataEx(client, "adminlevel", 0, false)
-				local GMlevel = -tonumber(accountData["admin"])
-				setElementDataEx(client, "account:gmlevel", GMlevel, false)
-				if (tonumber(accountData["adminduty"]) == 1) then
-					setElementDataEx(client, "account:gmduty", true, true)
-				else
-					setElementDataEx(client, "account:gmduty", false, true)
-				end
-			end
-			
-			if  tonumber(accountData["adminjail"]) == 1 then
-				setElementDataEx(client, "adminjailed", true, false)
-			else
-				setElementDataEx(client, "adminjailed", false, false)
-			end
-			setElementDataEx(client, "jailtime", tonumber(accountData["adminjail_time"]), false)
-			setElementDataEx(client, "jailadmin", accountData["adminjail_by"], false)
-			setElementDataEx(client, "jailreason", accountData["adminjail_reason"], false)
-			
-			if accountData["monitored"] ~= "" then
-				setElementDataEx(client, "admin:monitor", accountData["monitored"], false)
-			end
-
-			local dataTable = { }
-			
-			table.insert(dataTable, { "account:newAccountHash", newAccountHash } )
-			table.insert(dataTable, { "account:characters", characterList( client ) } )
-			triggerClientEvent(client, "accounts:login:attempt", client, 0, dataTable  ) 
-			local loginmethodstr = "manually"
-			if (string.len(cpypassword) == 64) then
-				loginmethodstr = "Autologin - "..cpypassword 
-			end
-			
-			exports.logs:dbLog("ac"..tostring(accountData["id"]), 27, "ac"..tostring(accountData["id"]), "Connected from "..getPlayerIP(client) .. " - "..getPlayerSerial(client) .. " (".. loginmethodstr ..")" )
-			mysql:query_free("UPDATE `accounts` SET `ip`='" .. mysql:escape_string(getPlayerIP(client)) .. "', `mtaserial`='" .. mysql:escape_string(getPlayerSerial(client)) .. "' WHERE `id`='".. mysql:escape_string(tostring(accountData["id"])) .."'")	
-			triggerEvent( "social:account", client, tonumber( accountData.id ) )
-		else
-			mysql:free_result(accountCheckQuery)
-			triggerClientEvent(client, "accounts:login:attempt", client, 1, "No combination found of the \nentered username/password." ) 
-		end
-	end
-);
-
-function Login_calculateAutoLoginHash(username)
+local function generateNewHash()
 	local finalhash = ""
 	local chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
 	for i = 1, 64 do
 		local rand = math.random(#chars)
 		finalhash = finalhash .. chars:sub(rand, rand)
 	end
-	mysql:query_free("UPDATE `accounts` SET `loginhash`='".. finalhash .."' WHERE `username`='".. mysql:escape_string(username) .."'")
 	return finalhash
 end
 
+local function tryLogin(client, username, password, autologinHash, generateHashForAutoLogin)
+	-- verify the login data sent, at least
+	local account = exports.mysql:select_one('accounts', { username = username })
+	if account then
+		-- verify either the password or the login hash
+		if password then
+			if not bcrypt_verify(password, account.encrypted_password) then
+				return false, 'Could not log you in. Please verify your username and password.'
+			end
+		else
+			if account.mtaserial ~= getPlayerSerial( client ) then
+				return false, 'This token is not valid on your current computer. Please log in again.'
+			elseif account.loginhash == '' or #autologinHash ~= 64 then
+				return false, 'Invalid saved token. Please log in again.'
+			elseif account.loginhash ~= autologinHash then
+				return false, 'Your saved token expired. Please log in again.'
+			end
+		end
+
+		-- banned? bad.
+		if account.banned == 1 then
+			-- TODO notify admins of this?
+			return false, "Account is banned."
+		end
+
+		-- noone cares about application
+
+		-- can't login if another player is already logged in.
+		for _, player in ipairs(getElementsByType('player')) do
+			if getElementData(player, 'account:id') == account.id then
+				return false, 'Another player is already logged in as ' .. account.username .. '.'
+			end
+		end
+
+		-- set all respective account data
+		local hash = generateNewHash()
+		setElementDataEx(client, "account:seamlesshash", hash, false, true)
+
+		setElementDataEx(client, 'account:loggedin', true, true)
+		setElementDataEx(client, 'account:id', account.id, true)
+		setElementDataEx(client, 'account:username', account.username, false)
+
+		-- all things admin-y and gm-y, though simplified for not having GMs atm.
+		setElementDataEx(client, 'adminreports', account.adminreports, false)
+		setElementDataEx(client, 'hiddenadmin', account.hiddenadmin, false)
+		setElementDataEx(client, 'adminlevel', account.admin, false)
+		setElementDataEx(client, 'account:gmlevel', 0, false)
+		setElementDataEx(client, 'adminduty', account.adminduty, false)
+		setElementDataEx(client, 'account:gmduty', false, false)
+
+		-- admin jail. oh what a nice place to be.
+		-- todo make this a table really
+		-- todo have this while not on a character
+		local jailed = account.adminjail == 1
+		setElementDataEx(client, 'adminjailed', jailed, false)
+		if jailed then
+			setElementDataEx(client, 'jailtime', account.adminjail_time, false)
+			setElementDataEx(client, 'jailadmin', account.adminjail_by, false)
+			setElementDataEx(client, 'jailreason', account.adminjail_reason, false)
+		end
+
+		if account.monitored and account.monitored ~= '' then
+			setElementDataEx(client, 'admin:monitor', account.monitored, false)
+		end
+
+		-- options to be sent to the client
+		local options = { characters = characterList( client ) }
+		if autologinHash or generateHashForAutoLogin then
+			options.hash = exports.global:customBase64Encode(toJSON({ username = account.username, hash = hash } ))
+		else
+			hash = ''
+		end
+		exports.mysql:update('accounts', { loginhash = hash, mtaserial = getPlayerSerial( client ) }, { id = account.id })
+
+		-- todo logging
+		return true, options
+	else
+		return false, 'Could not log you in. Please verify your username and password.'
+	end
+
+
+--[[
+		exports.logs:dbLog("ac"..tostring(accountData["id"]), 27, "ac"..tostring(accountData["id"]), "Connected from "..getPlayerIP(client) .. " - "..getPlayerSerial(client) .. " (".. loginmethodstr ..")" )
+		mysql:query_free("UPDATE `accounts` SET `ip`='" .. mysql:escape_string(getPlayerIP(client)) .. "', `mtaserial`='" .. mysql:escape_string(getPlayerSerial(client)) .. "' WHERE `id`='".. mysql:escape_string(tostring(accountData["id"])) .."'")	
+		triggerEvent( "social:account", client, tonumber( accountData.id ) )
+]]
+end
+
+addEvent('accounts:login', true)
+addEventHandler('accounts:login', resourceRoot, 
+	function(username, password, generateHashForAutoLogin)
+		local result = { tryLogin(client, tostring(username), tostring(password), nil, generateHashForAutoLogin) }
+		triggerClientEvent(client, 'accounts:login:result', resourceRoot, unpack( result ) )
+	end, false
+)
+
+addEvent('accounts:login:with-hash', true)
+addEventHandler('accounts:login:with-hash', resourceRoot,
+	function(hash)
+		local t = exports.global:customBase64Decode(hash)
+		if t then
+			t = fromJSON(t)
+			if type(t) == 'table' and t.username and t.hash then
+				local result = { tryLogin(client, tostring(t.username), nil, tostring(t.hash), true) }
+				triggerClientEvent(client, 'accounts:login:result', resourceRoot, unpack( result ) )
+			end
+		end
+	end, false
+)
+
+--[[
+-- TODO logging
 function quitPlayer(quitReason, reason)
 	local accountID = tonumber(getElementData(source, "account:id"))
 	if accountID then
@@ -172,3 +149,4 @@ function quitPlayer(quitReason, reason)
 	end
 end
 addEventHandler("onPlayerQuit",getRootElement(), quitPlayer)
+]]

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140424013034) do
+ActiveRecord::Schema.define(version: 20140424031029) do
 
   create_table "accounts", force: true do |t|
     t.text     "username"
@@ -156,7 +156,6 @@ ActiveRecord::Schema.define(version: 20140424013034) do
     t.integer  "lang3skill",         limit: 1, default: 0
     t.boolean  "currlang",                     default: true
     t.datetime "lastlogin"
-    t.datetime "creationdate",                                    null: false
     t.integer  "election_candidate", limit: 1, default: 0,        null: false
     t.integer  "election_canvote",   limit: 1, default: 0,        null: false
     t.integer  "election_votedfor",            default: 0,        null: false
@@ -167,6 +166,8 @@ ActiveRecord::Schema.define(version: 20140424013034) do
     t.text     "ck_info"
     t.float    "alcohollevel",                 default: 0.0,      null: false
     t.boolean  "active",                       default: true,     null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "computers", force: true do |t|

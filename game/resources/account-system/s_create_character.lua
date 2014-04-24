@@ -62,7 +62,7 @@ function newCharacter_create(characterName, characterDescription, race, gender, 
 	local accountUsername = getElementData(client, "account:username")
 	local fingerprint = md5(characterName .. characterDescription .. accountID .. race .. gender .. age)
 	
-	local id = mysql:query_insert_free("INSERT INTO characters SET charactername='" .. characterName .. "', lastarea='Unity Bus Station', gender='" .. mysql:escape_string(gender) .. "', skincolor='" .. mysql:escape_string(race) .. "', weight='" .. mysql:escape_string(weight) .. "', height='" .. mysql:escape_string(height) .. "', description='" .. mysql:escape_string(characterDescription) .. "', account='" .. mysql:escape_string(accountID) .. "', skin='" .. mysql:escape_string(skin) .. "', age='" .. mysql:escape_string(age) .. "', fingerprint='" .. mysql:escape_string(fingerprint) .. "', lang1=" .. mysql:escape_string(languageselected) .. ", lang1skill=100, currLang=1" )
+	local id = mysql:query_insert_free("INSERT INTO characters SET charactername='" .. characterName .. "', lastarea='Unity Bus Station', gender='" .. mysql:escape_string(gender) .. "', skincolor='" .. mysql:escape_string(race) .. "', weight='" .. mysql:escape_string(weight) .. "', height='" .. mysql:escape_string(height) .. "', description='" .. mysql:escape_string(characterDescription) .. "', account='" .. mysql:escape_string(accountID) .. "', skin='" .. mysql:escape_string(skin) .. "', age='" .. mysql:escape_string(age) .. "', fingerprint='" .. mysql:escape_string(fingerprint) .. "', lang1=" .. mysql:escape_string(languageselected) .. ", lang1skill=100, currLang=1, created_at=NOW()" )
 		
 	if (id) then -- 
 		exports.logs:dbLog("ac"..tostring(accountID), 27, { "ac"..tostring(accountID), "ch" .. id } , "Created" )

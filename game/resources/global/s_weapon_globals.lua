@@ -1,5 +1,5 @@
 -- character table string
-local b='cfFvbCKeg2zN0mOEhnou5X7lDLS31jdJQipHWaUIyGTs4PkrVZt8BMwqYR6x9A'
+local b='CKeg2zNipHWa0mOEhnou5X7lDLS31jdJQcfFvbUIyGTs4PkrVZt8BMwqYR6x9A'
 --local b = 'AM1KR0B2PEDGUX736ZTQJHILFSYVN5C48OW9'
 -- encoding
 function weaponenc(data)
@@ -96,4 +96,12 @@ end
 function weaponSecurityNumberReset()
 	securityNumber = 5
 	resetTimer = nil
+end
+
+function customBase64Encode(data)
+	return weaponenc(data)
+end
+
+function customBase64Decode(data)
+	return weapondec(data)
 end

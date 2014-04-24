@@ -101,7 +101,7 @@ addCommandHandler( "findip", findAltAccIP )
 
 -- START FINDALTS --
 local function showAlts(thePlayer, id, creation)
-	result = mysql:query("SELECT `charactername`, `cked`, `faction_id`, `lastlogin`, `creationdate`, `hoursplayed` FROM `characters` WHERE `account` = '" .. mysql:escape_string(id) .. "' ORDER BY `charactername` ASC" )
+	result = mysql:query("SELECT `charactername`, `cked`, `faction_id`, `lastlogin`, `created_at`, `hoursplayed` FROM `characters` WHERE `account` = '" .. mysql:escape_string(id) .. "' ORDER BY `charactername` ASC" )
 	if result then
 		local name = mysql:query_fetch_assoc("SELECT `username`, `banned`, `appstate` FROM `accounts` WHERE `id` = '" .. mysql:escape_string(id) .. "'" )
 		if name then
@@ -149,8 +149,8 @@ local function showAlts(thePlayer, id, creation)
 				text = text .. " - " .. tostring( row['lastlogin'] )
 			end
 			
-			if creation and row['creationdate'] ~= mysql_null() then
-				text = text .. " - Created " .. tostring( row['creationdate'] )
+			if creation and row['created_at'] ~= mysql_null() then
+				text = text .. " - Created " .. tostring( row['created_at'] )
 			end
 			
 			local faction = tonumber( row["faction_id"] ) or 0

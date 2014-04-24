@@ -1,6 +1,5 @@
 -- Global Events
 addEvent("accounts:login:request", true)
-addEvent("accounts:login:attempt", true)
 addEvent("accounts:characters:list", true)
 addEvent("accounts:characters:spawn", true)
 addEvent("accounts:characters:change", true)
@@ -20,10 +19,6 @@ addEvent("onSapphireXMBShow", true)
 -- Shared variables
 scriptVersion = "4.0.24"
 newsURL = "http://mta.vg/server/news.php"
-
--- Password hashes
-passwordPrivateHash = "dsasdf98328dn80qmd09ValhallaGhMTAVGgfhneofinasd0892"
-passwordPublicHash = "sadf9weriuc90k3r90asdu3j90rudjwe90rjxwpefvssdoFmdsf"
 
 -- Global functions
 function checkValidCharacterName(theText)
