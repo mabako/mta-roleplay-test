@@ -167,6 +167,9 @@ local names =
 }
 
 for k, node in ipairs( names ) do
+	if dxGetTextWidth( node.name, 2 ) > 220 then
+		outputDebugString('GPS: ' .. node.name .. ' is too long')
+	end
 	for _, route in ipairs( node ) do
 		if #route == 1 then
 			local value = getNodeByID( vehicleNodes, route[1] )
