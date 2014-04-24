@@ -38,4 +38,6 @@
 	<script src="s_vehicle_variant.lua" type="server"/>
 	<export function="getRandomVariant" type="server"/>
 	<export function="isValidVariant" type="server"/>
+
+	<script src="c_speedo.lua" type="client"/>
 </meta>
