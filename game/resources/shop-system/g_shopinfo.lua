@@ -193,7 +193,6 @@ g_shops = {
 		
 		{
 			name = "Books",
-			{ name = "City Guide", description = "A small city guide booklet.", price = 15, itemID = 18 },
 			{ name = "Los Santos Highway Code", description = "A paperback book.", price = 10, itemID = 50 },
 			{ name = "Chemistry 101", description = "A hardback academic book.", price = 20, itemID = 51 },
 		}

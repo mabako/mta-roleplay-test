@@ -70,7 +70,6 @@ function newCharacter_create(characterName, characterDescription, race, gender, 
 		exports['anticheat-system']:changeProtectedElementDataEx(client, "dbid", id, false)
 		exports.global:giveItem( client, 16, skin )
 		exports.global:giveItem( client, 17, 1 )
-		exports.global:giveItem( client, 18, 1 )
 		exports['anticheat-system']:changeProtectedElementDataEx(client, "dbid")
 
 		-- CELL PHONE
