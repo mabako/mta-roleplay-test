@@ -626,12 +626,10 @@ function showItemList()
 		local colDesc = guiGridListAddColumn(gridItems, "Description", 0.6)
 		
 		for key, value in pairs(g_items) do
-			if key ~= 74 and key ~= 75 then
-				local row = guiGridListAddRow(gridItems)
-				guiGridListSetItemText(gridItems, row, colID, tostring(key), false, true)
-				guiGridListSetItemText(gridItems, row, colName, value[1], false, false)
-				guiGridListSetItemText(gridItems, row, colDesc, value[2], false, false)
-			end
+			local row = guiGridListAddRow(gridItems)
+			guiGridListSetItemText(gridItems, row, colID, tostring(key), false, true)
+			guiGridListSetItemText(gridItems, row, colName, value[1], false, false)
+			guiGridListSetItemText(gridItems, row, colDesc, value[2], false, false)
 		end
 
 		bItemListClose = guiCreateButton(0.025, 0.9, 0.95, 0.1, "Close", true, wItemsList)
