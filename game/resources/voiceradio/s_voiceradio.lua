@@ -1,5 +1,7 @@
 ---Voice radio by Anumaz
 ---Using MTA's voice resource
+
+
 function setRadioFrequency(thePlayer, commandName, theFrequency)
 	local logged = getElementData(thePlayer, "loggedin")
 	
@@ -20,3 +22,25 @@ function setRadioFrequency(thePlayer, commandName, theFrequency)
 end
 addCommandHandler("changefreq", setRadioFrequency)
 
+
+addEventHandler( 'onPlayerVoiceStart', root,
+    function()
+		for i, nearbyPlayer in ipairs(getElementsByType ( "player" )) do
+			local x, y, z = getElementPosition(source)
+			local x2, y2, z2 = getElementPosition(nearbyPlayer)
+			local distance = getDistanceBetweenPoints3D(x, y, z, x2, y2, z2)
+			if distance <= 50 then
+				if not isPedInVehicle(source) or getElementData(getPedOccupiedVehicle(source), "vehicle:windowstat") == 1 then
+					setPlayerVoiceBroadcastTo( source, nearbyPlayer )
+				end
+			end
+		end		
+    end
+)
+addEventHandler( 'onPlayerVoiceStop', root,
+	function()
+		for index, nearbyPlayer in ipairs( nearbyPlayers ) do
+			setPlayerVoiceIgnoreFrom( source, nearbyPlayer )
+        end	
+	end
+)
