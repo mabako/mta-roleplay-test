@@ -335,9 +335,9 @@ drawBackground = function ()
 	-- Draw the body background
 	if g_currentHeight > SCOREBOARD_HEADER_HEIGHT then
 		-- Draw the background image
-		dxDrawImage ( SCOREBOARD_X + 50, SCOREBOARD_Y + 100,
+		--[[ dxDrawImage ( SCOREBOARD_X + 50, SCOREBOARD_Y + 100,
 					  SCOREBOARD_WIDTH - 100, SCOREBOARD_HEIGHT - 150,
-					  "icon.png", 0, 0, 0, SCOREBOARD_BACKGROUND_IMAGE, SCOREBOARD_POSTGUI )
+					  "icon.png", 0, 0, 0, SCOREBOARD_BACKGROUND_IMAGE, SCOREBOARD_POSTGUI ) ]]--
 		-- Overlay
 		dxDrawRectangle ( SCOREBOARD_X, SCOREBOARD_Y + SCOREBOARD_HEADER_HEIGHT,
 						  g_currentWidth, g_currentHeight - SCOREBOARD_HEADER_HEIGHT,
