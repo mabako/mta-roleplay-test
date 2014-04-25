@@ -19,3 +19,8 @@
 
 /*.sublime-workspace
 /game/resources/mysql/lazyqueries.log
+/game/*.dll
+/game/*.db
+/game/databases/
+/game/resource-cache/
+/game/server-id.keys
