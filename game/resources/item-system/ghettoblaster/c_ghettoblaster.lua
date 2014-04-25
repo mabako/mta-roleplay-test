@@ -61,7 +61,7 @@ end
 addEventHandler("onClientVehicleExit", getRootElement(), boostSound)
 
 function toggleSound(dataname)
-	if isElementStreamedIn(source) and getElementModel(source) == 2226 and dataname == "itemValue" then
+	if getElementModel(source) == 2226 and dataname == "itemValue" and isElementStreamedIn(source) then
 		local state = getElementData(source, "itemValue") or 1
 		if state > 0 then
 			stopGB()
