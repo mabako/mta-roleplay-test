@@ -43,6 +43,7 @@ g_shops = {
 			{ name = "Lighters", description = "To light up your addiction, a geuine Zippo!", price = 45, itemID = 107 },
 			{ name = "Knife", description = "To help ya out in the kitchen.", price = 15, itemID = 115, itemValue = 4 },
 			{ name = "Card Deck", description = "Want to play a game?", price = 10, itemID = 77 },
+			{ name = "Briefcase", description = "A brown leather briefcase that you can carry.", price = 100, itemID = 122 },
 		},
 		{
 			name = "Consumable",

@@ -116,6 +116,7 @@ g_items = {
 	[118] = { "Toll Pass", "Put it in your car, charges you every time you drive through a toll booth.", 6, 2886, 270, 0, 0, 0.1, weight = 0.3 },
 	[120] = { "Scuba Gear", "Allows you to stay under-water for quite some time", 6, 1271, 0, 0, 0, 0.285, weight = 4 },
 	[121] = { "Box with supplies", "Pretty large box full with supplies!", 4, 1271, 0, 0, 0, 0.285, weight = function(v) return v * 0.07 end },
+	[122] = { "Briefcase", "A brown briefcase", 4, 1210, 0, 0, 0, 0.285, weight = 0.2 },
 }
 
 	-- name, description, category, model, rx, ry, rz, zoffset
