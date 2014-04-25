@@ -22,6 +22,7 @@
         <acl name="RPC"></acl>
         <object name="resource.admin"></object>
         <object name="resource.webadmin"></object>
+		<object name="user.dev"/>
     </group>
     <group name="Console">
         <acl name="Moderator"></acl>
