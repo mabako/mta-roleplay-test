@@ -56,7 +56,6 @@ g_items = {
 	[56] = { "Ski Mask", "A Ski mask.", 6, 2386, 0, 0, 0, 0.1, weight = 0.2 },
 	[57] = { "Fuel Can", "A small metal fuel canister.", 4, 1650, 0, 0, 0, 0.30, weight = 1 }, -- would prolly to make sense to make it heavier if filled
 	[58] = { "Ziebrand Beer", "The finest beer, imported from Holland.", 1, 1520, 0, 0, 0, 0.15, weight = 1 },
-	[59] = { "Mudkip", "So i herd u liek mudkips? mabako's Favorite.", 1, 1579, 0, 0, 0, 0, weight = 0 },
 	[60] = { "Safe", "A safe to store your items in.", 4, 2332, 0, 0, 0, 0, weight = 5 },
 	[61] = { "Emergency Light Strobes", "An Emergency Light Strobe which you can put on you car.", 7, 2886, 270, 0, 0, 0.1, weight = 0.1 },
 	[62] = { "Bastradov Vodka", "For your best friends - Bastradov Vodka.", 1, 1512, 0, 0, 0, 0.25, weight = 1 },
@@ -109,14 +108,12 @@ g_items = {
 	[109] = { "Fruit", "Yummy, healthy food!.", 1, 2222, 0, 0, 0, 0.07, weight = 0.35 },
 	[110] = { "Vegetable", "Yummy, healthy food!.", 1, 2222, 0, 0, 0, 0.07, weight = 0.35  },
 	[111] = { "Portable GPS", "A GPS, also contains recent maps.", 6, 2886, 270, 0, 0, 0.1, weight = 0.3 },
-	[112] = { "State Police Badge", "An State Police Badge.", 6, 2886, 270, 0, 0, 0.1, weight = 0.3 },
 	[113] = { "Pack of Glowsticks", "Pack with #v glowsticks in it, from the brand 'Friday'.", 6, 2886, 270, 0, 0, 0.1, weight = function(v) return v * 0.2 end },
 	[114] = { "Vehicle Upgrade", "#v", 4, 1271, 0, 0, 0, 0.285, weight = 1.5 },
 	[115] = { "Weapon", "#v ", 8, 2886, 270, 0, 1, 0.1, 2, weight = function( v ) local weaponID = tonumber( explode(":", v)[1] ) return weaponID and weaponweights[ weaponID ] or 1 end },
 	[116] = { "Ammopack", "Ammopack with #v bullets inside.", 9, 2886, 270, 1, 0, 0.1, 3, weight = function( v ) local weaponID = tonumber( explode(":", v)[1] ) local ammo = tonumber( explode(":", v)[2] ) return weaponID and ammo and ammoweights[ weaponID ] and ammoweights[ weaponID ] * ammo or 0.2 end },
 	[117] = { "Ramp", "Useful for loading DFT-30s.", 4, 2886, 270, 1, 0, 0.1, 3, weight = 5 },
 	[118] = { "Toll Pass", "Put it in your car, charges you every time you drive through a toll booth.", 6, 2886, 270, 0, 0, 0.1, weight = 0.3 },
-	[119] = { "Uni-Tel ID", "A UNI-TEL Identification Card.", 6, 2886, 270, 0, 0, 0.1, weight = 0.2 },
 	[120] = { "Scuba Gear", "Allows you to stay under-water for quite some time", 6, 1271, 0, 0, 0, 0.285, weight = 4 },
 	[121] = { "Box with supplies", "Pretty large box full with supplies!", 4, 1271, 0, 0, 0, 0.285, weight = function(v) return v * 0.07 end },
 }
@@ -229,8 +226,6 @@ function getBadges( )
 		[86]  = { "SANbadge",		"a SAN ID",					{[20] = true},					{150,150,255},	1},
 		[87]  = { "GOVbadge",		"a Government Badge",		{[3] = true},					{50,150,50},	1},
 		[82]  = { "HexID",			"a Hex Towing ID",			{[30] = true},					{255,99,0},		1},
-		[112] = { "SheriffBadge",	"a State Police badge",		{[87] = true},					{0,155,255},	2},
-		[119] = { "UniTelID",		"a UNI-TEL ID",				{[125] = true},					{150,255,255},	1},
 	}
 end
 

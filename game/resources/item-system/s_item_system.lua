@@ -405,10 +405,6 @@ function useItem(itemSlot, additional)
 			takeItemFromSlot(source, itemSlot)
 			exports.global:sendLocalMeAction(source, "drinks some good Ziebrand Beer.")
 			setElementHealth(source,getElementHealth(source)-5)
-		elseif (itemID==59) then -- MUDKIP
-			takeItemFromSlot(source, itemSlot)
-			exports.global:sendLocalMeAction(source, "eats a mudkip.")
-			--killPed(source)
 		elseif (itemID==60) then
 			local x,y,z = getElementPosition(source)
 			local rz = getPedRotation(source)
