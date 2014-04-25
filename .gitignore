@@ -24,3 +24,6 @@
 /game/databases/
 /game/resource-cache/
 /game/server-id.keys
+/game/backups/
+/game/logs/
+/game/banlist.xml
