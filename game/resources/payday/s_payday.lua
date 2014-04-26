@@ -167,11 +167,6 @@ function payAllWages(timer)
 	govAmount = exports.global:getMoney(getTeamFromName("Government of Los Santos"))
 	incomeTax = exports.global:getIncomeTaxAmount()
 	
-	-- Pay Check tooltip
-	if(getResourceFromName("tooltips-system"))then
-		triggerClientEvent("tooltips:showHelp", getRootElement(),12)
-	end
-
 	for _, value in ipairs(players) do
 		local co = coroutine.create(doPayDayPlayer)
 		coroutine.resume(co, value, true)

@@ -67,13 +67,6 @@ function applyLanguage(from, player, message, language)
 		local skill = getSkillFromLanguage(player, language)
 		local fromskill = getSkillFromLanguage(from, language)
 		
-		-- Language tooltip
-		if (skill == 0) then
-			if(getResourceFromName("tooltips-system"))then
-				triggerClientEvent(player,"tooltips:showHelp", player,8)
-			end
-		end
-		
 		local length = string.len(message)
 		local percent = 100 - math.min( skill, fromskill )
 		local replace = (percent/100) * length

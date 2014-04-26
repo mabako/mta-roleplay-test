@@ -49,7 +49,7 @@ addEventHandler("onClientElementDataChange", getLocalPlayer(),
 	end
 )
 
-addEvent( "realism:mp3:off" )
+addEvent( "realism:mp3:off", true )
 addEventHandler( "realism:mp3:off", localPlayer,
 	function( )
 		if not isPedInVehicle(localPlayer) then
