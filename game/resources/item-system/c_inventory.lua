@@ -672,7 +672,6 @@ addEventHandler( "onClientClick", getRootElement( ),
 						elseif activeTab == hoverAction then
 							show = false
 							showCursor( false )
-							exports["realism-system"]:showSpeedo()
 						else
 							activeTab = hoverAction
 						end
@@ -742,7 +741,6 @@ bindKey( "i", "down",
 			activeTabItem = nil
 			inventory = false
 			showCursor( true )
-			exports["realism-system"]:hideSpeedo()
 		else
 			outputChatBox("You can't access your inventory in jail", 255, 0, 0)
 		end
@@ -772,6 +770,5 @@ function hideNewInventory( )
 	if show then
 		show = false
 		showCursor( false )
-		exports["realism-system"]:showSpeedo()
 	end
 end

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140426014544) do
+ActiveRecord::Schema.define(version: 20140426113544) do
 
   create_table "accounts", force: true do |t|
     t.text     "username"
@@ -663,17 +663,18 @@ ActiveRecord::Schema.define(version: 20140426014544) do
   end
 
   create_table "worlditems", force: true do |t|
-    t.integer  "itemid",       default: 0
+    t.integer  "itemid",     default: 0
     t.text     "itemvalue"
-    t.float    "x",            default: 0.0
-    t.float    "y",            default: 0.0
-    t.float    "z",            default: 0.0
-    t.integer  "dimension",    default: 0
-    t.integer  "interior",     default: 0
-    t.datetime "creationdate"
-    t.float    "rz",           default: 0.0
-    t.integer  "creator",      default: 0
-    t.integer  "protected",    default: 0,   null: false
+    t.float    "x",          default: 0.0
+    t.float    "y",          default: 0.0
+    t.float    "z",          default: 0.0
+    t.integer  "dimension",  default: 0
+    t.integer  "interior",   default: 0
+    t.float    "rz",         default: 0.0
+    t.integer  "creator",    default: 0
+    t.integer  "protected",  default: 0,   null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
 end

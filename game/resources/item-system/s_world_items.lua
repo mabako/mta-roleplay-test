@@ -47,168 +47,83 @@ addEventHandler("protectItem", root, protectItem)
 local badges = getBadges()
 local masks = getMasks()
 
-function dropItem(itemID, x, y, z, ammo, keepammo)
-	if isWatchingTV(source) then
-		return
-	end
-	
-	if isPedDead(source) or getElementData(source, "injuriedanimation") then return end
+--
+
+function dropItem(itemSlot, x, y, z)
+	if isPedDead(source) or getElementData(source, "injuriedanimation") or isWatchingTV(source) then return end
 	
 	local interior = getElementInterior(source)
 	local dimension = getElementDimension(source)
 	
 	local rz2 = getPedRotation(source)
-	if not ammo then
-		local itemSlot = itemID
-		local itemID, itemValue = unpack( getItems( source )[ itemSlot ] )
+	local itemID, itemValue = unpack( getItems( source )[ itemSlot ] )
 		
-		local weaponBlock = false
-		if ( itemID == 115) then -- Weapons
-			local itemCheckExplode = exports.global:explode(":", itemValue)
-			-- itemCheckExplode: [1] = gta weapon id, [2] = serial number, [3] = weapon name
-			local weaponDetails = exports.global:retrieveWeaponDetails( itemCheckExplode[2]  )
-			if (tonumber(weaponDetails[2]) and tonumber(weaponDetails[2]) == 2)  then -- /duty
-				outputChatBox("You cannot drop your duty gun, sorry.", source, 255, 0, 0)
-				weaponBlock = true
-			end
-		elseif ( itemID == 116) then -- Ammo
-			local ammoDetails = exports.global:explode( ":", itemValue  )
-			local checkString = string.sub(ammoDetails[3], -4)
-			if (checkString == " (D)")  then -- /duty
-				outputChatBox("You cannot drop your duty gun ammo, sorry.", source, 255, 0, 0)
-				weaponBlock = true
-			end
+	local weaponBlock = false
+	if itemID == 115 then -- Weapons
+		local itemCheckExplode = exports.global:explode(":", itemValue)
+		-- itemCheckExplode: [1] = gta weapon id, [2] = serial number, [3] = weapon name
+		local weaponDetails = exports.global:retrieveWeaponDetails( itemCheckExplode[2]  )
+		if (tonumber(weaponDetails[2]) and tonumber(weaponDetails[2]) == 2)  then -- /duty
+			outputChatBox("You cannot drop your duty gun, sorry.", source, 255, 0, 0)
+			return
 		end
-		
-		if itemID == 60 then
-			outputChatBox( "This Item can't be dropped.", source )
-		elseif ( itemID == 81 or itemID == 103 ) and dimension == 0 then
-			outputChatBox( "You need to drop this item in an interior.", source )
-		elseif (weaponBlock) then
-			-- Do nothing
-		else
-			if not (hasItem(source, itemID)) then
-				local haxStr = getPlayerName(thePlayer) .. " ".. getPlayerIP(thePlayer) .." tried to duplicate item " ..tostring(itemID) .." C0x0000003[BETA]"
-				outputDebugString(haxStr)
-				exports.logs:logMessage(haxStr, 32)
-				exports.global:sendMessageToAdmins("AdmWrn: " .. haxStr)		
-			end
-			if itemID == 48 and countItems( source, 48 ) == 1 then
-				if getCarriedWeight( source ) > 10 - getItemWeight( 48, 1 ) then
-					return
-				end
-			end
-			local insert = mysql:query("INSERT INTO worlditems SET itemid='" .. itemID .. "', itemvalue='" .. mysql:escape_string( itemValue) .. "', creationdate = NOW(), x = " .. x .. ", y = " .. y .. ", z= " .. z .. ", dimension = " .. dimension .. ", interior = " .. interior .. ", rz = " .. rz2 .. ", creator=" .. getElementData(source, "dbid"))
-			if insert then
-				local id = mysql:insert_id()
-				mysql:free_result(insert)
-				
-				outputChatBox("You dropped a " .. getItemName( itemID, itemValue ) .. ".", source, 255, 194, 14)
+	elseif itemID == 116 then -- Ammo
+		local ammoDetails = exports.global:explode( ":", itemValue  )
+		local checkString = string.sub(ammoDetails[3], -4)
+		if (checkString == " (D)")  then -- /duty
+			outputChatBox("You cannot drop your duty gun ammo, sorry.", source, 255, 0, 0)
+			return
+		end
+	elseif itemID == 60 then -- TODO replace this with 'using a safe'
+		outputChatBox( "This Item can't be dropped.", source )
+		return
+	elseif ( itemID == 81 or itemID == 103 ) and dimension == 0 then
+		outputChatBox( "You need to drop this item in an interior.", source )
+		return
+	end
 
-				-- Animation
-				exports.global:applyAnimation(source, "CARRY", "putdwn", 500, false, false, true)
-				toggleAllControls( source, true, true, true )
-				triggerClientEvent(source, "onClientPlayerWeaponCheck", source)
-				-- Create Object
-				local modelid = getItemModel(tonumber(itemID), itemValue)
-				
-				local rx, ry, rz, zoffset = getItemRotInfo(itemID)
-				local obj = exports['item-world']:createItem(id, itemID, itemValue, modelid, x, y, z + zoffset - 0.05, rx, ry, rz+rz2)
-				exports.pool:allocateElement(obj)
-				
-				setElementInterior(obj, interior)
-				setElementDimension(obj, dimension)
-				
-				if (itemID==76) then
-					moveObject(obj, 200, x, y, z + zoffset, 90, 0, 0)
-				else
-					moveObject(obj, 200, x, y, z + zoffset)
-				end
-				
-				exports['anticheat-system']:changeProtectedElementDataEx(obj, "creator", getElementData(source, "dbid"), false)
-				
-				takeItemFromSlot( source, itemSlot )
-				
-				exports.logs:logMessage( getElementData(source, "account:username").."\\"..getPlayerName(source) .. " -> ~World #" .. getElementID(obj) .. " - " .. getItemName( itemID ) .. " - " .. itemValue, 17)
-				
-				doItemGiveawayChecks(source, itemID)
-				
-				exports.global:sendLocalMeAction(source, "dropped a " .. getItemName( itemID, itemValue ) .. ".")
-			end
-		end
-	else
-		if tonumber(getElementData(source, "duty")) > 0 then
-			outputChatBox("You can't drop your weapons while being on duty.", source, 255, 0, 0)
-		elseif tonumber(getElementData(source, "job")) == 4 and itemID == 41 then
-			outputChatBox("You can't drop this spray can.", source, 255, 0, 0)
-		else
-		
-			
-			if ammo <= 0 then
-				return
-			end
-			
-			local totalAmmoPosessed = exports.global:getWeaponCount(source, itemID) 
-			if (totalAmmoPosessed < ammo) then
-				local haxStr = getPlayerName(thePlayer) .. " ".. getPlayerIP(thePlayer) .." tried to duplicate weapon " .. tokenweapon .. " with " .. ammo .." ammo C0x0000003[BETA]"
-				outputDebugString(haxStr)
-				exports.logs:logMessage(haxStr, 32)
-				exports.global:sendMessageToAdmins("AdmWrn: " .. haxStr)		
-			end
-			
-			outputChatBox("You dropped a " .. ( getWeaponNameFromID( itemID ) or "Body Armor" ) .. ".", source, 255, 194, 14)
-			
-			-- Animation
-			exports.global:applyAnimation(source, "CARRY", "putdwn", 500, false, false, true)
-			toggleAllControls( source, true, true, true )
-			triggerClientEvent(source, "onClientPlayerWeaponCheck", source)	
-			if itemID == 100 then
-				z = z + 0.1
-				setPedArmor(source, 0)
-			end
-			
-			local query = mysql:query("INSERT INTO worlditems SET itemid=" .. -itemID .. ", itemvalue=" .. ammo .. ", creationdate=NOW(), x=" .. x .. ", y=" .. y .. ", z=" .. z+0.1 .. ", dimension=" .. dimension .. ", interior=" .. interior .. ", rz = " .. rz2 .. ", creator=" .. getElementData(source, "dbid"))
-			if query then
-				local id = mysql:insert_id()
-				mysql:free_result(query)
-				
-				exports.global:takeWeapon(source, itemID)
-				if keepammo then
-					exports.global:giveWeapon(source, itemID, keepammo)
-				end
-				
-				local modelid = 2969
-				-- MODEL ID
-				if (itemID==100) then
-					modelid = 1242
-				elseif (itemID==42) then
-					modelid = 2690
-				else
-					modelid = weaponmodels[itemID]
-				end
-				
-				local obj = exports['item-world']:createItem(id, -itemID, ammo, modelid, x, y, z - 0.4, 75, -10, rz2)
-				exports.pool:allocateElement(obj)
-				
-				setElementInterior(obj, interior)
-				setElementDimension(obj, dimension)
-				
-				moveObject(obj, 200, x, y, z+0.1)
-				
-				exports['anticheat-system']:changeProtectedElementDataEx(obj, "creator", getElementData(source, "dbid"), false)
-				
-				exports.global:sendLocalMeAction(source, "dropped a " .. getItemName( -itemID ) .. ".")
-				
-				triggerClientEvent(source, "saveGuns", source, getPlayerName(source))
-				
-				exports.logs:logMessage( getElementData(source, "account:username").."\\"..getPlayerName(source) .. " -> ~World #" .. getElementID(obj) .. " - " .. getItemName( -itemID ) .. " - " .. ammo, 17)
-			end
+	if not hasItem(source, itemID) then
+		local haxStr = getPlayerName(thePlayer) .. " ".. getPlayerIP(thePlayer) .." tried to duplicate item " ..tostring(itemID) .." C0x0000003[BETA]"
+		outputDebugString(haxStr)
+		exports.logs:logMessage(haxStr, 32)
+		exports.global:sendMessageToAdmins("AdmWrn: " .. haxStr)		
+	end
+
+	if itemID == 48 and countItems( source, 48 ) == 1 then
+		if getCarriedWeight( source ) > 10 - getItemWeight( 48, 1 ) then
+			return -- something with backpacks.
 		end
 	end
+
+	local value = { itemid = itemID, itemvalue = itemValue, created_at = 'NOW()', x = x, y = y, z = z, rz = rz2, creator = getElementData(source, 'dbid'), dimension = dimension, interior = interior }
+	local id = mysql:insert('worlditems', value)
+	if id then
+		value.id = id
+
+		triggerClientEvent(source, "onClientPlayerWeaponCheck", source)
+
+		-- Create Object
+		local obj = exports['item-world']:createItem(value)
+
+		-- take the item away
+		takeItemFromSlot( source, itemSlot )
+		
+		-- logging
+		exports.logs:logMessage( getElementData(source, "account:username").."\\"..getPlayerName(source) .. " -> ~World #" .. getElementID(obj) .. " - " .. getItemName( itemID ) .. " - " .. itemValue, 17)
+		
+		-- remove status effects
+		doItemGiveawayChecks(source, itemID)
+		
+		-- message
+		exports.global:sendLocalMeAction(source, "dropped a " .. getItemName( itemID, itemValue ) .. ".")
+	end
+
 	triggerClientEvent( source, "finishItemDrop", source )
 end
 addEvent("dropItem", true)
 addEventHandler("dropItem", getRootElement(), dropItem)
+
+--
 
 function doItemGiveawayChecks(source, itemID)
 	local mask = masks[itemID]
@@ -338,12 +253,6 @@ function pickupItem(object, leftammo)
 	local ox, oy, oz = getElementPosition(object)
 	
 	if (getDistanceBetweenPoints3D(x, y, z, ox, oy, oz)<10) then
-		
-		-- Inventory Tooltip
-		if (getResourceFromName("tooltips-system"))then
-			triggerClientEvent(source,"tooltips:showHelp",source,14)
-		end
-		
 		-- Animation
 		
 		local id = getElementData(object, "id")

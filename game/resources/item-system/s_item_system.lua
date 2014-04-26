@@ -6,6 +6,7 @@ whiteFemales = {[12] = true, [ 31] = true, [ 38] = true, [ 39] = true, [ 40] = t
 asianFemales = {[38] = true, [ 53] = true, [ 54] = true, [ 55] = true, [ 56] = true, [ 88] = true, [ 141] = true, [ 169] = true, [ 178] = true, [ 224] = true, [ 225] = true, [ 226] = true, [ 263 ] = true }local fittingskins = {[0] = {[0] = blackMales, [1] = whiteMales, [2] = asianMales}, [1] = {[0] = blackFemales, [1] = whiteFemales, [2] = asianFemales}}
 local badges = getBadges()
 local masks = getMasks()
+shields = {}
 
 function removeAnimation(player)
 	exports.global:removeAnimation(player)
