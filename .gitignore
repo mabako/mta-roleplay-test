@@ -27,3 +27,4 @@
 /game/backups/
 /game/logs/
 /game/banlist.xml
+game/acl.xml

@@ -22,6 +22,13 @@ end
 local shields = { }
 local presents = { 1, 7, 8, 15, 11, 12, 19, 26, 59, 71 }
 local glowstickColor = 1
+-- Start of briefcase (id 122)
+local cases = {}
+
+for i,v in ipairs(getElementsByType("player"))do
+setElementData(v, "bcase", 0)
+end
+-- End of briefcase (id 122)
 --
 -- callbacks
 function useItem(itemSlot, additional)
@@ -405,10 +412,6 @@ function useItem(itemSlot, additional)
 			takeItemFromSlot(source, itemSlot)
 			exports.global:sendLocalMeAction(source, "drinks some good Ziebrand Beer.")
 			setElementHealth(source,getElementHealth(source)-5)
-		elseif (itemID==59) then -- MUDKIP
-			takeItemFromSlot(source, itemSlot)
-			exports.global:sendLocalMeAction(source, "eats a mudkip.")
-			--killPed(source)
 		elseif (itemID==60) then
 			local x,y,z = getElementPosition(source)
 			local rz = getPedRotation(source)
@@ -661,6 +664,19 @@ function useItem(itemSlot, additional)
 			else
 				outputChatBox("Use this in a vehicle & garage to add it as permanent upgrade.", source, 255, 194, 14)
 			end
+		elseif (itemID == 122) then
+			if(getElementType(source) == "player")then
+				if(getElementData(source, "bcase") ~= 1)then
+					setElementData(source, "bcase", 1)
+					case = createObject(1210,0,0,0)
+					exports.bone_attach:attachElementToBone(case,source,12,0,0.05,0.27,0,180,0)
+					cases[source] = case
+				elseif(getElementData(source, "bcase") == 1)then
+					setElementData(source, "bcase", 0)
+					exports.bone_attach:detachElementFromBone(cases[source])
+					destroyElement(cases[source])
+				end
+			end
 		elseif badges[itemID] then
 			if ( getElementData( source, badges[itemID][1] ) ) then
 				exports['anticheat-system']:changeProtectedElementDataEx(source, badges[itemID][1], false, true)
@@ -817,3 +833,36 @@ addCommandHandler("showinv", showInventoryRemote, false, false)
 function isWatchingTV( player )
 	return exports['freecam-tv']:isPlayerFreecamEnabled( player )
 end
+
+---
+--- Are we already holding a briefcase?
+---
+local cases = {}
+
+for i,v in ipairs(getElementsByType("player"))do
+setElementData(v, "bcase", 0)
+end
+
+
+function briefcase(player)
+	if hasItem( player, 122 ) then
+		if(getResourceState(getResourceFromName("bone_attach")) == "running")then
+			if(getElementType(player) == "player")then
+				if(getElementData(player, "bcase") ~= 1)then
+					setElementData(player, "bcase", 1)
+					case = createObject(1210,0,0,0)
+					exports.bone_attach:attachElementToBone(case,player,12,0,0.05,0.27,0,180,0)
+					cases[player] = case
+				elseif(getElementData(player, "bcase") == 1)then
+					setElementData(player, "bcase", 0)
+					exports.bone_attach:detachElementFromBone(cases[player])
+					destroyElement(cases[player])
+				end
+			end
+		else
+			outputDebugString("ERROR Loading briefcase item")
+		end
+	end
+end
+addEvent("bcase", true)
+addEventHandler("bcase", getRootElement(), briefcase)

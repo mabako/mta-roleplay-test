@@ -78,6 +78,8 @@
 	
 	<script src="s_vehicle_upgrades.lua" type="server" />
 	
+	<include resource="bone_attach" />
+	
 	<file src="images/-200.png"/>
 	<file src="images/-201.png"/>
 	<file src="images/-202.png"/>
@@ -246,4 +248,5 @@
 	<file src="images/119.png"/>
 	<file src="images/120.png"/>
 	<file src="images/121.png"/>
+	<file src="images/122.png"/>
 </meta>

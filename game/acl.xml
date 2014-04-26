@@ -6,7 +6,7 @@
     </group>
     <group name="Admin">
         <acl name="Admin"></acl>
-        <object name="user.mabako"></object>
+        <object name="user.dev"></object>
     </group>
     <group name="Console">
         <acl name="Admin"></acl>
