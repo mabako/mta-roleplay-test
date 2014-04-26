@@ -18,7 +18,6 @@ addEvent("onSapphireXMBShow", true)
 
 -- Shared variables
 scriptVersion = "Alpha 1"
-newsURL = "http://mta.vg/server/news.php"
 
 -- Global functions
 function checkValidCharacterName(theText)

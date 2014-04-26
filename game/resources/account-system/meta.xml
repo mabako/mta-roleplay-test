@@ -21,9 +21,6 @@
 	
 	<script src="c_update.lua" type="client" />
 	
-	<script src="s_news.lua" type="server" />
-	
-	
 	
 	<file src="banners/1.png"/>
 	<file src="banners/2.png"/>
