@@ -54,7 +54,9 @@ local serverside = triggerServerEvent == nil
 addEventHandler(serverside and 'onResourceStart' or 'onClientResourceStart', root,
 	function(res)
 		if getResourceName(res) == 'carshop' or source == resourceRoot then
-			mta_values[5][3] = exports.carshop:getShopNames()
+			if getResourceFromName('carshop') then
+				mta_values[5][3] = exports.carshop:getShopNames()
+			end
 		end
 
 		if not serverside then
