@@ -14,6 +14,8 @@ local advlook_window = nil
 local advlook_edit_window = nil
 local advlook_editvalue_window = nil
 
+local screen_width, screen_height = guiGetScreenSize()
+
 function toggleMouseDependingOnWindows( )
 	showCursor( ( advlook_window or advlook_edit_window or advlook_editvalue_window ) and true or false )
 	guiSetInputEnabled( advlook_editvalue_window and true or false )
@@ -91,7 +93,7 @@ addEventHandler( "social:look", getRootElement( ),
 function createEditablesWindow( )
 	hideEditablesWindow( )
 	
-	advlook_edit_window = guiCreateWindow( 804, 172, 181, 297, "Edit Your Looks!", false )
+	advlook_edit_window = guiCreateWindow( screen_width - 191, 172, 181, 297, "Edit Your Looks!", false )
 	guiWindowSetSizable( advlook_edit_window, false )
 	
 	-- Grid for all editable attributes
