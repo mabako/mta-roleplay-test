@@ -1,4 +1,6 @@
 <meta>
+    <min_mta_version client="1.3.5-9.06194"/>
+
 	<script src="g_mta_values.lua"/>
 	<script src="g_mta_values.lua" type="client"/>
 	<script src="g_handling.lua"/>

@@ -182,11 +182,14 @@ end
 addEventHandler('onResourceStart', resourceRoot,
 	function()
 		-- fix possible missing links
-		for _, veh in ipairs(getElementsByType('vehicle', getResourceRootElement(getResourceFromName('tempvehicles')))) do
-			if getElementData(veh, 'handling:editable') then
-				addEventHandler('handling:save', veh, saveHandling, false)
-				addEventHandler('handling:modify', veh, modifyHandling, false)
-				addEventHandler('handling:delete', veh, deleteVehicle, false)
+		local tempvehicles = getResourceRootElement(getResourceFromName('tempvehicles'))
+		if tempvehicles then
+			for _, veh in ipairs(getElementsByType('vehicle', tempvehicles)) do
+				if getElementData(veh, 'handling:editable') then
+					addEventHandler('handling:save', veh, saveHandling, false)
+					addEventHandler('handling:modify', veh, modifyHandling, false)
+					addEventHandler('handling:delete', veh, deleteVehicle, false)
+				end
 			end
 		end
 	end
