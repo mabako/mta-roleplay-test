@@ -895,7 +895,7 @@ function sellVehicle(thePlayer, commandName, targetPlayerName)
 							if getElementData(targetPlayer, "dbid") ~= getElementData(theVehicle, "owner") then
 								if exports.global:hasSpaceForItem(targetPlayer, 3, vehicleID) then
 									if exports.global:canPlayerBuyVehicle(targetPlayer) then
-										if exports.global:isPlayerFullAdmin(thePlayer) or exports['carshop-system']:isForSale(theVehicle) then
+										if exports.global:isPlayerFullAdmin(thePlayer) or exports.handling:get(getElementData(theVehicle, 'handling:id')).disabled == 0 then
 											local query = mysql:query_free("UPDATE vehicles SET owner = '" .. mysql:escape_string(getElementData(targetPlayer, "dbid")) .. "' WHERE id='" .. mysql:escape_string(vehicleID) .. "'")
 											if query then
 												exports['anticheat-system']:changeProtectedElementDataEx(theVehicle, "owner", getElementData(targetPlayer, "dbid"))

@@ -29,8 +29,6 @@ function hideGUI()
 	helpLabel = nil
 	
 	vehicle = nil
-	
-	call(getResourceFromName("realism-system"), "showSpeedo")
 end
 
 function onVehicleEnter(player, nseat)

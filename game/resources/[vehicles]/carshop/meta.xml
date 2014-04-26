@@ -5,9 +5,15 @@
 	<export function="getVehiclePrice" type="server" http="true" />
 
 	<script src="s_shop.lua" type="server" />
+
 	<script src="g_shops.lua" type="server" />
+	<script src="g_shops.lua" type="client" />
 	
 	<script src="c_shop.lua" type="client" />
-	<export function="isForSale" type="server" http="true" />
 	
+	<script src="s_peds.lua"/>
+	<script src="c_peds.lua" type="client"/>
+
+	<export function="getShopNames"/>
+	<export function="getShopNames" type="client"/>
 </meta>

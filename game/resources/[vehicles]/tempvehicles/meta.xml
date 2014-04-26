@@ -1,0 +1,4 @@
+<meta>
+	<script src="s_veh.lua"/>
+	<export function="create"/>
+</meta>

@@ -56,3 +56,9 @@ function hasVehiclePlates(theVehicle)
 	return not (platelessVehicles[theVehicle] or platelessVehicles[getElementModel(theVehicle)] or false)
 end
 
+
+local _getVehicleName = getVehicleName
+function getVehicleName(element)
+	local name = getElementData(element, 'name')
+	return name and (name.year .. ' ' .. name.brand .. ' ' .. name.name) or _getVehicleName(element)
+end

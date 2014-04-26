@@ -274,10 +274,10 @@ end
 
 --Custom functions
 local function alt_escape_string( string, key )
-	if string == 'NOW()' and (key == 'created_at') then
+	if string == 'NOW()' and (key == 'created_at' or key == 'updated_at') then
 		return string
 	else
-		return escape_string( string )
+		return "'" .. escape_string( string ) .. "'"
 	end
 end
 
@@ -288,7 +288,7 @@ local function createWhereClause( array, required )
 	end
 	local strings = { }
 	for i, k in pairs( array ) do
-		table.insert( strings, "`" .. i .. "` = '" .. ( tonumber( k ) or alt_escape_string( k, i ) ) .. "'" )
+		table.insert( strings, "`" .. i .. "` = " .. ( tonumber( k ) or alt_escape_string( k, i ) ) )
 	end
 	return ' WHERE ' .. table.concat(strings, ' AND ')
 end
@@ -327,19 +327,24 @@ function insert( tableName, array )
 		table.insert( values, tonumber( k ) or alt_escape_string( k, i ) )
 	end
 	
-	local q = "INSERT INTO `"..tableName.."` (`" .. table.concat( keyNames, "`, `" ) .. "`) VALUES ('" .. table.concat( values, "', '" ) .. "')"
-	
+	local q = "INSERT INTO `"..tableName.."` (`" .. table.concat( keyNames, "`, `" ) .. "`) VALUES (" .. table.concat( values, "," ) .. ")"
 	return query_insert_free( q )
 end
 
+-- performs an update, returns the number of updated rows if successful, or false (possibly)
 function update( tableName, array, clause )
 	local strings = { }
 	for i, k in pairs( array ) do
-		table.insert( strings, "`" .. i .. "` = " .. ( k == mysql_null() and "NULL" or ( "'" .. ( tonumber( k ) or alt_escape_string( k, i ) ) .. "'" ) ) )
+		table.insert( strings, "`" .. i .. "` = " .. ( k == mysql_null() and "NULL" or ( tonumber( k ) or alt_escape_string( k, i ) ) ) )
 	end
 	local q = "UPDATE `" .. tableName .. "` SET " .. table.concat( strings, ", " ) .. createWhereClause( clause, true )
 	
-	return query_free( q )
+	local result = query_free( q )
+	if result then
+		return mysql_affected_rows(MySQLConnection)
+	else
+		return result
+	end
 end
 
 function delete( tableName, clause )

@@ -254,7 +254,7 @@ function renderNametags()
 		for key, player in ipairs(getElementsByType("ped")) do
 			if (isElement(player) and  (player~=localPlayer) and (isElementOnScreen(player)))then
 				
-				if (getElementData(player,"talk") == 1) then
+				if getElementData(player,"name") then
 					local lx, ly, lz = getElementPosition(localPlayer)
 					local rx, ry, rz = getElementPosition(player)
 					local distance = getDistanceBetweenPoints3D(lx, ly, lz, rx, ry, rz)

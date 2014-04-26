@@ -1,5 +1,3 @@
-armoredCars = { [427]=true, [528]=true, [432]=true, [601]=true, [428]=true, [597]=true } -- Enforcer, FBI Truck, Rhino, SWAT Tank, Securicar, SFPD Car
-totalTempVehicles = 0
 respawnTimer = nil
 
 -- EVENTS
@@ -104,60 +102,12 @@ function createTempVehicle(thePlayer, commandName, ...)
 			y = y + ( ( math.sin ( math.rad ( r ) ) ) * 5 )
 			
 			if vehicleID then
-				local plate = tostring( getElementData(thePlayer, "account:id") )
-				if #plate < 8 then
-					plate = " " .. plate
-					while #plate < 8 do
-						plate = string.char(math.random(string.byte('A'), string.byte('Z'))) .. plate
-						if #plate < 8 then
-						end
-					end
-				end
-				
 				if leadplus[ vehicleID ] and not exports.global:isPlayerLeadAdmin(thePlayer) then
 					outputChatBox( "Insufficient access.", thePlayer, 255, 0, 0)
 					return
 				end
 				
-				local veh = createVehicle(vehicleID, x, y, z, 0, 0, r, plate)
-				
-				if not (veh) then
-					outputChatBox("Invalid Vehicle ID.", thePlayer, 255, 0, 0)
-				else
-					if (armoredCars[vehicleID]) then
-						setVehicleDamageProof(veh, true)
-					end
-
-					totalTempVehicles = totalTempVehicles + 1
-					local dbid = (-totalTempVehicles)
-					exports.pool:allocateElement(veh, dbid)
-					
-					setVehicleColor(veh, col1, col2, col1, col2)
-					
-					setElementInterior(veh, getElementInterior(thePlayer))
-					setElementDimension(veh, getElementDimension(thePlayer))
-					
-					setVehicleOverrideLights(veh, 1)
-					setVehicleEngineState(veh, false)
-					setVehicleFuelTankExplodable(veh, false)
-					setVehicleVariant(veh, exports['vehicle-system']:getRandomVariant(getElementModel(veh)))
-					
-					exports['anticheat-system']:changeProtectedElementDataEx(veh, "dbid", dbid)
-					exports['anticheat-system']:changeProtectedElementDataEx(veh, "fuel", 100, false)
-					exports['anticheat-system']:changeProtectedElementDataEx(veh, "Impounded", 0)
-					exports['anticheat-system']:changeProtectedElementDataEx(veh, "engine", 0, false)
-					exports['anticheat-system']:changeProtectedElementDataEx(veh, "oldx", x, false)
-					exports['anticheat-system']:changeProtectedElementDataEx(veh, "oldy", y, false)
-					exports['anticheat-system']:changeProtectedElementDataEx(veh, "oldz", z, false)
-					exports['anticheat-system']:changeProtectedElementDataEx(veh, "faction", -1)
-					exports['anticheat-system']:changeProtectedElementDataEx(veh, "owner", -1, false)
-					exports['anticheat-system']:changeProtectedElementDataEx(veh, "job", 0, false)
-					exports['anticheat-system']:changeProtectedElementDataEx(veh, "handbrake", 0, false)
-					outputChatBox(getVehicleName(veh) .. " spawned with TEMP ID " .. dbid .. ".", thePlayer, 255, 194, 14)
-					
-					exports['vehicle-interiors']:add( veh )
-					exports.logs:dbLog(thePlayer, 6, thePlayer, "VEH ".. vehicleID .. " created with ID " .. dbid)
-				end
+				local veh = exports.tempvehicles:create(vehicleID, x, y, z, r, thePlayer, col1, col2)
 			else
 				outputChatBox("Invalid Vehicle ID.", thePlayer, 255, 0, 0)
 			end

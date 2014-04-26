@@ -1,4 +1,4 @@
-local factor = 1.5
+local factor = 1.5 -- 1.9487
 
 function relateVelocity(speed)
 	return factor * speed

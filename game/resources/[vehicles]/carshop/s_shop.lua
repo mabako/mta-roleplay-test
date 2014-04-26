@@ -53,12 +53,13 @@ function carshop_updateVehicles( forceUpdate )
 	end
 	
 	for key, value in ipairs( shops ) do
-		if #value["spawnpoints"] > 0 and #value["prices"] > 0 then
+		local prices = exports.handling:getHandlingsByShop(key)
+		if #value["spawnpoints"] > 0 and #prices > 0 then
 			local canPopulate = true
 			for k, v in ipairs( blocking ) do
 				if (v[6]) then
-					if (value["blippoint"][4] == v[4] and value["blippoint"][5] == v[5]) then
-						if getDistanceBetweenPoints3D( value["blippoint"][1], value["blippoint"][2], value["blippoint"][3], v[1], v[2], v[3] ) < 150 then
+					if (value.pos[4] == v[4] and value.pos[5] == v[5]) then
+						if getDistanceBetweenPoints3D( value.pos[1], value.pos[2], value.pos[3], v[1], v[2], v[3] ) < 150 then
 							canPopulate = false
 							break
 						end
@@ -72,23 +73,24 @@ function carshop_updateVehicles( forceUpdate )
 			
 			if canPopulate then
 				for k, v in ipairs( value["spawnpoints"] ) do
-					local data = value["prices"][ math.random( 1, #value["prices"] ) ]
+					local data = prices[math.random( 1, #prices )]
 					if v["vehicle"] and isElement( v["vehicle"] ) and data then
 						respawnVehicle( v["vehicle"] )
 						
-						local model = getVehicleModelFromName(data[1]) or tonumber(data[1])
+						local model = data.model
 						if getElementModel(v.vehicle) == model or setElementModel(v.vehicle, model) then
 							local color1, color2 = getRandomVehicleColor(v.vehicle)
 							if color1 then
 								setVehicleColor( v.vehicle, color1, color2 or color1, color1, color2 or color1 )
 							end
-							exports['anticheat-system']:changeProtectedElementDataEx(v["vehicle"], "carshop:cost", data[2], false)
-							exports['anticheat-system']:changeProtectedElementDataEx(v["vehicle"], "carshop:taxcost", 2*(vehicleTaxes[getVehicleModelFromName(data[1])-399] or 25), false)
+							exports['anticheat-system']:changeProtectedElementDataEx(v["vehicle"], "carshop:cost", data.price, false)
+							exports['anticheat-system']:changeProtectedElementDataEx(v["vehicle"], "name", { name = data.name, year = data.year, brand = data.brand }, false)
+							exports['anticheat-system']:changeProtectedElementDataEx(v["vehicle"], "carshop:taxcost", 2*(vehicleTaxes[data.model-399] or 25), false)
 							setElementFrozen(v["vehicle"], false)
 							setVehicleVariant(v.vehicle, exports['vehicle-system']:getRandomVariant(getElementModel(v.vehicle)))
 							setTimer(setElementFrozen, 1000, 1, v["vehicle"], true)
 						else
-							outputDebugString("Carshop: Failed to spawn a "..data[1])
+							outputDebugString("Carshop: Failed to spawn a "..data.model)
 						end
 					else
 						local canPopulate2 = true
@@ -104,9 +106,9 @@ function carshop_updateVehicles( forceUpdate )
 
 						if canPopulate2 then
 							
-							local vehicle = createVehicle( getVehicleModelFromName(data[1]) or tonumber(data[1]), v[1], v[2], v[3], v[4], v[5], v[6]  )
+							local vehicle = createVehicle(data.model, v[1], v[2], v[3], v[4], v[5], v[6]  )
 							if not vehicle then
-								outputDebugString("failed to swawna "..data[1])
+								outputDebugString("failed to swawna "..data.model)
 								--next
 							else
 								setElementInterior(vehicle, v[4])
@@ -121,17 +123,11 @@ function carshop_updateVehicles( forceUpdate )
 								local y = v[2] - ( ( math.sin ( math.rad (  v[6] ) ) ) * 1.5 )
 								local tempPickup = createPickup(x, y, v[3], 3, 1239)
 								exports['anticheat-system']:changeProtectedElementDataEx(tempPickup, "carshop:parentCar", v["vehicle"], false)
-								exports['anticheat-system']:changeProtectedElementDataEx(v["vehicle"], "carshop:cost", data[2], false)
+								exports['anticheat-system']:changeProtectedElementDataEx(v["vehicle"], "carshop:cost", data.price, false)
+								exports['anticheat-system']:changeProtectedElementDataEx(v["vehicle"], "name", { name = data.name, year = data.year, brand = data.brand }, false)
 								exports['anticheat-system']:changeProtectedElementDataEx(v["vehicle"], "carshop", true, false)
 								exports['anticheat-system']:changeProtectedElementDataEx(v["vehicle"], "carshop:childPickup", tempPickup, false)
-								exports['anticheat-system']:changeProtectedElementDataEx(v["vehicle"], "carshop:taxcost", 2*(vehicleTaxes[getVehicleModelFromName(data[1])-399] or 25), false)
-								
-								--[[ Second hand: future use
-								exports['anticheat-system']:changeProtectedElementDataEx(v["vehicle"], "carshop:secondhand", data[3], false])
-								if (data[3]) then
-									
-								end
-								--]]
+								exports['anticheat-system']:changeProtectedElementDataEx(v["vehicle"], "carshop:taxcost", 2*(vehicleTaxes[data.model-399] or 25), false)
 							end
 						end
 					end
@@ -153,15 +149,15 @@ function carshop_pickupUse(thePlayer)
 		local costCar = getElementData(parentCar, "carshop:cost")
 		local costTax = getElementData(parentCar, "carshop:taxcost")
 		if costCar and costTax then
-			triggerClientEvent(thePlayer, "carshop:showInfo", parentCar, costCar, costTax)
+			triggerClientEvent(thePlayer, "carshop:showInfo", parentCar, costCar, costTax, getElementData(parentCar, 'name'))
 		end
 		cancelEvent()
 	end
 end
-addEventHandler("onPickupHit", getResourceRootElement(), carshop_pickupUse)
+addEventHandler("onPickupHit", resourceRoot, carshop_pickupUse)
 
 function carshop_Initalize( )
-	carshop_updateVehicles( true )	
+	setTimer( carshop_updateVehicles, 100, 1, true )	
 	setTimer( carshop_updateVehicles, 120000, 0, false )
 end
 addEventHandler( "onResourceStart", getResourceRootElement(), carshop_Initalize)
@@ -183,7 +179,7 @@ function carshop_blockEnterVehicle(thePlayer)
 			payByBank = false
 		end
 		
-		triggerClientEvent(thePlayer, "carshop:buyCar", source, costCar, payByCash, payByBank)
+		triggerClientEvent(thePlayer, "carshop:buyCar", source, costCar, payByCash, payByBank, getElementData(source, 'name'))
 	end
 	cancelEvent()
 end
@@ -303,25 +299,6 @@ function fileReadLine( file )
 	return buffer
 end
 
-function isForSale(vehicle)
-	if type(vehicle) == "number" then
-	elseif type(vehicle) == "string" then
-		vehicle = tonumber(vehicle)
-	elseif isElement(vehicle) and getElementType(vehicle) == "vehicle" then
-		vehicle = getElementModel(vehicle)
-	else
-		return false
-	end
-	for _, shop in ipairs(shops) do
-		for _, data in ipairs(shop.prices) do
-			if getVehicleModelFromName(data[1]) == vehicle then
-				return true
-			end
-		end
-	end
-	return false
-end
-
 -- verify all shop vehicles exist
 addEventHandler("onResourceStart", getResourceRootElement( getThisResource( ) ),
 	function( )
@@ -335,10 +312,3 @@ addEventHandler("onResourceStart", getResourceRootElement( getThisResource( ) ),
 		end
 	end
 )
-
-function carGrid( thePlayer )
-	if exports.global:isPlayerAdmin(thePlayer) then
-		triggerClientEvent(thePlayer, "carshop:cargrid", thePlayer, shops)
-	end
-end
-addCommandHandler("listcarprices", carGrid)

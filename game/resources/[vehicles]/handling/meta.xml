@@ -1,0 +1,16 @@
+<meta>
+	<script src="g_mta_values.lua"/>
+	<script src="g_mta_values.lua" type="client"/>
+	<script src="g_handling.lua"/>
+	<script src="g_handling.lua" type="client"/>
+	<export function="canEdit"/>
+	<export function="canEdit" type="client"/>
+
+	<script src="s_handling.lua"/>
+	<export function="new"/>
+	<export function="get"/>
+	<export function="apply"/>
+	<export function="getHandlingsByShop"/>
+
+	<script src="c_handling.lua" type="client"/>
+</meta>
