@@ -1,4 +1,5 @@
 addEvent('carshop:new', true)
+addEvent('carshop:edit', true)
 
 local function pedClicked(button, state, player)
 	if button == 'left' and state == 'up' then
@@ -10,7 +11,19 @@ local function pedClicked(button, state, player)
 end
 
 local function newHandling(model)
-	exports.handling:new(client, model, tonumber(getElementID(source):sub(#pedIDPrefix + 1)))
+	if canEditHandling(client) then
+		exports.handling:new(client, model, tonumber(getElementID(source):sub(#pedIDPrefix + 1)))
+	end
+end
+
+local function editHandling(id)
+	outputDebugString('edit handling')
+	local handling = exports.handling:get(id)
+	if canEditHandling(client) then
+		local veh = exports.handling:new(client, handling.model, tonumber(getElementID(source):sub(#pedIDPrefix + 1)))
+		setElementData(veh, 'handling:id', id, false)
+		exports.handling:apply(veh)
+	end
 end
 
 addEventHandler('onResourceStart', resourceRoot,
@@ -31,6 +44,7 @@ addEventHandler('onResourceStart', resourceRoot,
 
 				addEventHandler('onElementClicked', ped, pedClicked, false)
 				addEventHandler('carshop:new', ped, newHandling, false)
+				addEventHandler('carshop:edit', ped, editHandling, false)
 			end
 		end
 	end

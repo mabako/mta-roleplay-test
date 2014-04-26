@@ -54,6 +54,14 @@ function carshop_updateVehicles( forceUpdate )
 	
 	for key, value in ipairs( shops ) do
 		local prices = exports.handling:getHandlingsByShop(key)
+
+		-- remove all disabled vehicles
+		for i = #prices, 1, -1 do
+			if prices[i].disabled == 1 then
+				table.remove(prices, i)
+			end
+		end
+
 		if #value["spawnpoints"] > 0 and #prices > 0 then
 			local canPopulate = true
 			for k, v in ipairs( blocking ) do

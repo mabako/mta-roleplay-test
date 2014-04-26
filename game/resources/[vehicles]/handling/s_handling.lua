@@ -43,6 +43,7 @@ end
 
 addEvent('handling:save', true)
 addEvent('handling:modify', true)
+addEvent('handling:delete', true)
 
 local function saveHandling()
 	if not canEdit(client) or not getElementData(source, 'handling:editable') then
@@ -64,11 +65,14 @@ local function saveHandling()
 		end
 
 		record.updated_at = 'NOW()'
+		record.model = getElementModel(source)
 
 		local id = getElementData(source, 'handling:id')
 		if id then
 			-- update existing record
-			if exports.mysql:update('handlings', record, { id = id, model = getElementModel(source) }) == 1 then
+			if exports.mysql:update('handlings', record, { id = id, model = record.model }) == 1 then
+				record.id = id
+
 				outputChatBox('Saved handling.', client, 0, 255, 0)
 
 				handlings[id] = record
@@ -85,13 +89,13 @@ local function saveHandling()
 		else
 			-- new record
 			record.created_at = 'NOW()'
-			record.model = getElementModel(source)
 
 			local id = exports.mysql:insert('handlings', record)
 			if id then
 				setElementData(source, 'handling:id', id, false)
 				outputChatBox('Saved as new handling #' .. id .. '.', client, 0, 255, 0)
 
+				record.id = id
 				handlings[id] = record
 				byShops = nil
 			else
@@ -104,7 +108,7 @@ end
 -- this just applies to one vehicle. you'd have to press 'save' to save it for all of the same type
 local function modifyHandling(key, value)
 	if not canEdit(client) or not getElementData(source, 'handling:editable') then
-		outputDebugString(getPlayerName(client) .. ' called handling:save but has no permission to.')
+		outputDebugString(getPlayerName(client) .. ' called handling:modify but has no permission to.')
 	else
 		outputDebugString('modify handling value -> ' .. key .. ' to ' .. value)
 		local entry = lookupMTAValue(key)
@@ -130,6 +134,14 @@ local function modifyHandling(key, value)
 	end
 end
 
+local function deleteVehicle()
+	if not canEdit(client) or not getElementData(source, 'handling:editable') then
+		outputDebugString(getPlayerName(client) .. ' called handling:delete but has no permission to.')
+	elseif getElementData(source, 'dbid') < 0 then
+		destroyElement(source)
+	end
+end
+
 -- exported
 function new(player, model, shop)
 	local x, y, z = getElementPosition(player)
@@ -142,6 +154,8 @@ function new(player, model, shop)
 
 		addEventHandler('handling:save', veh, saveHandling, false)
 		addEventHandler('handling:modify', veh, modifyHandling, false)
+		addEventHandler('handling:delete', veh, deleteVehicle, false)
+		return veh
 	end
 end
 
@@ -152,6 +166,7 @@ addEventHandler('onResourceStart', resourceRoot,
 			if getElementData(veh, 'handling:editable') then
 				addEventHandler('handling:save', veh, saveHandling, false)
 				addEventHandler('handling:modify', veh, modifyHandling, false)
+				addEventHandler('handling:delete', veh, deleteVehicle, false)
 			end
 		end
 	end

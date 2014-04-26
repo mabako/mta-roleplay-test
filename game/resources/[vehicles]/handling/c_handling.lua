@@ -1,5 +1,5 @@
 local vehicle = nil
-local window, buttonSave = nil
+local window, buttonSave, buttonClose = nil
 local fields = {}
 
 local _type = type
@@ -18,6 +18,7 @@ function check()
 
 		guiSetVisible(window, false)
 		guiSetVisible(buttonSave, false)
+		guiSetVisible(buttonClose, false)
 		guiSetInputMode('allow_binds')
 	end
 end
@@ -168,6 +169,15 @@ function initGUI()
 			end
 		end, false)
 
+	buttonClose = guiCreateButton(screen_width - 1/3*width, screen_height - 20, 1/3*width, 20, '/delthisveh', false)
+	addEventHandler('onClientGUIClick', buttonClose,
+		function(button)
+			if button == 'left' then
+				-- saves all current stats, not ones possibly pending (i.e. changed recently and not transmitted)
+				triggerServerEvent('handling:delete', vehicle)
+			end
+		end, false)
+
 	-- show the gui
 	local v = getPedOccupiedVehicle(localPlayer)
 	if v and getElementData(v, 'handling:editable') and canEdit(localPlayer) then
@@ -178,6 +188,7 @@ function initGUI()
 	end
 	guiSetVisible(window, vehicle ~= nil)
 	guiSetVisible(buttonSave, vehicle ~= nil)
+	guiSetVisible(buttonClose, vehicle ~= nil)
 end
 
 --
@@ -196,6 +207,7 @@ addEventHandler('onClientPlayerVehicleEnter', localPlayer,
 		end
 		guiSetVisible(window, vehicle ~= nil)
 		guiSetVisible(buttonSave, vehicle ~= nil)
+		guiSetVisible(buttonClose, vehicle ~= nil)
 	end
 )
 

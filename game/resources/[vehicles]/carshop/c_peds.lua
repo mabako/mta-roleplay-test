@@ -70,8 +70,13 @@ addEventHandler("carshop:list", resourceRoot,
 				addEventHandler('onClientGUIClick', edit,
 					function(button)
 						if button == 'left' then
-							triggerServerEvent('carshop:edit', source, someID)
-							closeWindow()
+							local selected = guiGridListGetSelectedItem(grid)
+							local id = tonumber(guiGridListGetItemData(grid, selected, 1))
+							outputDebugString(tostring(id))
+							if id then
+								triggerServerEvent('carshop:edit', ped, id)
+								closeWindow()
+							end
 						end
 					end, false)
 
@@ -97,11 +102,12 @@ addEventHandler("carshop:list", resourceRoot,
 					local row = guiGridListAddRow(grid)
 					if canEditHandling(localPlayer) then
 						guiGridListSetItemText(grid, row, c_enabled, car.disabled == 1 and 'No' or '', false, false)
+						guiGridListSetItemData(grid, row, c_enabled, tostring(car.id)) -- handling id
 					end
 
 					guiGridListSetItemText(grid, row, c_name, car.brand .. ' ' .. car.name, false, false)
-					guiGridListSetItemText(grid, row, c_year, '$' .. car.year, false, true)
-					guiGridListSetItemText(grid, row, c_price, exports.global:formatMoney(car.price), false, false)
+					guiGridListSetItemText(grid, row, c_year, car.year, false, true)
+					guiGridListSetItemText(grid, row, c_price, '$' .. exports.global:formatMoney(car.price), false, false)
 					guiGridListSetItemText(grid, row, c_model, getVehicleNameFromModel(car.model), false, true)
 				end
 			end

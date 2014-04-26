@@ -12,6 +12,12 @@ local cOutsideCol = createColPolygon(
 	2210.8671875, -2022.7060546875,
 	2203.1962890625, -2004.3505859375)
 
+local _getVehicleName = getVehicleName
+local function getVehicleName(element)
+	local name = getElementData(element, 'name')
+	return name and (name.year .. ' ' .. name.brand .. ' ' .. name.name) or _getVehicleName(element)
+end
+
 local function showInformation(thePlayer, matching)
 	if isElement(thePlayer) and matching and getElementType(thePlayer) == "player" then
 		outputChatBox("Welcome to the Iron Monger!", thePlayer, 0, 255, 0)
@@ -51,14 +57,12 @@ local function countVehicles( )
 end
 
 local function getVehiclePrice(theVehicle)
-	local model = getElementModel(theVehicle)
-	for k, v in ipairs(shops) do
-		local veek = v["prices"]
-		for key, value in ipairs(veek) do
-			if getVehicleModelFromName(value[1]) == model then
-				return math.ceil(tonumber( value[2] or 0 + ( vehiclecount[ model ] * 600 )) / 300) * 100 -- 1/3 of the price, round to $100
-				--return value[2] -- 100%
-			end
+	local handling = getElementData(theVehicle, 'handling:id')
+	if handling then
+		local data = exports.handling:get(handling)
+		if data then
+			local price = data.price or 0
+			return math.ceil(price / 300) * 100 -- 1/3 of the price, round to $100
 		end
 	end
 	return 0
