@@ -85,6 +85,7 @@ function carshop_updateVehicles( forceUpdate )
 							end
 							exports['anticheat-system']:changeProtectedElementDataEx(v["vehicle"], "carshop:cost", data.price, false)
 							exports['anticheat-system']:changeProtectedElementDataEx(v["vehicle"], "name", { name = data.name, year = data.year, brand = data.brand }, false)
+							exports['anticheat-system']:changeProtectedElementDataEx(v["vehicle"], "handling:id", data.id, false)
 							exports['anticheat-system']:changeProtectedElementDataEx(v["vehicle"], "carshop:taxcost", 2*(vehicleTaxes[data.model-399] or 25), false)
 							setElementFrozen(v["vehicle"], false)
 							setVehicleVariant(v.vehicle, exports['vehicle-system']:getRandomVariant(getElementModel(v.vehicle)))
@@ -125,6 +126,7 @@ function carshop_updateVehicles( forceUpdate )
 								exports['anticheat-system']:changeProtectedElementDataEx(tempPickup, "carshop:parentCar", v["vehicle"], false)
 								exports['anticheat-system']:changeProtectedElementDataEx(v["vehicle"], "carshop:cost", data.price, false)
 								exports['anticheat-system']:changeProtectedElementDataEx(v["vehicle"], "name", { name = data.name, year = data.year, brand = data.brand }, false)
+								exports['anticheat-system']:changeProtectedElementDataEx(v["vehicle"], "handling:id", data.id, false)
 								exports['anticheat-system']:changeProtectedElementDataEx(v["vehicle"], "carshop", true, false)
 								exports['anticheat-system']:changeProtectedElementDataEx(v["vehicle"], "carshop:childPickup", tempPickup, false)
 								exports['anticheat-system']:changeProtectedElementDataEx(v["vehicle"], "carshop:taxcost", 2*(vehicleTaxes[data.model-399] or 25), false)
@@ -209,6 +211,7 @@ function carshop_buyVehicle(paymentMethod)
 					local money = getElementData(client, "bankmoney") - costCar
 					if money < 0 or costCar == 0 then
 						outputChatBox("You don't have enough money in your bank account for this pal..", client, 0, 255, 0)
+						return
 					else
 						exports['anticheat-system']:changeProtectedElementDataEx(client, "bankmoney", money, false)
 						mysql:query_free("UPDATE characters SET bankmoney=" .. mysql:escape_string((tonumber(money) or 0)) .. " WHERE id=" .. mysql:escape_string(getElementData( client, "dbid" )))
@@ -219,7 +222,6 @@ function carshop_buyVehicle(paymentMethod)
 				end
 				
 				local dbid = getElementData(client, "account:character:id")
-				local modelID = getElementModel(source)
 				local x, y, z = getElementPosition(source)
 				local rx, ry, rz = getElementRotation(source)
 				local col = { getVehicleColor(source) }
@@ -231,9 +233,17 @@ function carshop_buyVehicle(paymentMethod)
 				local letter2 = string.char(math.random(65,90))
 				local var1, var2 = getVehicleVariant(source)
 				local plate = letter1 .. letter2 .. math.random(0, 9) .. " " .. math.random(1000, 9999)
-				local locked = 1
-					
-				local insertid = mysql:query_insert_free("INSERT INTO vehicles SET model='" .. mysql:escape_string(modelID) .. "', x='" .. mysql:escape_string(x) .. "', y='" .. mysql:escape_string(y) .. "', z='" .. mysql:escape_string(z) .. "', rotx='" .. mysql:escape_string(rx) .. "', roty='" .. mysql:escape_string(ry) .. "', rotz='" .. mysql:escape_string(rz) .. "', color1='" .. mysql:escape_string(color1) .. "', color2='" .. mysql:escape_string(color2) .. "', color3='" .. mysql:escape_string(color3) .. "', color4='" .. mysql:escape_string(color4) .. "', faction='-1', owner='" .. mysql:escape_string(dbid) .. "', plate='" .. mysql:escape_string(plate) .. "', currx='" .. mysql:escape_string(x) .. "', curry='" .. mysql:escape_string(y) .. "', currz='" .. mysql:escape_string(z) .. "', currrx='0', currry='0', currrz='" .. mysql:escape_string(rz) .. "', locked='" .. mysql:escape_string(locked) .. "',variant1="..var1..",variant2="..var2)
+				
+				local record = {
+					model = getElementModel(source),
+					handling = getElementData(source, 'handling:id'),
+					x = x, y = y, z = z, rotx = rx, roty = ry, rotz = rz,
+					currx = x, curry = y, currz = z, currrx = rx, currry = ry, currrz = rz,
+					color1 = color1, color2 = color2, color3 = color3, color4 = color4,
+					faction = -1, owner = dbid, plate = plate, locked = 1, variant1 = var1, variant2 = var2
+				}
+
+				local insertid = exports.mysql:insert('vehicles', record)
 				
 				if (insertid) then
 					exports.logs:dbLog(client, 6, "ve"..tostring(insertid), "BOUGHTNEWCAR ".. costCar)

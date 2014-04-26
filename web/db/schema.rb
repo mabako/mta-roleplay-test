@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140425133854) do
+ActiveRecord::Schema.define(version: 20140426014544) do
 
   create_table "accounts", force: true do |t|
     t.text     "username"
@@ -602,56 +602,55 @@ ActiveRecord::Schema.define(version: 20140425133854) do
   end
 
   create_table "vehicles", force: true do |t|
-    t.integer "model",                                               default: 0
-    t.decimal "x",                          precision: 10, scale: 6, default: 0.0
-    t.decimal "y",                          precision: 10, scale: 6, default: 0.0
-    t.decimal "z",                          precision: 10, scale: 6, default: 0.0
-    t.decimal "rotx",                       precision: 10, scale: 6, default: 0.0
-    t.decimal "roty",                       precision: 10, scale: 6, default: 0.0
-    t.decimal "rotz",                       precision: 10, scale: 6, default: 0.0
-    t.decimal "currx",                      precision: 10, scale: 6, default: 0.0
-    t.decimal "curry",                      precision: 10, scale: 6, default: 0.0
-    t.decimal "currz",                      precision: 10, scale: 6, default: 0.0
-    t.decimal "currrx",                     precision: 10, scale: 6, default: 0.0
-    t.decimal "currry",                     precision: 10, scale: 6, default: 0.0
+    t.integer "model",                                               default: 0,                                                           null: false
+    t.decimal "x",                          precision: 10, scale: 6, default: 0.0,                                                         null: false
+    t.decimal "y",                          precision: 10, scale: 6, default: 0.0,                                                         null: false
+    t.decimal "z",                          precision: 10, scale: 6, default: 0.0,                                                         null: false
+    t.decimal "rotx",                       precision: 10, scale: 6, default: 0.0,                                                         null: false
+    t.decimal "roty",                       precision: 10, scale: 6, default: 0.0,                                                         null: false
+    t.decimal "rotz",                       precision: 10, scale: 6, default: 0.0,                                                         null: false
+    t.decimal "currx",                      precision: 10, scale: 6, default: 0.0,                                                         null: false
+    t.decimal "curry",                      precision: 10, scale: 6, default: 0.0,                                                         null: false
+    t.decimal "currz",                      precision: 10, scale: 6, default: 0.0,                                                         null: false
+    t.decimal "currrx",                     precision: 10, scale: 6, default: 0.0,                                                         null: false
+    t.decimal "currry",                     precision: 10, scale: 6, default: 0.0,                                                         null: false
     t.decimal "currrz",                     precision: 10, scale: 6, default: 0.0,                                                         null: false
-    t.integer "fuel",                                                default: 100
-    t.integer "engine",                                              default: 0
-    t.integer "locked",                                              default: 0
-    t.integer "lights",                                              default: 0
-    t.integer "sirens",                                              default: 0
-    t.integer "paintjob",                                            default: 0
-    t.float   "hp",                                                  default: 1000.0
-    t.string  "color1",         limit: 50,                           default: "0"
-    t.string  "color2",         limit: 50,                           default: "0"
+    t.integer "fuel",                                                default: 100,                                                         null: false
+    t.integer "engine",                                              default: 0,                                                           null: false
+    t.integer "locked",                                              default: 0,                                                           null: false
+    t.integer "lights",                                              default: 0,                                                           null: false
+    t.integer "sirens",                                              default: 0,                                                           null: false
+    t.integer "paintjob",                                            default: 0,                                                           null: false
+    t.float   "hp",                                                  default: 1000.0,                                                      null: false
+    t.string  "color1",         limit: 50,                           default: "0",                                                         null: false
+    t.string  "color2",         limit: 50,                           default: "0",                                                         null: false
     t.string  "color3",         limit: 50
     t.string  "color4",         limit: 50
-    t.text    "plate"
-    t.integer "faction",                                             default: -1
-    t.integer "owner",                                               default: -1
-    t.integer "job",                                                 default: -1
-    t.integer "tintedwindows",                                       default: 0
-    t.integer "dimension",                                           default: 0
-    t.integer "interior",                                            default: 0
-    t.integer "currdimension",                                       default: 0
-    t.integer "currinterior",                                        default: 0
-    t.integer "enginebroke",                                         default: 0
-    t.text    "items"
-    t.text    "itemvalues"
-    t.integer "Impounded",                                           default: 0
-    t.integer "handbrake",                                           default: 0
+    t.string  "plate",          limit: 8,                                                                                                  null: false
+    t.integer "faction",                                             default: -1,                                                          null: false
+    t.integer "owner",                                               default: -1,                                                          null: false
+    t.integer "job",                                                 default: -1,                                                          null: false
+    t.integer "tintedwindows",                                       default: 0,                                                           null: false
+    t.integer "dimension",                                           default: 0,                                                           null: false
+    t.integer "interior",                                            default: 0,                                                           null: false
+    t.integer "currdimension",                                       default: 0,                                                           null: false
+    t.integer "currinterior",                                        default: 0,                                                           null: false
+    t.integer "enginebroke",                                         default: 0,                                                           null: false
+    t.integer "Impounded",                                           default: 0,                                                           null: false
+    t.integer "handbrake",                                           default: 0,                                                           null: false
     t.float   "safepositionX"
     t.float   "safepositionY"
     t.float   "safepositionZ"
     t.float   "safepositionRZ"
-    t.string  "upgrades",       limit: 150,                          default: "[ [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ] ]"
-    t.string  "wheelStates",    limit: 30,                           default: "[ [ 0, 0, 0, 0 ] ]"
-    t.string  "panelStates",    limit: 40,                           default: "[ [ 0, 0, 0, 0, 0, 0, 0 ] ]"
+    t.string  "upgrades",       limit: 150,                          default: "[ [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ] ]", null: false
+    t.string  "wheelStates",    limit: 30,                           default: "[ [ 0, 0, 0, 0 ] ]",                                        null: false
+    t.string  "panelStates",    limit: 40,                           default: "[ [ 0, 0, 0, 0, 0, 0, 0 ] ]",                               null: false
     t.string  "doorStates",     limit: 30,                           default: "[ [ 0, 0, 0, 0, 0, 0 ] ]"
-    t.integer "odometer",                                            default: 0
-    t.string  "headlights",     limit: 30,                           default: "[ [ 255, 255, 255 ] ]"
+    t.integer "odometer",                                            default: 0,                                                           null: false
+    t.string  "headlights",     limit: 30,                           default: "[ [ 255, 255, 255 ] ]",                                     null: false
     t.integer "variant1",       limit: 3,                            default: 255,                                                         null: false
     t.integer "variant2",       limit: 3,                            default: 255,                                                         null: false
+    t.integer "handling",                                            default: 0,                                                           null: false
   end
 
   create_table "wiretransfers", force: true do |t|

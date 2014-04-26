@@ -316,6 +316,15 @@ function loadOneVehicle(id, hasCoroutine)
 			
 			-- set the sirens on if it has some
 			setVehicleSirensOn(veh, row.sirens == 1)
+
+			-- set the handling if available
+			outputDebugString('handling->' .. row.handling)
+			if row.handling > 0 then
+				exports['anticheat-system']:changeProtectedElementDataEx(veh, "handling:id", row.handling, false)
+				if getResourceState(getResourceFromName('handling')) == 'running' then
+					exports.handling:apply(veh)
+				end
+			end
 				
 			-- job
 			if row.job > 0 then
