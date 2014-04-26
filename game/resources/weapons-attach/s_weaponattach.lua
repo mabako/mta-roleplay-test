@@ -3,7 +3,7 @@ addEventHandler( "onPlayerWeaponSwitch", getRootElement(),
 		if exports.global:hasItem(source, 115) then
 			outputChatBox("You have a weapon.", source)
 			local exists, slot, itemValue = exports.global:hasItem(source, 115)
-			if itemValue==30 and not getPedWeapon(source)==30 then --Golf club
+			if itemValue:sub(1,2)=="30" and not getPedWeapon(source)==30 then --AK-47
 				-- Bone attach
 				outputChatBox("Now in your back", source)
 			elseif itemValue==3 and not getPedWeapon(source)==3 then  --Nightstick
