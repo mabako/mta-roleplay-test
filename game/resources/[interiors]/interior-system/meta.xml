@@ -45,4 +45,6 @@
 	<script src="custom/gym.lua" type="client"/>
 	<script src="custom/workout.lua" type="client"/>
 	<script src="custom/house2.lua" type="client"/>
+
+	<file src="font.ttf"/>
 </meta>

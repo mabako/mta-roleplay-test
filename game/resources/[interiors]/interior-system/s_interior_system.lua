@@ -813,6 +813,9 @@ function client_requestHUDinfo()
 	local interiorCost = interiorStatus[INTERIOR_COST] or 0
 	local interiorEntranceFee = interiorEntrance[INTERIOR_FEE] or 0
 	
+	if exports.global:isPlayerAdmin(client) or getElementData(client, 'adminduty') ~= 1 then
+		interiorOwnerName = nil
+	end
 	triggerClientEvent(client, "displayInteriorName", source, interiorName or "Elevator", interiorOwnerName, interiorType or 2, interiorCost or 0, interiorEntranceFee or 0 )
 end
 addEvent("interior:requestHUD", true)

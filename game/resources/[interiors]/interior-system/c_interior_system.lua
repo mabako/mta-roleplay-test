@@ -2,6 +2,8 @@ gInteriorName, gOwnerName, gBuyMessage = nil
 
 timer = nil
 
+local font = guiCreateFont('font.ttf', 40)
+
 -- Message on enter
 function showIntName(name, ownerName, inttype, cost, fee)
 	if (isElement(gInteriorName) and guiGetVisible(gInteriorName)) then
@@ -12,9 +14,11 @@ function showIntName(name, ownerName, inttype, cost, fee)
 		
 		destroyElement(gInteriorName)
 		gInteriorName = nil
-			
-		destroyElement(gOwnerName)
-		gOwnerName = nil
+		
+		if gOwnerName then
+			destroyElement(gOwnerName)
+			gOwnerName = nil
+		end
 			
 		if (gBuyMessage) then
 			destroyElement(gBuyMessage)
@@ -27,25 +31,29 @@ function showIntName(name, ownerName, inttype, cost, fee)
 	elseif name then
 		if (inttype==3) then -- Interior name and Owner for rented
 			gInteriorName = guiCreateLabel(0.0, 0.85, 1.0, 0.3, tostring(name), true)
-			guiSetFont(gInteriorName, "sa-header")
+			guiSetFont(gInteriorName, font)
 			guiLabelSetHorizontalAlign(gInteriorName, "center", true)
 			guiSetAlpha(gInteriorName, 0.0)
 		
-			gOwnerName = guiCreateLabel(0.0, 0.90, 1.0, 0.3, "Rented by: " .. tostring(ownerName), true)
-			guiSetFont(gOwnerName, "default-bold-small")
-			guiLabelSetHorizontalAlign(gOwnerName, "center", true)
-			guiSetAlpha(gOwnerName, 0.0)
+			if ownerName ~= nil then
+				gOwnerName = guiCreateLabel(0.0, 0.90, 1.0, 0.3, "Rented by: " .. tostring(ownerName), true)
+				guiSetFont(gOwnerName, "default-bold-small")
+				guiLabelSetHorizontalAlign(gOwnerName, "center", true)
+				guiSetAlpha(gOwnerName, 0.0)
+			end
 		
 		else -- Interior name and Owner for the rest
 			gInteriorName = guiCreateLabel(0.0, 0.85, 1.0, 0.3, tostring(name), true)
-			guiSetFont(gInteriorName, "sa-header")
+			guiSetFont(gInteriorName, font)
 			guiLabelSetHorizontalAlign(gInteriorName, "center", true)
 			guiSetAlpha(gInteriorName, 0.0)
-			
-			gOwnerName = guiCreateLabel(0.0, 0.90, 1.0, 0.3, "Owner: " .. tostring(ownerName), true)
-			guiSetFont(gOwnerName, "default-bold-small")
-			guiLabelSetHorizontalAlign(gOwnerName, "center", true)
-			guiSetAlpha(gOwnerName, 0.0)
+
+			if ownerName ~= nil then
+				gOwnerName = guiCreateLabel(0.0, 0.90, 1.0, 0.3, "Owner: " .. tostring(ownerName), true)
+				guiSetFont(gOwnerName, "default-bold-small")
+				guiLabelSetHorizontalAlign(gOwnerName, "center", true)
+				guiSetAlpha(gOwnerName, 0.0)
+			end
 		end
 		if (ownerName=="None") and (inttype==3) then -- Unowned type 3 (rentable)
 			gBuyMessage = guiCreateLabel(0.0, 0.915, 1.0, 0.3, "Press F to rent for $" .. tostring(exports.global:formatMoney(cost)) .. ".", true)
@@ -82,7 +90,9 @@ function fadeMessage(fadein)
 	if (fadein) and (alpha) then
 		local newalpha = alpha + 0.05
 		guiSetAlpha(gInteriorName, newalpha)
-		guiSetAlpha(gOwnerName, newalpha)
+		if isElement(gOwnerName) then
+			guiSetAlpha(gOwnerName, newalpha)
+		end
 		
 		if (gBuyMessage) then
 			guiSetAlpha(gBuyMessage, newalpha)
@@ -94,7 +104,9 @@ function fadeMessage(fadein)
 	elseif (alpha) then
 		local newalpha = alpha - 0.05
 		guiSetAlpha(gInteriorName, newalpha)
-		guiSetAlpha(gOwnerName, newalpha)
+		if gOwnerName then
+			guiSetAlpha(gOwnerName, newalpha)
+		end
 		
 		if (gBuyMessage) then
 			guiSetAlpha(gBuyMessage, newalpha)
