@@ -107,6 +107,12 @@ function initGUI()
 			if type == 'string' or type == 'int' or type == 'float' then
 				element = guiCreateEdit(140, y - 2, 120, 20, '', false, parent)
 
+				if type == 'int' then
+					guiSetProperty(element, 'ValidationString', '\\-?[0-9]*')
+				elseif type == 'float' then
+					guiSetProperty(element, 'ValidationString', '\\-?[0-9]*\\.?[0-9]{0,3}') -- max. 3 digits after '.'
+				end
+
 				-- simply highlight that this edit box content was changed
 				addEventHandler('onClientGUIChanged', element,
 					function()

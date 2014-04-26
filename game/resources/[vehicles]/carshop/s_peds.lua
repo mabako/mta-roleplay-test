@@ -17,12 +17,8 @@ local function newHandling(model)
 end
 
 local function editHandling(id)
-	outputDebugString('edit handling')
-	local handling = exports.handling:get(id)
 	if canEditHandling(client) then
-		local veh = exports.handling:new(client, handling.model, tonumber(getElementID(source):sub(#pedIDPrefix + 1)))
-		setElementData(veh, 'handling:id', id, false)
-		exports.handling:apply(veh)
+		local veh = exports.handling:edit(client, id)
 	end
 end
 

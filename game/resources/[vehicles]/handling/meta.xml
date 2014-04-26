@@ -7,9 +7,19 @@
 	<export function="canEdit" type="client"/>
 
 	<script src="s_handling.lua"/>
+	<!-- creates a new vehicle and a new temporary handling -->
 	<export function="new"/>
+
+	<!-- edits an existing handling -->
+	<export function="edit"/>
+
+	<!-- returns data for an existing handling -->
 	<export function="get"/>
+
+	<!-- applies a handling to the given vehicle -->
 	<export function="apply"/>
+
+	<!-- returns a table for all handlings relevant to a specific shop -->
 	<export function="getHandlingsByShop"/>
 
 	<script src="c_handling.lua" type="client"/>

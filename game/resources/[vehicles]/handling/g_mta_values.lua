@@ -77,12 +77,13 @@ function isValidValue(key, value)
 	local entry = lookupMTAValue(key)
 	if entry then
 		-- check the limits if it's an int or float
-		if type == 'int' or type == 'float' then
+		if entry[2] == 'int' or entry[2] == 'float' then
 			local num = tonumber(value)
+			local limit = entry[3]
 			return num and num >= limit[1] and num <= limit[2]
-		elseif type == 'string' then
+		elseif entry[2] == 'string' then
 			return #value < 40
-		elseif type == 'select' then
+		elseif entry[2] == 'select' then
 			return entry[3][value] ~= nil -- value is available
 		end
 		return true

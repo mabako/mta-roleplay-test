@@ -72,7 +72,6 @@ addEventHandler("carshop:list", resourceRoot,
 						if button == 'left' then
 							local selected = guiGridListGetSelectedItem(grid)
 							local id = tonumber(guiGridListGetItemData(grid, selected, 1))
-							outputDebugString(tostring(id))
 							if id then
 								triggerServerEvent('carshop:edit', ped, id)
 								closeWindow()

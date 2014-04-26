@@ -155,8 +155,28 @@ function new(player, model, shop)
 		addEventHandler('handling:save', veh, saveHandling, false)
 		addEventHandler('handling:modify', veh, modifyHandling, false)
 		addEventHandler('handling:delete', veh, deleteVehicle, false)
-		return veh
 	end
+end
+
+function edit(player, id)
+	local handling = handlings[id]
+	if handling then
+		local x, y, z = getElementPosition(player)
+		local _, _, r = getElementRotation(player)
+		local veh = exports.tempvehicles:create(handling.model, x, y, z, r, player, -1, -1)
+		if veh then
+			setElementData(veh, 'handling:editable', {shop = handling.shop, price = handling.price, disabled = handling.disabled })
+			setElementData(veh, 'handling:id', id, false)
+			setElementData(veh, 'name', { brand = handling.brand, name = handling.name, year = handling.year })
+
+			addEventHandler('handling:save', veh, saveHandling, false)
+			addEventHandler('handling:modify', veh, modifyHandling, false)
+			addEventHandler('handling:delete', veh, deleteVehicle, false)
+
+			apply(veh)
+		end
+	end
+
 end
 
 addEventHandler('onResourceStart', resourceRoot,
