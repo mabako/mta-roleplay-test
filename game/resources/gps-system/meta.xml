@@ -1,7 +1,7 @@
 <meta>
     <info type="utility" version="1.0.0" />
     <script src="c_pathfind.lua"  type="client"/>
-    <script src="c_vehiclenodes_.lua"  type="client"/>
+    <script src="c_vehiclenodes.lua"  type="client"/>
 	<script src="c_MinHeap.lua"  type="client"/>
 	
 	<script src="c_drawroute.lua" type="client" />
