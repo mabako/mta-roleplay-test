@@ -1,30 +1,36 @@
-addEventHandler( "onPlayerWeaponSwitch", getRootElement(),
-	function ()
-		if exports.global:hasItem(source, 115) then
-			outputChatBox("You have a weapon.", source)
-			local exists, slot, itemValue = exports.global:hasItem(source, 115)
-			if itemValue:sub(1,2)=="30" and not getPedWeapon(source)==30 then --AK-47
-				-- Bone attach
-				outputChatBox("Now in your back", source)
-			elseif itemValue==3 and not getPedWeapon(source)==3 then  --Nightstick
-				-- Bone attach
-			elseif itemValue==5 and not getPedWeapon(source)==5 then --Baseball bat
-				-- Bone attach
-			elseif itemValue==8 and not getPedWeapon(source)==8 then --Katana
-				-- Bone attach
-			elseif itemValue==22 and not getPedWeapon(source)==22 then --Pistol
-				-- Bone attach
-			elseif itemValue==23 and not getPedWeapon(source)==23 then --Silenced pistol
-				-- Bone attach
-			elseif itemValue==24 and not getPedWeapon(source)==24 then --Desert eagle (deagle)
-				-- Bone attach
-			elseif itemValue==30 and not getPedWeapon(source)==30 then --AK-47
-				-- Bone attach
-				outputChatBox("Now in your back", source)
-			elseif itemValue==31 and not getPedWeapon(source)==31 then --M4A1
-				-- Bone attach
-			end
+local ak47s = {}
+local nightsticks = {}
+
+function checkForAK()
+	if (getPedWeapon(source, 5) == 30) then
+		if (getPedWeapon(source) == 30) then
+			ak47 = createObject(355, 0, 0, 0)
+			exports.bone_attach:attachElementToBone(ak47,source,3,0.1,0.25,0,0,45,180)
+			ak47s[source] = ak47
+			setElementData(source, "holdingAK", 1)
+		elseif getElementData(source, "holdingAK") == 1 then
+			exports.bone_attach:detachElementFromBone(ak47s[source])
+			destroyElement(ak47s[source])
+			setElementData(source, "holdingAK", 0)
 		end
 	end
-)
-			
+end
+
+function checkForNightstick()
+	if (getPedWeapon(source, 1) == 3) then
+		if (getPedWeapon(source) == 3) then
+			nightstick = createObject(334, 0, 0, 0)
+			exports.bone_attach:attachElementToBone(nightstick,source,3,1,0,0,0,0,0)
+			nightsticks[source] = nightstick
+			setElementData(source, "holdingNightstick", 1)
+		elseif getElementData(source, "holdingNightstick") == 1 then
+			exports.bone_attach:detachElementFromBone(nightsticks[source])
+			destroyElement(nightsticks[source])
+			setElementData(source, "holdingNightstick", 0)
+		end
+	end
+end
+
+addEventHandler("onPlayerWeaponSwitch", getRootElement(), checkForAK)
+addEventHandler("onPlayerWeaponSwitch", getRootElement(), checkForNightstick)
+
