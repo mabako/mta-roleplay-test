@@ -16,6 +16,14 @@ function checkForAK()
 	end
 end
 
+function testing(thePlayer)
+	local test, test2, test3 = exports.global:hasItem(thePlayer, 115)
+	if string.sub(tostring(test3), 1, 2) == "30" then
+		outputChatBox("yay!",source)
+	end
+end
+addCommandHandler("testing", testing)
+
 function checkForNightstick()
 	if (getPedWeapon(source, 1) == 3) then
 		if (getPedWeapon(source) == 3) then
