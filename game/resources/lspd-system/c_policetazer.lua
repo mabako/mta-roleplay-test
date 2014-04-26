@@ -1,7 +1,8 @@
-txd = engineLoadTXD ( "silenced.txd" )
+--[[txd = engineLoadTXD ( "silenced.txd" )
 engineImportTXD ( txd, 2918 )
 dff = engineLoadDFF ( "silenced.dff", 2918 )
 engineReplaceModel ( dff, 2918 )
+]]
 --[[
 weapons = { }
 

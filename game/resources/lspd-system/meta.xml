@@ -41,8 +41,10 @@
 	
 	<script src="helicopters/s_helicopters.lua" type="server"/>
 	
+	<!--
 	<file src="silenced.dff"/>
 	<file src="silenced.txd"/>
+	-->
 	
 	<file src="riot_shield.dff"/>
 	<file src="riot_shield.txd"/>
