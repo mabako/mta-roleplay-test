@@ -1,45 +1,53 @@
-local ak47s = {}
-local nightsticks = {}
+local bonePositions = {
+	
+	[30] = { model = 355, bone = 3, x = 0.1, y = 0.25, z = 0, rx = 0, ry = 45, rz = 180 },
+	[3]  = { model = 334, bone = 3, x = 0, y = 0, z = 0, rx = 0, ry = 0, rz = 0}
+}
 
-function test (thePlayer)
-	local bla1 = createObject(355, 0, 0, 0)
-	exports.bone_attach:attachElementToBone(bla1,thePlayer,3,0.1,0.25,0,0,45,180)
-	local bla2 = createObject(334, 0, 0, 0)
-	exports.bone_attach:attachElementToBone(bla2,thePlayer,3,0,0,0,0,0,0)
-end
-addCommandHandler("bonetest", test)
+local attachedElements = { }
 
-addEventHandler( "onPlayerWeaponSwitch", getRootElement(),
-	function ()
-		if exports.global:hasItem(source, 115) then
-			outputChatBox("You have a weapon.", source)
-			-- AK 47
-			if (getPedWeapon(source, 5) == 30) and (getPedWeapon(source) == 30) then
-				setElementData(source, "isHolding30", 0)
-				ak47 = createObject(355, 0, 0, 0)
-				exports.bone_attach:attachElementToBone(ak47,source,3,0.1,0.25,0,0,45,180)
-				ak47s[source] = ak47
-				outputChatBox("AK is now added", source)
-			elseif (getPedWeapon(source, 5) == 30) and (getPedWeapon(source) ~= 30) and (getElementData(source, "isHolding30") == 0) then
-				setElementData(source, "isHolding30", 1)
-				exports.bone_attach:detachElementFromBone(ak47s[source])
-				destroyElement(ak47s[source])
-				outputChatBox("AK is now removed", source)
-			end
-			-- Nightstick
-			if (getPedWeapon(source, 1) == 3) and (getPedWeapon(source) == 3) then
-				setElementData(source, "isHolding3", 0)
-				nightstick = createObject(334, 0, 0, 0)
-				exports.bone_attach:attachElementToBone(nightstick,source,3,0,0,0,0,0,0)
-				nightsticks[source] = nightstick
-				outputChatBox("Nightstick is now added", source)
-			elseif (getPedWeapon(source, 1) == 3) and (getPedWeapon(source) ~= 3) and (getElementData(source, "isHolding3") == 0) then
-				setElementData(source, "isHolding3", 1)
-				exports.bone_attach:detachElementFromBone(nightsticks[source])
-				destroyElement(nightsticks[source])
-				outputChatBox("Nightstick is now removed",source)
-			end
+-- needs to listen to updating inventories, some day. happens when you login, change chars, etc.
+
+addEventHandler( 'onPlayerJoin', root,
+	function()
+		attachedElements[source] = {}
+	end)
+
+addEventHandler( 'onResourceStart', resourceRoot,
+	function()
+		for _, player in ipairs(getElementsByType('player')) do
+			attachedElements[player] = {}
 		end
-	end
-)
+	end)
+
+addEventHandler( 'onPlayerQuit', root,
+	function()
+		-- do items need to be destroyed?
+
+		attachedElements[source] = nil
+	end)
+
+addEventHandler( "onPlayerWeaponSwitch", root,
+	function(previousWeapon, currentWeapon)
+		local new = bonePositions[previousWeapon]
+		if new and not attachedElements[source][previousWeapon] then
+			-- attach the old weapon
+			local element = createObject(new.model, 0, 0, 0)
+			exports.bone_attach:attachElementToBone(element, source, new.bone, new.x, new.y, new.z, new.rx, new.ry, new.rz)
+
+			attachedElements[source][previousWeapon] = element
+
+			-- todo set dimension/interior
+			-- todo update dimensions/interiors when changing interiors
+		end
+
+		local oldElement = attachedElements[source][currentWeapon]
+		if oldElement then
+			-- was attached before, remove it now
+			exports.bone_attach:detachElementFromBone(oldElement)
+			destroyElement(oldElement)
+
+			attachedElements[source][currentWeapon] = nil
+		end
+	end)
 			
