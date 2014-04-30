@@ -133,7 +133,8 @@ function doItemGiveawayChecks(source, itemID)
 	end
 	
 	-- Clothes
-	if itemID == 16 and not hasItem(source, 16, getPedSkin(source)) then
+	local requiredClothesValue = getElementModel(source) .. (getElementData(source, 'clothing:id') and (':' .. getElementData(source, 'clothing:id')) or '')
+	if itemID == 16 and not hasItem(source, 16, tonumber(requiredClothesValue) or requiredClothesValue) then
 		local gender = getElementData(source,"gender")
 		local race = getElementData(source,"race")
 		local result = mysql:query_fetch_assoc("SELECT skincolor, gender FROM characters WHERE id='" .. getElementData(source, "dbid") .. "' LIMIT 1")
@@ -155,7 +156,9 @@ function doItemGiveawayChecks(source, itemID)
 				setElementModel(source, 140)
 			end
 		end
-		exports.mysql:query_free( "UPDATE characters SET skin = '" .. exports.mysql:escape_string(getElementModel(source)) .. "' WHERE id = '" .. exports.mysql:escape_string(getElementData( source, "dbid" )).."'" )
+
+		exports['anticheat-system']:changeProtectedElementDataEx(source, 'clothing:id', nil, true)
+		exports.mysql:query_free( "UPDATE characters SET skin = '" .. exports.mysql:escape_string(getElementModel(source)) .. "', clothingid = NULL WHERE id = '" .. exports.mysql:escape_string(getElementData( source, "dbid" )).."'" )
 	end
 	
 	-- Badges

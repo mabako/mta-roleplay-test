@@ -231,14 +231,18 @@ function useItem(itemSlot, additional)
 			local gender = tonumber(result["gender"])
 			local race = tonumber(result["skincolor"])
 			
-			local skin = tonumber(itemValue)
+			local skin, clothingid = unpack(split(tostring(itemValue), ':'))
+			skin = tonumber(skin)
+			clothingid = tonumber(clothingid) or nil
 			if fittingskins[gender] and fittingskins[gender][race] and fittingskins[gender][race][skin] then
 				local vehicle, veholdstate = getPedOccupiedVehicle ( source ), nil
 				if vehicle then
 					veholdstate = getVehicleEngineState ( vehicle )
 				end
 				setElementModel(source, skin)
-				mysql:query_free( "UPDATE characters SET skin = " .. skin .. " WHERE id = " .. getElementData( source, "dbid" ) )
+				exports['anticheat-system']:changeProtectedElementDataEx(source, "clothing:id", clothingid, true)
+
+				mysql:query_free( "UPDATE characters SET skin = " .. skin .. ", clothingid = " .. ( clothingid or 'NULL' ) .. " WHERE id = " .. getElementData( source, "dbid" ) )
 				if exports['anticheat-system']:changeProtectedElementDataEx(source, "casualskin", skin, false) then
 					mysql:query_free("UPDATE characters SET casualskin = " .. skin .. " WHERE id = " .. getElementData(source, "dbid") )
 				end
