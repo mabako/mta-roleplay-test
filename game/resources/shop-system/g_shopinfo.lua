@@ -362,3 +362,8 @@ function updateItems( shop_type, race, gender )
 		simplesmallcache["vm"] = true
 	end
 end
+
+-- exported
+function getFittingSkins()
+	return fittingskins
+end

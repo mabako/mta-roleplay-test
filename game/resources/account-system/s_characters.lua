@@ -286,6 +286,8 @@ function spawnCharacter(characterID)
 		setElementDataEx(client, "gender", tonumber(characterData["gender"]))
 		setElementDataEx(client, "deaglemode", 0, true)
 		setElementDataEx(client, "shotgunmode", 0, true)
+
+		setElementDataEx(client, "clothing:id", tonumber(characterData["clothingid"]) or nil, true)
 		
 		if (tonumber(characterData["restrainedobj"])>0) then
 			setElementDataEx(client, "restrainedObj", tonumber(characterData["restrainedobj"]), false)
@@ -423,6 +425,7 @@ function Characters_onCharacterChange()
 	setElementDataEx(client, "pd.jailstation")
 	setElementDataEx(client, "loggedin", 0)
 	setElementDataEx(client, "bankmoney", 0)
+	setElementDataEx(client, "clothing:id", nil, true)
 	setElementDataEx(client, "account:character:id", false)
 	setElementAlpha(client, 0)
 	if (getPedOccupiedVehicle(client)) then

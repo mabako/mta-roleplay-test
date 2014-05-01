@@ -1,0 +1,16 @@
+<meta>
+	<!-- normal ingame clothing -->
+	<script src="s_clothing.lua"/>
+	<script src="c_clothing.lua" type="client"/>
+
+	<!-- clothing shop with preview -->
+	<script src="g_util.lua"/>
+	<script src="g_util.lua" type="client"/>
+	<script src="s_shop.lua"/>
+	<script src="c_shop.lua" type="client"/>
+
+	<!-- shader -->
+	<file src="tex.fx" type="client"/>
+
+	<min_mta_version client="1.3.5" server="1.3.5"/>
+</meta>

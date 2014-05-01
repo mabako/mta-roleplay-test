@@ -122,7 +122,7 @@ end
 
 local function getImage( itemID, itemValue )
 	if itemID == 16 then -- Clothes
-		return ":account-system/img/" .. ("%03d"):format(itemValue) .. ".png"
+		return ":account-system/img/" .. ("%03d"):format(tostring(itemValue):gsub(":(.*)$", "")) .. ".png"
 	elseif itemID == 115 then -- Weapon
 		local itemValueExploded = explode(':', itemValue)
 		return "images/-" .. itemValueExploded[1] .. ".png"

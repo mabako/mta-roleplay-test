@@ -17,4 +17,6 @@
 	<file src="images/food.png" />
 	<file src="images/sex.png" />
 	<file src="images/clothes.png" />
+
+	<export function="getFittingSkins" type="client"/>
 </meta>
