@@ -32,7 +32,7 @@ addEventHandler('clothing:buy', resourceRoot,
 									local profits = getElementData(ownerPlayer, "businessprofit")
 									exports['anticheat-system']:changeProtectedElementDataEx(ownerPlayer, "businessprofit", profits + clothing.price, false)
 								else
-									mysql:query_free( "UPDATE characters SET bankmoney=bankmoney + " .. exports.mysql:escape_string(clothing.price) .. " WHERE id = " .. exports.mysql:escape_string(ownerID) .. " LIMIT 1")
+									exports.mysql:query_free( "UPDATE characters SET bankmoney=bankmoney + " .. exports.mysql:escape_string(clothing.price) .. " WHERE id = " .. exports.mysql:escape_string(ownerID) .. " LIMIT 1")
 								end
 							end
 						end
@@ -50,11 +50,10 @@ addEventHandler('clothing:buy', resourceRoot,
 addEvent('clothing:save', true)
 addEventHandler('clothing:save', resourceRoot,
 	function(values)
-		outputDebugString(toJSON(values))
 		if canEdit(client) then
 			if not values.id then
 				-- new clothing stuff
-				values.id = mysql:query_insert_free("INSERT INTO clothing (skin, url, description, price) VALUES (" .. tonumber(values.skin) .. ", '" .. exports.mysql:escape_string(values.url) .. "', '" .. exports.mysql:escape_string(values.description) .. "', " .. tonumber(values.price) .. ")")
+				values.id = exports.mysql:query_insert_free("INSERT INTO clothing (skin, url, description, price) VALUES (" .. tonumber(values.skin) .. ", '" .. exports.mysql:escape_string(values.url) .. "', '" .. exports.mysql:escape_string(values.description) .. "', " .. tonumber(values.price) .. ")")
 				if values.id then
 					savedClothing[values.id] = values
 					outputChatBox('Clothes added with id ' .. values.id .. '.', client, 0, 255, 0)

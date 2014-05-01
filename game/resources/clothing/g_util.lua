@@ -27,3 +27,8 @@ function getInteriorOwner(player)
 	end
 	return owner, nil -- no player found
 end
+
+local getPlayerName_ = getPlayerName
+function getPlayerName(player)
+	return getElementType(player) == 'player' and getPlayerName_(player):gsub('_', ' ') or getElementData(player, 'name') or '(ped)'
+end

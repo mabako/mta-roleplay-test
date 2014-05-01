@@ -22,17 +22,17 @@ end
 
 -- loads a skin from an url
 function loadFromURL(url, id)
-	fetchRemote(url, function(data, errno)
-			if data == 'ERROR' then
+	fetchRemote(url, function(str, errno)
+			if str == 'ERROR' then
 				-- outputDebugString('clothing:stream - unable to fetch ' .. url)
 			else
 				local file = fileCreate(getPath(id))
-				fileWrite(file, data)
+				fileWrite(file, str)
 				fileClose(file)
 
 				local data = savedClothing[id]
 				if data and data.pending then
-					triggerLatentClientEvent(data.pending, 'clothing:file', resourceRoot, id, data)
+					triggerLatentClientEvent(data.pending, 'clothing:file', resourceRoot, id, str, #str)
 					data.pending = nil
 				end
 			end
@@ -57,7 +57,7 @@ addEventHandler( 'clothing:stream', resourceRoot,
 						local content = fileRead(file, size)
 
 						if #content == size then
-							triggerLatentClientEvent(client, 'clothing:file', resourceRoot, id, content)
+							triggerLatentClientEvent(client, 'clothing:file', resourceRoot, id, content, size)
 						else
 							outputDebugString('clothing:stream - file ' .. path .. ' read ' .. #content .. ' bytes, but is ' .. size .. ' bytes long')
 						end

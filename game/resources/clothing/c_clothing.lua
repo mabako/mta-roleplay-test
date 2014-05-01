@@ -69,7 +69,7 @@ end
 -- remove the clothes - that's rather easy
 function removeClothing(player)
 	local clothes = players[player]
-	if clothes and isElement(loaded[clothes.id].shader) then
+	if clothes and loaded[clothes.id] and isElement(loaded[clothes.id].shader) then
 		-- possibly clean up shaders
 		local stillUsed = false
 		for p, data in pairs(players) do
@@ -101,15 +101,20 @@ end
 -- file we asked for is there
 addEvent('clothing:file', true)
 addEventHandler( 'clothing:file', resourceRoot,
-	function(id, content)
+	function(id, content, size)
 		local file = fileCreate(getPath(id))
-		fileWrite(file, content)
+		local written = fileWrite(file, content)
 		fileClose(file)
 
-		for _, player in ipairs(streaming[id]) do
-			addClothing(player, id)
+		if written ~= size then
+			fileDelete(getPath(id))
+		else
+			for _, player in ipairs(streaming[id]) do
+				addClothing(player, id)
+			end
+
+			streaming[id] = nil
 		end
-		streaming[id] = nil
 	end, false)
 
 -- initialize all skins upon resource startup
