@@ -69,11 +69,11 @@ end
 -- remove the clothes - that's rather easy
 function removeClothing(player)
 	local clothes = players[player]
-	if clothes then
+	if clothes and isElement(loaded[clothes.id].shader) then
 		-- possibly clean up shaders
 		local stillUsed = false
-		for _, p in ipairs(getElementsByType('player')) do
-			if p ~= player and clothes[p] and clothes[p].id == clothes.id then
+		for p, data in pairs(players) do
+			if p ~= player and data.id == clothes.id then
 				stillUsed = true
 				break
 			end
@@ -115,10 +115,14 @@ addEventHandler( 'clothing:file', resourceRoot,
 -- initialize all skins upon resource startup
 addEventHandler( 'onClientResourceStart', resourceRoot,
 	function()
-		for _, p in ipairs(getElementsByType('player')) do
-			local clothing = getElementData(p, 'clothing:id')
-			if clothing then
-				addClothing(p, clothing)
+		for _, name in ipairs({'player', 'ped'}) do
+			for _, p in ipairs(getElementsByType(name)) do
+				if isElementStreamedIn(p) then
+					local clothing = getElementData(p, 'clothing:id')
+					if clothing then
+						addClothing(p, clothing)
+					end
+				end
 			end
 		end
 	end)
@@ -126,7 +130,7 @@ addEventHandler( 'onClientResourceStart', resourceRoot,
 -- apply skins when people are to be streamed in.
 addEventHandler( 'onClientElementStreamIn', root,
 	function()
-		if getElementType(source) == 'player' then
+		if getElementType(source) == 'player' or getElementType(source) == 'ped' then
 			local clothing = getElementData(source, 'clothing:id')
 			if clothing then
 				addClothing(source, clothing)
@@ -137,7 +141,7 @@ addEventHandler( 'onClientElementStreamIn', root,
 -- remove them when streamed out
 addEventHandler( 'onClientElementStreamOut', root,
 	function()
-		if getElementType(source) == 'player' then
+		if getElementType(source) == 'player' or getElementType(source) == 'ped' then
 			removeClothing(source)
 		end
 	end)
@@ -148,10 +152,17 @@ addEventHandler( 'onClientPlayerQuit', root,
 		removeClothing(source)
 	end)
 
+addEventHandler( 'onClientElementDestroy', root,
+	function()
+		if getElementType(source) == 'ped' then
+			removeClothing(source)
+		end
+	end)
+
 -- apply changed clothing
 addEventHandler( 'onClientElementDataChange', root,
 	function(name)
-		if getElementType(source) == 'player' and isElementStreamedIn(source) and name == 'clothing:id' then
+		if (getElementType(source) == 'player' or getElementType(source) == 'ped') and isElementStreamedIn(source) and name == 'clothing:id' then
 			removeClothing(source)
 
 			if getElementData(source, 'clothing:id') then
