@@ -1,0 +1,6 @@
+<meta>
+	<script src="c_test.lua" type="client"/>
+	<file src="test.png"/>
+	<file src="tex.fx"/>
+	<min_mta_version client="1.3.5"/>
+</meta>
