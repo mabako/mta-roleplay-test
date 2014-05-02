@@ -12,6 +12,10 @@
         <acl name="Admin"></acl>
         <object name="user.Console"></object>
     </group>
+    <group name="autoGroup_guieditor">
+        <acl name="autoACL_guieditor"></acl>
+        <object name="resource.guieditor"></object>
+    </group>
     <acl name="Default">
         <right name="command.start" access="false"></right>
         <right name="command.stop" access="false"></right>
@@ -66,5 +70,9 @@
         <right name="command.run" access="true"></right>
         <right name="command.srun" access="true"></right>
         <right name="command.crun" access="true"></right>
+    </acl>
+    <acl name="autoACL_guieditor">
+        <right name="general.ModifyOtherObjects" access="false" who="" pending="true" date=""></right>
+        <right name="function.callRemote" access="false" who="" pending="true" date=""></right>
     </acl>
 </acl>
