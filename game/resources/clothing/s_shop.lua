@@ -29,8 +29,8 @@ addEventHandler('clothing:buy', resourceRoot,
 							local ownerID, ownerPlayer = getInteriorOwner(client)
 							if ownerID > 0 then -- someone even owns it
 								if ownerPlayer then
-									local profits = getElementData(ownerPlayer, "businessprofit")
-									exports['anticheat-system']:changeProtectedElementDataEx(ownerPlayer, "businessprofit", profits + clothing.price, false)
+									local profits = getElementData(ownerPlayer, "bankmoney")
+									exports['anticheat-system']:changeProtectedElementDataEx(ownerPlayer, "bankmoney", profits + clothing.price, false)
 								else
 									exports.mysql:query_free( "UPDATE characters SET bankmoney=bankmoney + " .. exports.mysql:escape_string(clothing.price) .. " WHERE id = " .. exports.mysql:escape_string(ownerID) .. " LIMIT 1")
 								end
