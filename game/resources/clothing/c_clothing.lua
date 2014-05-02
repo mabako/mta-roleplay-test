@@ -13,6 +13,12 @@ local function getPrimaryTextureName(model)
 	end
 end
 
+addCommandHandler('getclothingtexture',
+	function(command, model)
+		local model = tonumber(model) or getElementModel(localPlayer)
+		outputChatBox('Model ' .. model .. ' has ' .. (getPrimaryTextureName(model) or 'N/A') .. ' as primary texture.', 255, 127, 0)
+	end)
+
 -- returns the file path for a texture file
 local function getPath(clothing)
 	return '@cache/' .. tostring(clothing) .. '.tex'
